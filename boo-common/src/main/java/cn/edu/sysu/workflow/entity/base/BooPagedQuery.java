@@ -1,4 +1,4 @@
-package cn.edu.sysu.workflow.entity;
+package cn.edu.sysu.workflow.entity.base;
 
 import java.io.Serializable;
 
@@ -11,13 +11,13 @@ public class BooPagedQuery implements Serializable {
 
     private static final long serialVersionUID = 5477672572425853275L;
 
-    private int limit;
+    private Integer limit;
 
-    private int offset;
+    private Integer offset;
 
     public BooPagedQuery() {
-        this.limit = -1;
-        this.offset = 0;
+        this.limit = null;
+        this.offset = null;
     }
 
     public int getLimit() {

@@ -1,5 +1,7 @@
 package cn.edu.sysu.workflow.entity;
 
+import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -12,7 +14,7 @@ public class BooExitItem extends BooPagedQuery {
 
     private String exitItemId;
     private String workitemId;
-    private String rtid;
+    private String runtimeRecordId;
     private int status;
     private int visibility;
     private String handlerAuthName;
@@ -35,12 +37,12 @@ public class BooExitItem extends BooPagedQuery {
         this.workitemId = workitemId;
     }
 
-    public String getRtid() {
-        return rtid;
+    public String getRuntimeRecordId() {
+        return runtimeRecordId;
     }
 
-    public void setRtid(String rtid) {
-        this.rtid = rtid;
+    public void setRuntimeRecordId(String runtimeRecordId) {
+        this.runtimeRecordId = runtimeRecordId;
     }
 
     public int getStatus() {
@@ -92,7 +94,7 @@ public class BooExitItem extends BooPagedQuery {
                 visibility == that.visibility &&
                 Objects.equals(exitItemId, that.exitItemId) &&
                 Objects.equals(workitemId, that.workitemId) &&
-                Objects.equals(rtid, that.rtid) &&
+                Objects.equals(runtimeRecordId, that.runtimeRecordId) &&
                 Objects.equals(handlerAuthName, that.handlerAuthName) &&
                 Objects.equals(timestamp, that.timestamp) &&
                 Objects.equals(reason, that.reason);
@@ -100,6 +102,6 @@ public class BooExitItem extends BooPagedQuery {
 
     @Override
     public int hashCode() {
-        return Objects.hash(exitItemId, workitemId, rtid, status, visibility, handlerAuthName, timestamp, reason);
+        return Objects.hash(exitItemId, workitemId, runtimeRecordId, status, visibility, handlerAuthName, timestamp, reason);
     }
 }

@@ -1,5 +1,7 @@
 package cn.edu.sysu.workflow.entity;
 
+import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+
 import java.util.Objects;
 
 /**
@@ -10,7 +12,7 @@ public class BooArchivedTree extends BooPagedQuery {
     private static final long serialVersionUID = -9211141097660527667L;
 
     private String archivedTreeId;
-    private String rtid;
+    private String runtimeRecordId;
     private String tree;
 
     public BooArchivedTree() {
@@ -24,12 +26,12 @@ public class BooArchivedTree extends BooPagedQuery {
         this.archivedTreeId = archivedTreeId;
     }
 
-    public String getRtid() {
-        return rtid;
+    public String getRuntimeRecordId() {
+        return runtimeRecordId;
     }
 
-    public void setRtid(String rtid) {
-        this.rtid = rtid;
+    public void setRuntimeRecordId(String runtimeRecordId) {
+        this.runtimeRecordId = runtimeRecordId;
     }
 
     public String getTree() {
@@ -46,12 +48,12 @@ public class BooArchivedTree extends BooPagedQuery {
         if (o == null || getClass() != o.getClass()) return false;
         BooArchivedTree that = (BooArchivedTree) o;
         return Objects.equals(archivedTreeId, that.archivedTreeId) &&
-                Objects.equals(rtid, that.rtid) &&
+                Objects.equals(runtimeRecordId, that.runtimeRecordId) &&
                 Objects.equals(tree, that.tree);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(archivedTreeId, rtid, tree);
+        return Objects.hash(archivedTreeId, runtimeRecordId, tree);
     }
 }

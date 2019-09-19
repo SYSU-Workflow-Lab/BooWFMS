@@ -1,5 +1,7 @@
 package cn.edu.sysu.workflow.entity;
 
+import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+
 import java.sql.Timestamp;
 import java.util.Objects;
 

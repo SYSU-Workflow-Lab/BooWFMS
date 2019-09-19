@@ -1,5 +1,7 @@
 package cn.edu.sysu.workflow.entity;
 
+import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -11,7 +13,7 @@ public class BooBinStep extends BooPagedQuery {
     private static final long serialVersionUID = 2776125695679340149L;
 
     private String binStepId;
-    private String rtid;
+    private String runtimeRecordId;
     private String supervisorId;
     private String notifiableId;
     private byte[] binlog;
@@ -24,12 +26,12 @@ public class BooBinStep extends BooPagedQuery {
         this.binStepId = binStepId;
     }
 
-    public String getRtid() {
-        return rtid;
+    public String getRuntimeRecordId() {
+        return runtimeRecordId;
     }
 
-    public void setRtid(String rtid) {
-        this.rtid = rtid;
+    public void setRuntimeRecordId(String runtimeRecordId) {
+        this.runtimeRecordId = runtimeRecordId;
     }
 
     public String getSupervisorId() {
@@ -62,7 +64,7 @@ public class BooBinStep extends BooPagedQuery {
         if (o == null || getClass() != o.getClass()) return false;
         BooBinStep that = (BooBinStep) o;
         return Objects.equals(binStepId, that.binStepId) &&
-                Objects.equals(rtid, that.rtid) &&
+                Objects.equals(runtimeRecordId, that.runtimeRecordId) &&
                 Objects.equals(supervisorId, that.supervisorId) &&
                 Objects.equals(notifiableId, that.notifiableId) &&
                 Arrays.equals(binlog, that.binlog);
@@ -70,7 +72,7 @@ public class BooBinStep extends BooPagedQuery {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(binStepId, rtid, supervisorId, notifiableId);
+        int result = Objects.hash(binStepId, runtimeRecordId, supervisorId, notifiableId);
         result = 31 * result + Arrays.hashCode(binlog);
         return result;
     }

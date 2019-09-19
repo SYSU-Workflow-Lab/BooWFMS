@@ -1,5 +1,7 @@
 package cn.edu.sysu.workflow.entity;
 
+import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+
 import java.util.Arrays;
 import java.util.Objects;
 

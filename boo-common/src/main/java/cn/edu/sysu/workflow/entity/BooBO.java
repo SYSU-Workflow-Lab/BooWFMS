@@ -16,7 +16,7 @@ public class BooBO extends BooPagedQuery {
     private String boName;
     private String pid;
     private int state;
-    private String boContent;
+    private String content;
     private byte[] serialized;
     private String broles;
 

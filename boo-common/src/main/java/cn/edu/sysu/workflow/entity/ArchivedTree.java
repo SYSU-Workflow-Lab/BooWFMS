@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Created by Skye on 2019/9/18.
  */
-public class BooArchivedTree extends BooPagedQuery {
+public class ArchivedTree extends BooPagedQuery {
 
     private static final long serialVersionUID = -9211141097660527667L;
 
@@ -15,7 +15,7 @@ public class BooArchivedTree extends BooPagedQuery {
     private String runtimeRecordId;
     private String tree;
 
-    public BooArchivedTree() {
+    public ArchivedTree() {
     }
 
     public String getArchivedTreeId() {
@@ -46,7 +46,7 @@ public class BooArchivedTree extends BooPagedQuery {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BooArchivedTree that = (BooArchivedTree) o;
+        ArchivedTree that = (ArchivedTree) o;
         return Objects.equals(archivedTreeId, that.archivedTreeId) &&
                 Objects.equals(runtimeRecordId, that.runtimeRecordId) &&
                 Objects.equals(tree, that.tree);

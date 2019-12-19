@@ -7,9 +7,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Account for BooWFMS
+ * Account of BooWFMS
  *
- * Created by Skye on 2019/9/18.
+ * Created by Skye on 2019/12/18.
  */
 public class Account extends BooPagedQuery {
 
@@ -42,14 +42,14 @@ public class Account extends BooPagedQuery {
     private String gid;
 
     /**
-     * 账户状态
+     * 账户状态（0-停用，1-正常）
      */
-    private int status;
+    private Integer status;
 
     /**
      * 账户创建时间
      */
-    private Timestamp createdTimestamp;
+    private Timestamp createTimestamp;
 
     /**
      * 最后登录时间
@@ -104,20 +104,20 @@ public class Account extends BooPagedQuery {
         this.gid = gid;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
     public Timestamp getCreatedTimestamp() {
-        return createdTimestamp;
+        return createTimestamp;
     }
 
     public void setCreatedTimestamp(Timestamp createdTimestamp) {
-        this.createdTimestamp = createdTimestamp;
+        this.createTimestamp = createdTimestamp;
     }
 
     public Timestamp getLastLoginTimestamp() {
@@ -139,12 +139,12 @@ public class Account extends BooPagedQuery {
                 Objects.equals(password, account.password) &&
                 Objects.equals(organizationId, account.organizationId) &&
                 Objects.equals(gid, account.gid) &&
-                Objects.equals(createdTimestamp, account.createdTimestamp) &&
+                Objects.equals(createTimestamp, account.createTimestamp) &&
                 Objects.equals(lastLoginTimestamp, account.lastLoginTimestamp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, username, password, organizationId, gid, status, createdTimestamp, lastLoginTimestamp);
+        return Objects.hash(accountId, username, password, organizationId, gid, status, createTimestamp, lastLoginTimestamp);
     }
 }

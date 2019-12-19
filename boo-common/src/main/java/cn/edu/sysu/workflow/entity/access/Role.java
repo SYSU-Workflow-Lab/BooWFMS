@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Role for BooWFMS
+ * Role of BooWFMS
  *
  * Created by Skye on 2019/12/17.
  */

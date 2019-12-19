@@ -5,14 +5,20 @@ import java.io.Serializable;
 /**
  * Paging Query Base Class for BooWFMS
  *
- * Created by Skye on 2019/9/18.
+ * Created by Skye on 2019/12/18.
  */
 public class BooPagedQuery implements Serializable {
 
     private static final long serialVersionUID = 5477672572425853275L;
 
+    /**
+     * 分页查询个数
+     */
     private Integer limit;
 
+    /**
+     * 分页查询偏移量
+     */
     private Integer offset;
 
     public BooPagedQuery() {

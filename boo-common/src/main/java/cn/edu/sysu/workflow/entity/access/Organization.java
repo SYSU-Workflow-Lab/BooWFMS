@@ -7,9 +7,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Organization for BooWFMS
+ * Organization of BooWFMS
  *
- * Created by Skye on 2019/9/18.
+ * Created by Skye on 2019/12/18.
  */
 public class Organization extends BooPagedQuery {
 
@@ -27,9 +27,9 @@ public class Organization extends BooPagedQuery {
     private String name;
 
     /**
-     * 组织状态
+     * 组织状态（0-停用，1-正常）
      */
-    private int status;
+    private Integer status;
 
     /**
      * 父组织ID
@@ -44,12 +44,8 @@ public class Organization extends BooPagedQuery {
     // TODO 第三方账户管理体系网关
     // private String organGateway;
 
-    // TODO 第三方账户管理体系安全签名
-    // private String urlsafeSignature;
-
     public Organization() {
         this.organizationId = PREFIX + UUID.randomUUID().toString();
-        this.parentOrganizationId = "";
     }
 
     public String getPREFIX() {
@@ -72,11 +68,11 @@ public class Organization extends BooPagedQuery {
         this.name = name;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

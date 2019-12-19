@@ -3,14 +3,21 @@ package cn.edu.sysu.workflow.entity.base;
 import java.io.Serializable;
 
 /**
- * Created by Skye on 2019/9/19.
+ * Created by Skye on 2019/12/18.
  */
 public class BooReturnForm implements Serializable {
 
     private static final long serialVersionUID = -6691674972794875954L;
 
+    /**
+     * 返回包信息
+     */
     private String message;
-    private String data;
+
+    /**
+     * 返回包内容
+     */
+    private Object data;
 
     public BooReturnForm() {
     }
@@ -23,11 +30,11 @@ public class BooReturnForm implements Serializable {
         this.message = message;
     }
 
-    public String getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Object data) {
         this.data = data;
     }
 }

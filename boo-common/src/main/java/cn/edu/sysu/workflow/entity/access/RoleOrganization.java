@@ -1,5 +1,7 @@
 package cn.edu.sysu.workflow.entity.access;
 
+import cn.edu.sysu.workflow.utils.IdUtil;
+
 import java.util.UUID;
 
 /**
@@ -9,7 +11,7 @@ import java.util.UUID;
  */
 public class RoleOrganization {
 
-    private final String PREFIX = "ro-";
+    public static final String PREFIX = "ro-";
 
     /**
      * 角色账号关联表主键
@@ -27,11 +29,7 @@ public class RoleOrganization {
     private String organizationId;
 
     public RoleOrganization() {
-        this.roleOrganizationId = PREFIX + UUID.randomUUID().toString();
-    }
-
-    public String getPREFIX() {
-        return PREFIX;
+        this.roleOrganizationId = PREFIX + IdUtil.nextId();
     }
 
     public String getRoleOrganizationId() {

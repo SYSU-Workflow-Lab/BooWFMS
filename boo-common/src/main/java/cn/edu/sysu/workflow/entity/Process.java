@@ -1,9 +1,11 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.utils.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Business Process of BooWFMS
@@ -13,7 +15,7 @@ import java.util.Objects;
 public class Process extends BooPagedQuery {
 
     private static final long serialVersionUID = 6470788893684196731L;
-    private final String PREFIX = "process-";
+    public static final String PREFIX = "process-";
 
     /**
      * 流程ID
@@ -67,10 +69,7 @@ public class Process extends BooPagedQuery {
 
 
     public Process() {
-    }
-
-    public String getPREFIX() {
-        return PREFIX;
+        this.processId = PREFIX + IdUtil.nextId();
     }
 
     public String getProcessId() {
@@ -161,7 +160,7 @@ public class Process extends BooPagedQuery {
         return launchCount == process.launchCount &&
                 successCount == process.successCount &&
                 averageCost == process.averageCost &&
-                status == process.status &&
+                status.equals(process.status) &&
                 Objects.equals(processId, process.processId) &&
                 Objects.equals(processName, process.processName) &&
                 Objects.equals(mainBusinessObjectId, process.mainBusinessObjectId) &&

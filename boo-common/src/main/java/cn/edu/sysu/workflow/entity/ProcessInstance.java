@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.utils.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.UUID;
 public class ProcessInstance extends BooPagedQuery {
 
     private static final long serialVersionUID = -1926465135408134380L;
-    private final String PREFIX = "pi-";
+    public static final String PREFIX = "pi-";
 
     /**
      * 流程实例ID
@@ -95,11 +96,7 @@ public class ProcessInstance extends BooPagedQuery {
 
 
     public ProcessInstance() {
-        this.processInstanceId = PREFIX + UUID.randomUUID().toString();
-    }
-
-    public String getPREFIX() {
-        return PREFIX;
+        this.processInstanceId = PREFIX + IdUtil.nextId();
     }
 
     public String getProcessInstanceId() {

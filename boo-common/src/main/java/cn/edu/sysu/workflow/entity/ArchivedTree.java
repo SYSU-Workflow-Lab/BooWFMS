@@ -1,21 +1,38 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.utils.IdUtil;
 
 import java.util.Objects;
+import java.util.UUID;
 
 /**
- * Created by Skye on 2019/9/18.
+ * ArchivedTree of BooWFMS
+ *
+ * Created by Skye on 2019/12/18.
  */
 public class ArchivedTree extends BooPagedQuery {
 
     private static final long serialVersionUID = -9211141097660527667L;
+    public static final String PREFIX = "at-";
 
+    /**
+     * TODO ID
+     */
     private String archivedTreeId;
-    private String runtimeRecordId;
+
+    /**
+     * 所属流程实例ID
+     */
+    private String processInstanceId;
+
+    /**
+     * 树数据
+     */
     private String tree;
 
     public ArchivedTree() {
+        this.archivedTreeId = PREFIX + IdUtil.nextId();
     }
 
     public String getArchivedTreeId() {
@@ -26,12 +43,12 @@ public class ArchivedTree extends BooPagedQuery {
         this.archivedTreeId = archivedTreeId;
     }
 
-    public String getRuntimeRecordId() {
-        return runtimeRecordId;
+    public String getProcessInstanceId() {
+        return processInstanceId;
     }
 
-    public void setRuntimeRecordId(String runtimeRecordId) {
-        this.runtimeRecordId = runtimeRecordId;
+    public void setProcessInstanceId(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
     }
 
     public String getTree() {
@@ -48,12 +65,12 @@ public class ArchivedTree extends BooPagedQuery {
         if (o == null || getClass() != o.getClass()) return false;
         ArchivedTree that = (ArchivedTree) o;
         return Objects.equals(archivedTreeId, that.archivedTreeId) &&
-                Objects.equals(runtimeRecordId, that.runtimeRecordId) &&
+                Objects.equals(processInstanceId, that.processInstanceId) &&
                 Objects.equals(tree, that.tree);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(archivedTreeId, runtimeRecordId, tree);
+        return Objects.hash(archivedTreeId, processInstanceId, tree);
     }
 }

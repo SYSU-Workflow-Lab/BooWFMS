@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.utils.IdUtil;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -14,7 +15,7 @@ import java.util.UUID;
 public class BusinessObject extends BooPagedQuery {
 
     private static final long serialVersionUID = -3590428535722303895L;
-    private final String PREFIX = "bo-";
+    public static final String PREFIX = "bo-";
 
     /**
      * 业务对象ID
@@ -52,11 +53,7 @@ public class BusinessObject extends BooPagedQuery {
     private String roles;
 
     public BusinessObject() {
-        this.businessObjectId = PREFIX + UUID.randomUUID().toString();
-    }
-
-    public String getPREFIX() {
-        return PREFIX;
+        this.businessObjectId = PREFIX + IdUtil.nextId();
     }
 
     public String getBusinessObjectId() {

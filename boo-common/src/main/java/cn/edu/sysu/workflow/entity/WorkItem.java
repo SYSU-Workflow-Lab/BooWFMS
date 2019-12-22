@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.utils.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -14,7 +15,7 @@ import java.util.UUID;
 public class WorkItem extends BooPagedQuery {
 
     private static final long serialVersionUID = 3955119742711773965L;
-    private final String PREFIX = "wi-";
+    public static final String PREFIX = "wi-";
 
     /**
      * 工作项ID
@@ -122,11 +123,7 @@ public class WorkItem extends BooPagedQuery {
     private String callbackNodeId;
 
     public WorkItem() {
-        this.workItemId = PREFIX + UUID.randomUUID().toString();
-    }
-
-    public String getPREFIX() {
-        return PREFIX;
+        this.workItemId = PREFIX + IdUtil.nextId();
     }
 
     public String getWorkItemId() {

@@ -3,39 +3,69 @@ package cn.edu.sysu.workflow.entity;
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
 
 /**
- * Created by Skye on 2019/9/19.
+ * Service Info of BooWFMS
+ *
+ * Created by Skye on 2019/12/18.
  */
-public class BooServiceInfo extends BooPagedQuery {
+public class ServerInfo extends BooPagedQuery {
 
     private static final long serialVersionUID = -2820224484319671126L;
 
-    private String interpreterId;
-    private String location;
-    private int isActive;
-    private double business;
-    private double cpuOccupancyRate;
-    private double memoryOccupancyRate;
-    private double tomcatConcurrency;
-    private double workitemCount;
+    /**
+     * 服务信息ID
+     */
+    private String serverInfoId;
 
-    public BooServiceInfo() {
+    /**
+     * 服务URL
+     */
+    private String url;
+
+    /**
+     * 服务是否存活
+     */
+    private int isActive;
+
+    /**
+     * 繁忙程度性能指标
+     */
+    private double business;
+
+    /**
+     * CPU占用率
+     */
+    private double cpuOccupancyRate;
+
+    /**
+     * 内存占用率
+     */
+    private double memoryOccupancyRate;
+
+    /**
+     * tomcat连接并发数
+     */
+    private double tomcatConcurrency;
+
+    /**
+     * 工作项个数
+     */
+    private double workItemCount;
+
+    public ServerInfo(String serverInfoId) {
+        this.serverInfoId = serverInfoId;
         this.isActive = 1;
     }
 
-    public String getInterpreterId() {
-        return interpreterId;
+    public String getServerInfo() {
+        return serverInfoId;
     }
 
-    public void setInterpreterId(String interpreterId) {
-        this.interpreterId = interpreterId;
+    public String getUrl() {
+        return url;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public int getIsActive() {
@@ -78,13 +108,11 @@ public class BooServiceInfo extends BooPagedQuery {
         this.tomcatConcurrency = tomcatConcurrency;
     }
 
-    public double getWorkitemCount() {
-        return workitemCount;
+    public double getWorkItemCount() {
+        return workItemCount;
     }
 
-    public void setWorkitemCount(double workitemCount) {
-        this.workitemCount = workitemCount;
+    public void setWorkItemCount(double workItemCount) {
+        this.workItemCount = workItemCount;
     }
-
-
 }

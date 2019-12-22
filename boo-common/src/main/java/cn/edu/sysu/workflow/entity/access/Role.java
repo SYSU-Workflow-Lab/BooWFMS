@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.entity.access;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.utils.IdUtil;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -13,7 +14,7 @@ import java.util.UUID;
 public class Role extends BooPagedQuery {
 
     private static final long serialVersionUID = -5426221066866544296L;
-    private final String PREFIX = "role-";
+    public static final String PREFIX = "role-";
 
     /**
      * 角色ID
@@ -31,11 +32,7 @@ public class Role extends BooPagedQuery {
     private String description;
 
     public Role() {
-        this.roleId = PREFIX + UUID.randomUUID().toString();
-    }
-
-    public String getPREFIX() {
-        return PREFIX;
+        this.roleId = PREFIX + IdUtil.nextId();
     }
 
     public String getRoleId() {

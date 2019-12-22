@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.entity.access;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.utils.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -14,7 +15,7 @@ import java.util.UUID;
 public class Account extends BooPagedQuery {
 
     private static final long serialVersionUID = 1518574941723263652L;
-    private final String PREFIX = "account-";
+    public static final String PREFIX = "account-";
 
     /**
      * 账户ID
@@ -57,11 +58,7 @@ public class Account extends BooPagedQuery {
     private Timestamp lastLoginTimestamp;
 
     public Account() {
-        this.accountId = PREFIX + UUID.randomUUID().toString();
-    }
-
-    public String getPREFIX() {
-        return PREFIX;
+        this.accountId = PREFIX + IdUtil.nextId();
     }
 
     public String getAccountId() {
@@ -133,12 +130,12 @@ public class Account extends BooPagedQuery {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return status == account.status &&
-                Objects.equals(accountId, account.accountId) &&
+        return Objects.equals(accountId, account.accountId) &&
                 Objects.equals(username, account.username) &&
                 Objects.equals(password, account.password) &&
                 Objects.equals(organizationId, account.organizationId) &&
                 Objects.equals(gid, account.gid) &&
+                Objects.equals(status, account.status) &&
                 Objects.equals(createTimestamp, account.createTimestamp) &&
                 Objects.equals(lastLoginTimestamp, account.lastLoginTimestamp);
     }

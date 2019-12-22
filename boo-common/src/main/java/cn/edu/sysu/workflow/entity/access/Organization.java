@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.entity.access;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.utils.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -14,7 +15,7 @@ import java.util.UUID;
 public class Organization extends BooPagedQuery {
 
     private static final long serialVersionUID = -1176672623536511029L;
-    private final String PREFIX = "organization-";
+    public static final String PREFIX = "organization-";
 
     /**
      * 组织ID
@@ -45,11 +46,7 @@ public class Organization extends BooPagedQuery {
     // private String organGateway;
 
     public Organization() {
-        this.organizationId = PREFIX + UUID.randomUUID().toString();
-    }
-
-    public String getPREFIX() {
-        return PREFIX;
+        this.organizationId = PREFIX + IdUtil.nextId();
     }
 
     public String getOrganizationId() {
@@ -97,9 +94,9 @@ public class Organization extends BooPagedQuery {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        return status == that.status &&
-                Objects.equals(organizationId, that.organizationId) &&
+        return Objects.equals(organizationId, that.organizationId) &&
                 Objects.equals(name, that.name) &&
+                Objects.equals(status, that.status) &&
                 Objects.equals(parentOrganizationId, that.parentOrganizationId) &&
                 Objects.equals(createdTimestamp, that.createdTimestamp);
     }

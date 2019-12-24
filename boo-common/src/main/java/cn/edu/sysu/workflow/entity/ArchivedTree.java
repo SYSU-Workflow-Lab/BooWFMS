@@ -1,10 +1,9 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
-import cn.edu.sysu.workflow.utils.IdUtil;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * ArchivedTree of BooWFMS
@@ -37,10 +36,6 @@ public class ArchivedTree extends BooPagedQuery {
 
     public String getArchivedTreeId() {
         return archivedTreeId;
-    }
-
-    public void setArchivedTreeId(String archivedTreeId) {
-        this.archivedTreeId = archivedTreeId;
     }
 
     public String getProcessInstanceId() {

@@ -1,13 +1,12 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
-import cn.edu.sysu.workflow.utils.IdUtil;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * Business Process Instance of BooWFMS
@@ -52,7 +51,7 @@ public class ProcessInstance extends BooPagedQuery {
     /**
      * 资源服务ID
      */
-    private String resourceId;
+    private String resourceServiceId;
 
     /**
      * TODO 绑定的静态资源（保留）
@@ -92,7 +91,7 @@ public class ProcessInstance extends BooPagedQuery {
     /**
      * 附加信息
      */
-    private Map<String, String> tag;
+    private String tag;
 
 
     public ProcessInstance() {
@@ -101,10 +100,6 @@ public class ProcessInstance extends BooPagedQuery {
 
     public String getProcessInstanceId() {
         return processInstanceId;
-    }
-
-    public void setProcessInstanceId(String processInstanceId) {
-        this.processInstanceId = processInstanceId;
     }
 
     public String getProcessId() {
@@ -147,12 +142,12 @@ public class ProcessInstance extends BooPagedQuery {
         this.engineId = engineId;
     }
 
-    public String getResourceId() {
-        return resourceId;
+    public String getResourceServiceId() {
+        return resourceServiceId;
     }
 
-    public void setResourceId(String resourceId) {
-        this.resourceId = resourceId;
+    public void setResourceServiceId(String resourceServiceId) {
+        this.resourceServiceId = resourceServiceId;
     }
 
     public String getResourceBinding() {
@@ -211,11 +206,11 @@ public class ProcessInstance extends BooPagedQuery {
         this.resultType = resultType;
     }
 
-    public Map<String, String> getTag() {
+    public String getTag() {
         return tag;
     }
 
-    public void setTag(Map<String, String> tag) {
+    public void setTag(String tag) {
         this.tag = tag;
     }
 
@@ -231,7 +226,7 @@ public class ProcessInstance extends BooPagedQuery {
                 Objects.equals(launchMethod, that.launchMethod) &&
                 Objects.equals(launchType, that.launchType) &&
                 Objects.equals(engineId, that.engineId) &&
-                Objects.equals(resourceId, that.resourceId) &&
+                Objects.equals(resourceServiceId, that.resourceServiceId) &&
                 Objects.equals(resourceBinding, that.resourceBinding) &&
                 Objects.equals(resourceBindingType, that.resourceBindingType) &&
                 Objects.equals(failureType, that.failureType) &&
@@ -243,6 +238,6 @@ public class ProcessInstance extends BooPagedQuery {
 
     @Override
     public int hashCode() {
-        return Objects.hash(processInstanceId, processId, launchAccountId, launchMethod, launchType, engineId, resourceId, resourceBinding, resourceBindingType, failureType, participantCache, launchTimestamp, finishTimestamp, resultType, tag);
+        return Objects.hash(processInstanceId, processId, launchAccountId, launchMethod, launchType, engineId, resourceServiceId, resourceBinding, resourceBindingType, failureType, participantCache, launchTimestamp, finishTimestamp, resultType, tag);
     }
 }

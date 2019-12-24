@@ -1,4 +1,4 @@
-package cn.edu.sysu.workflow.utils;
+package cn.edu.sysu.workflow.util;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;

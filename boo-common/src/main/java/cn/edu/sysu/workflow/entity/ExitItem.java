@@ -1,11 +1,10 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
-import cn.edu.sysu.workflow.utils.IdUtil;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * ExitItem of BooWFMS
@@ -63,10 +62,6 @@ public class ExitItem extends BooPagedQuery {
 
     public String getExitItemId() {
         return exitItemId;
-    }
-
-    public void setExitItemId(String exitItemId) {
-        this.exitItemId = exitItemId;
     }
 
     public String getWorkItemId() {

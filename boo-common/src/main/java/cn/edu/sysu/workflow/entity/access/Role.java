@@ -1,10 +1,9 @@
 package cn.edu.sysu.workflow.entity.access;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
-import cn.edu.sysu.workflow.utils.IdUtil;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * Role of BooWFMS
@@ -37,10 +36,6 @@ public class Role extends BooPagedQuery {
 
     public String getRoleId() {
         return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
     }
 
     public String getLevel() {

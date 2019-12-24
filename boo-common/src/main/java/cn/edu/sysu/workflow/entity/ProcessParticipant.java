@@ -1,41 +1,69 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.util.Objects;
 
 /**
- * Created by Skye on 2019/9/19.
+ * Process Participant of BooWFMS
+ *
+ * Created by Skye on 2019/12/24.
  */
-public class BooRsParticipant extends BooPagedQuery {
+public class ProcessParticipant extends BooPagedQuery {
 
     private static final long serialVersionUID = 5391273151954075948L;
+    public static final String PREFIX = "pp-";
 
-    private String rsParticipantId;
-    private String workerid;
+    /**
+     * 流程参与者ID
+     */
+    private String processParticipantId;
+
+    /**
+     * 账户ID
+     */
+    private String accountId;
+
+    /**
+     * 显示名称
+     */
     private String displayname;
+
+    /**
+     * 类型（0位Human，1为Agent）
+     */
     private int type;
+
+    /**
+     * TODO 当类型为Agent时用
+     */
     private int reentrantType;
+
+    /**
+     * URL位置，当类型为Agent时用
+     */
     private String agentLocation;
+
+    /**
+     * 备注信息
+     */
     private String note;
 
-    public BooRsParticipant() {
+    public ProcessParticipant() {
+        this.processParticipantId = PREFIX + IdUtil.nextId();
     }
 
-    public String getRsParticipantId() {
-        return rsParticipantId;
+    public String getProcessParticipantId() {
+        return processParticipantId;
     }
 
-    public void setRsParticipantId(String rsParticipantId) {
-        this.rsParticipantId = rsParticipantId;
+    public String getAccountId() {
+        return accountId;
     }
 
-    public String getWorkerid() {
-        return workerid;
-    }
-
-    public void setWorkerid(String workerid) {
-        this.workerid = workerid;
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     public String getDisplayname() {
@@ -82,11 +110,11 @@ public class BooRsParticipant extends BooPagedQuery {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BooRsParticipant that = (BooRsParticipant) o;
+        ProcessParticipant that = (ProcessParticipant) o;
         return type == that.type &&
                 reentrantType == that.reentrantType &&
-                Objects.equals(rsParticipantId, that.rsParticipantId) &&
-                Objects.equals(workerid, that.workerid) &&
+                Objects.equals(processParticipantId, that.processParticipantId) &&
+                Objects.equals(accountId, that.accountId) &&
                 Objects.equals(displayname, that.displayname) &&
                 Objects.equals(agentLocation, that.agentLocation) &&
                 Objects.equals(note, that.note);
@@ -94,6 +122,6 @@ public class BooRsParticipant extends BooPagedQuery {
 
     @Override
     public int hashCode() {
-        return Objects.hash(rsParticipantId, workerid, displayname, type, reentrantType, agentLocation, note);
+        return Objects.hash(processParticipantId, accountId, displayname, type, reentrantType, agentLocation, note);
     }
 }

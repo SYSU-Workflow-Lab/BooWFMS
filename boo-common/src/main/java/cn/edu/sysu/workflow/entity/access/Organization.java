@@ -1,11 +1,10 @@
 package cn.edu.sysu.workflow.entity.access;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
-import cn.edu.sysu.workflow.utils.IdUtil;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * Organization of BooWFMS
@@ -51,10 +50,6 @@ public class Organization extends BooPagedQuery {
 
     public String getOrganizationId() {
         return organizationId;
-    }
-
-    public void setOrganizationId(String organizationId) {
-        this.organizationId = organizationId;
     }
 
     public String getName() {

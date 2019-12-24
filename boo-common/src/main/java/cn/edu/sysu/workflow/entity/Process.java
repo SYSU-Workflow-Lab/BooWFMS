@@ -1,11 +1,10 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
-import cn.edu.sysu.workflow.utils.IdUtil;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * Business Process of BooWFMS
@@ -74,10 +73,6 @@ public class Process extends BooPagedQuery {
 
     public String getProcessId() {
         return processId;
-    }
-
-    public void setProcessId(String processId) {
-        this.processId = processId;
     }
 
     public String getProcessName() {

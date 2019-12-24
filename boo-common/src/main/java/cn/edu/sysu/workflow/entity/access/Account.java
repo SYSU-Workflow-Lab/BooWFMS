@@ -1,11 +1,10 @@
 package cn.edu.sysu.workflow.entity.access;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
-import cn.edu.sysu.workflow.utils.IdUtil;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * Account of BooWFMS
@@ -38,11 +37,6 @@ public class Account extends BooPagedQuery {
     private String organizationId;
 
     /**
-     * TODO
-     */
-    private String gid;
-
-    /**
      * 账户状态（0-停用，1-正常）
      */
     private Integer status;
@@ -63,10 +57,6 @@ public class Account extends BooPagedQuery {
 
     public String getAccountId() {
         return accountId;
-    }
-
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
     }
 
     public String getUsername() {
@@ -91,14 +81,6 @@ public class Account extends BooPagedQuery {
 
     public void setOrganizationId(String organizationId) {
         this.organizationId = organizationId;
-    }
-
-    public String getGid() {
-        return gid;
-    }
-
-    public void setGid(String gid) {
-        this.gid = gid;
     }
 
     public Integer getStatus() {
@@ -134,7 +116,6 @@ public class Account extends BooPagedQuery {
                 Objects.equals(username, account.username) &&
                 Objects.equals(password, account.password) &&
                 Objects.equals(organizationId, account.organizationId) &&
-                Objects.equals(gid, account.gid) &&
                 Objects.equals(status, account.status) &&
                 Objects.equals(createTimestamp, account.createTimestamp) &&
                 Objects.equals(lastLoginTimestamp, account.lastLoginTimestamp);
@@ -142,6 +123,6 @@ public class Account extends BooPagedQuery {
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, username, password, organizationId, gid, status, createTimestamp, lastLoginTimestamp);
+        return Objects.hash(accountId, username, password, organizationId, status, createTimestamp, lastLoginTimestamp);
     }
 }

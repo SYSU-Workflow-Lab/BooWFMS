@@ -1,11 +1,10 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
-import cn.edu.sysu.workflow.utils.IdUtil;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * Business Object of BooWFMS
@@ -50,7 +49,7 @@ public class BusinessObject extends BooPagedQuery {
     /**
      * 涉及的业务角色
      */
-    private String roles;
+    private String businessRoles;
 
     public BusinessObject() {
         this.businessObjectId = PREFIX + IdUtil.nextId();
@@ -58,10 +57,6 @@ public class BusinessObject extends BooPagedQuery {
 
     public String getBusinessObjectId() {
         return businessObjectId;
-    }
-
-    public void setBusinessObjectId(String businessObjectId) {
-        this.businessObjectId = businessObjectId;
     }
 
     public String getBusinessObjectName() {
@@ -104,12 +99,12 @@ public class BusinessObject extends BooPagedQuery {
         this.serialization = serialization;
     }
 
-    public String getRoles() {
-        return roles;
+    public String getBusinessRoles() {
+        return businessRoles;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public void setBusinessRoles(String businessRoles) {
+        this.businessRoles = businessRoles;
     }
 
     @Override
@@ -123,12 +118,12 @@ public class BusinessObject extends BooPagedQuery {
                 Objects.equals(processId, that.processId) &&
                 Objects.equals(content, that.content) &&
                 Arrays.equals(serialization, that.serialization) &&
-                Objects.equals(roles, that.roles);
+                Objects.equals(businessRoles, that.businessRoles);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(businessObjectId, businessObjectName, processId, status, content, roles);
+        int result = Objects.hash(businessObjectId, businessObjectName, processId, status, content, businessRoles);
         result = 31 * result + Arrays.hashCode(serialization);
         return result;
     }

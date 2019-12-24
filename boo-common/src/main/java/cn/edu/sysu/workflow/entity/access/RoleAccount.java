@@ -1,12 +1,10 @@
 package cn.edu.sysu.workflow.entity.access;
 
-import cn.edu.sysu.workflow.utils.IdUtil;
-
-import java.util.UUID;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 /**
  * Association of Role and Account of BooWFMS
- *
+ * <p>
  * Created by Skye on 2019/12/18.
  */
 public class RoleAccount {
@@ -34,10 +32,6 @@ public class RoleAccount {
 
     public String getRoleAccountId() {
         return roleAccountId;
-    }
-
-    public void setRoleAccountId(String roleAccountId) {
-        this.roleAccountId = roleAccountId;
     }
 
     public String getRoleId() {

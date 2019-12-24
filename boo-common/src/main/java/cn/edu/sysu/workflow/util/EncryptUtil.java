@@ -1,4 +1,4 @@
-package cn.edu.sysu.workflow.utils;
+package cn.edu.sysu.workflow.util;
 
 import org.apache.commons.codec.digest.DigestUtils;
 

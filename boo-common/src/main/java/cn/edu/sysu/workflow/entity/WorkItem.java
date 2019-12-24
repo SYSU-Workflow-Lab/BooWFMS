@@ -1,11 +1,10 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
-import cn.edu.sysu.workflow.utils.IdUtil;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * WorkItem of BooWFMS
@@ -30,7 +29,7 @@ public class WorkItem extends BooPagedQuery {
     /**
      * 资源服务ID
      */
-    private String resourceId;
+    private String resourceServiceId;
 
     /**
      * 所属流程ID
@@ -48,7 +47,7 @@ public class WorkItem extends BooPagedQuery {
     private String taskId;
 
     /**
-     * 来源任务的模型 ID
+     * 来源任务的模型ID
      */
     private String taskPolymorphismId;
 
@@ -130,10 +129,6 @@ public class WorkItem extends BooPagedQuery {
         return workItemId;
     }
 
-    public void setWorkItemId(String workItemId) {
-        this.workItemId = workItemId;
-    }
-
     public String getProcessInstanceId() {
         return processInstanceId;
     }
@@ -142,12 +137,12 @@ public class WorkItem extends BooPagedQuery {
         this.processInstanceId = processInstanceId;
     }
 
-    public String getResourceId() {
-        return resourceId;
+    public String getResourceServiceId() {
+        return resourceServiceId;
     }
 
-    public void setResourceId(String resourceId) {
-        this.resourceId = resourceId;
+    public void setResourceServiceId(String resourceServiceId) {
+        this.resourceServiceId = resourceServiceId;
     }
 
     public String getProcessId() {
@@ -302,7 +297,7 @@ public class WorkItem extends BooPagedQuery {
         return executeTime == workItem.executeTime &&
                 Objects.equals(workItemId, workItem.workItemId) &&
                 Objects.equals(processInstanceId, workItem.processInstanceId) &&
-                Objects.equals(resourceId, workItem.resourceId) &&
+                Objects.equals(resourceServiceId, workItem.resourceServiceId) &&
                 Objects.equals(processId, workItem.processId) &&
                 Objects.equals(businessObjectId, workItem.businessObjectId) &&
                 Objects.equals(taskId, workItem.taskId) &&
@@ -324,6 +319,6 @@ public class WorkItem extends BooPagedQuery {
 
     @Override
     public int hashCode() {
-        return Objects.hash(workItemId, processInstanceId, resourceId, processId, businessObjectId, taskId, taskPolymorphismId, arguments, createTimestamp, allocateTimestamp, launchTimestamp, finishTimestamp, status, resourceStatus, launchAccountId, finishAccountId, timerTriggerId, timerExpiryId, lastLaunchTime, executeTime, callbackNodeId);
+        return Objects.hash(workItemId, processInstanceId, resourceServiceId, processId, businessObjectId, taskId, taskPolymorphismId, arguments, createTimestamp, allocateTimestamp, launchTimestamp, finishTimestamp, status, resourceStatus, launchAccountId, finishAccountId, timerTriggerId, timerExpiryId, lastLaunchTime, executeTime, callbackNodeId);
     }
 }

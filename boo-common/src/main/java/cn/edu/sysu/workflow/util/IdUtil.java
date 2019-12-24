@@ -1,4 +1,4 @@
-package cn.edu.sysu.workflow.utils;
+package cn.edu.sysu.workflow.util;
 
 /**
  * Id generator based on Snowflake of BooWFMS

@@ -1,4 +1,4 @@
-package cn.edu.sysu.workflow.utils;
+package cn.edu.sysu.workflow.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

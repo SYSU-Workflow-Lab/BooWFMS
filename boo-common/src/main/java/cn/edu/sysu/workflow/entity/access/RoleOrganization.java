@@ -1,8 +1,6 @@
 package cn.edu.sysu.workflow.entity.access;
 
-import cn.edu.sysu.workflow.utils.IdUtil;
-
-import java.util.UUID;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 /**
  * Association of Role and Organization of BooWFMS
@@ -34,10 +32,6 @@ public class RoleOrganization {
 
     public String getRoleOrganizationId() {
         return roleOrganizationId;
-    }
-
-    public void setRoleOrganizationId(String roleOrganizationId) {
-        this.roleOrganizationId = roleOrganizationId;
     }
 
     public String getRoleId() {

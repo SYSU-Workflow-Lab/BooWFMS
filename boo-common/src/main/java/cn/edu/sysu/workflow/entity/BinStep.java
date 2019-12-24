@@ -1,11 +1,10 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
-import cn.edu.sysu.workflow.utils.IdUtil;
+import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * BinStep of BooWFMS
@@ -49,10 +48,6 @@ public class BinStep extends BooPagedQuery {
 
     public String getBinStepId() {
         return binStepId;
-    }
-
-    public void setBinStepId(String binStepId) {
-        this.binStepId = binStepId;
     }
 
     public String getProcessInstanceId() {

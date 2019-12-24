@@ -7,14 +7,14 @@ import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
  *
  * Created by Skye on 2019/12/18.
  */
-public class ServerInfo extends BooPagedQuery {
+public class ServiceInfo extends BooPagedQuery {
 
     private static final long serialVersionUID = -2820224484319671126L;
 
     /**
      * 服务信息ID
      */
-    private String serverInfoId;
+    private String serviceInfoId;
 
     /**
      * 服务URL
@@ -51,13 +51,13 @@ public class ServerInfo extends BooPagedQuery {
      */
     private double workItemCount;
 
-    public ServerInfo(String serverInfoId) {
-        this.serverInfoId = serverInfoId;
+    public ServiceInfo(String serviceInfoId) {
+        this.serviceInfoId = serviceInfoId;
         this.isActive = 1;
     }
 
-    public String getServerInfo() {
-        return serverInfoId;
+    public String getServiceInfo() {
+        return serviceInfoId;
     }
 
     public String getUrl() {

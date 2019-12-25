@@ -3,7 +3,7 @@ package cn.edu.sysu.workflow.entity;
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
 
 /**
- * Service Info of BooWFMS
+ * Service Info of BooWFMS.
  *
  * Created by Skye on 2019/12/18.
  */

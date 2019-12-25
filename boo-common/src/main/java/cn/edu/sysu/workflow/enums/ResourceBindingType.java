@@ -1,16 +1,11 @@
-package cn.edu.sysu.workflow.enums;/*
- * Project Ren @ 2018
- * Rinkako, Ariana, Gordan. SYSU SDCS.
- */
-
-import java.io.Serializable;
+package cn.edu.sysu.workflow.enums;
 
 /**
- * Author: Rinkako
- * Date  : 2018/2/21
- * Usage : Enum of Resource binding type.
+ * Enum of Resource binding type.
+ *
+ * Created by Skye on 2019/12/25.
  */
-public enum ResourceBindingType implements Serializable {
+public enum ResourceBindingType {
     RepeatableRead,
     DirtyRead,
     FastFail

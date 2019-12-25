@@ -6,7 +6,7 @@ import cn.edu.sysu.workflow.util.IdUtil;
 import java.util.Objects;
 
 /**
- * WorkQueue Item of BooWFMS
+ * WorkQueue Item of BooWFMS.
  *
  * Created by Skye on 2019/12/24.
  */

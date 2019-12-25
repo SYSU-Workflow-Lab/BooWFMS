@@ -1,13 +1,9 @@
-/*
- * Project Ren @ 2018
- * Rinkako, Ariana, Gordan. SYSU SDCS.
- */
 package cn.edu.sysu.workflow.enums;
 
 /**
- * Author: Rinkako
- * Date  : 2018/2/10
- * Usage : Enum of Resource event type
+ * Enum of Resource event type.
+ *
+ * Created by Skye on 2019/12/25.
  */
 public enum RSEventType {
     offer,

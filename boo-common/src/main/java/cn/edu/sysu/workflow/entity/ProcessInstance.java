@@ -5,11 +5,10 @@ import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
- * Business Process Instance of BooWFMS
+ * Business Process Instance of BooWFMS.
  *
  * Created by Skye on 2019/12/18.
  */
@@ -60,6 +59,7 @@ public class ProcessInstance extends BooPagedQuery {
 
     /**
      * TODO 资源绑定类型（0-业务角色映射，1-静态绑定）
+     * @see cn.edu.sysu.workflow.enums.ResourceBindingType
      */
     private Integer resourceBindingType;
 

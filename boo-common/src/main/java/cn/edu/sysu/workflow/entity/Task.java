@@ -6,7 +6,7 @@ import cn.edu.sysu.workflow.util.IdUtil;
 import java.util.Objects;
 
 /**
- * Task (deserialize from model) of BooWFMS
+ * Task (deserialize from model) of BooWFMS.
  *
  * Created by Skye on 2019/12/24.
  */

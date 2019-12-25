@@ -1,13 +1,9 @@
-/*
- * Project Ren @ 2018
- * Rinkako, Ariana, Gordan. SYSU SDCS.
- */
 package cn.edu.sysu.workflow.enums;
 
 /**
- * Author: Rinkako
- * Date  : 2018/2/10
- * Usage : Enum for participant privileges.
+ * Enum for participant privileges.
+ *
+ * Created by Skye on 2019/12/25.
  */
 public enum PrivilegeType {
     CAN_SUSPEND(1),

@@ -8,22 +8,22 @@ public class LocationContext {
     /**
      * Service URL for BO Engine Serialization BO.
      */
-    public static final String URL_BOENGINE_SERIALIZEBO = "/gateway/serializeBO";
+    public static final String URL_ENGINE_SERIALIZEBO = "/gateway/serializeBO";
 
     /**
      * Service URL for BO Engine Serialization BO.
      */
-    public static final String URL_BOENGINE_START = "/gateway/launchProcess";
+    public static final String URL_ENGINE_START = "/gateway/launchProcess";
 
     /**
      * Service URL for BO Engine event callback.
      */
-    public static final String URL_BOENGINE_SPANTREE = "/gateway/getSpanTree";
+    public static final String URL_ENGINE_SPANTREE = "/gateway/getSpanTree";
 
     /**
      * Service URL for BO Engine event callback.
      */
-    public static final String URL_BOENGINE_CALLBACK = "/gateway/callback";
+    public static final String URL_ENGINE_CALLBACK = "/gateway/callback";
 
     /**
      * Service URL for RS submit task.

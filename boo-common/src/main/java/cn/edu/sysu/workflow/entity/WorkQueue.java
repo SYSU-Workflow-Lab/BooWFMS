@@ -1,12 +1,13 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.enums.WorkQueueType;
 import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.util.Objects;
 
 /**
- * WorkQueue of BooWFMS
+ * WorkQueue of BooWFMS.
  *
  * Created by Skye on 2019/12/24.
  */
@@ -26,7 +27,8 @@ public class WorkQueue extends BooPagedQuery {
     private String ownerId;
 
     /**
-     * TODO 类型
+     * 类型
+     * @see WorkQueueType
      */
     private int type;
 

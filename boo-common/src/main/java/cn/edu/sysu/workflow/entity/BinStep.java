@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * BinStep of BooWFMS
- * 用于流程实例数据快照
+ * BinStep of BooWFMS.
+ * 用于流程实例数据快照。
  *
  * Created by Skye on 2019/12/18.
  */

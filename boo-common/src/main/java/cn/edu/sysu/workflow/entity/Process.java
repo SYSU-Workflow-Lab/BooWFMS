@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
- * Business Process of BooWFMS
+ * Business Process of BooWFMS.
  *
  * Created by Skye on 2019/12/18.
  */

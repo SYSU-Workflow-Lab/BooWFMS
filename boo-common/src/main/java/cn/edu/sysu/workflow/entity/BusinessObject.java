@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * Business Object of BooWFMS
+ * Business Object of BooWFMS.
  *
  * Created by Skye on 2019/12/18.
  */

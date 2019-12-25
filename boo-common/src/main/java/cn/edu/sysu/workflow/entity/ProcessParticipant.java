@@ -1,12 +1,13 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.enums.ProcessParticipantType;
 import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.util.Objects;
 
 /**
- * Process Participant of BooWFMS
+ * Process Participant of BooWFMS.
  *
  * Created by Skye on 2019/12/24.
  */
@@ -31,14 +32,10 @@ public class ProcessParticipant extends BooPagedQuery {
     private String displayname;
 
     /**
-     * 类型（0位Human，1为Agent）
+     * 类型
+     * @see ProcessParticipantType
      */
     private int type;
-
-    /**
-     * TODO 当类型为Agent时用
-     */
-    private int reentrantType;
 
     /**
      * URL位置，当类型为Agent时用
@@ -82,13 +79,7 @@ public class ProcessParticipant extends BooPagedQuery {
         this.type = type;
     }
 
-    public int getReentrantType() {
-        return reentrantType;
-    }
 
-    public void setReentrantType(int reentrantType) {
-        this.reentrantType = reentrantType;
-    }
 
     public String getAgentLocation() {
         return agentLocation;
@@ -112,7 +103,6 @@ public class ProcessParticipant extends BooPagedQuery {
         if (o == null || getClass() != o.getClass()) return false;
         ProcessParticipant that = (ProcessParticipant) o;
         return type == that.type &&
-                reentrantType == that.reentrantType &&
                 Objects.equals(processParticipantId, that.processParticipantId) &&
                 Objects.equals(accountId, that.accountId) &&
                 Objects.equals(displayname, that.displayname) &&
@@ -122,6 +112,6 @@ public class ProcessParticipant extends BooPagedQuery {
 
     @Override
     public int hashCode() {
-        return Objects.hash(processParticipantId, accountId, displayname, type, reentrantType, agentLocation, note);
+        return Objects.hash(processParticipantId, accountId, displayname, type, agentLocation, note);
     }
 }

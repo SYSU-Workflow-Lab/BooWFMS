@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by Skye on 2019/9/19.
  */
-public class TimestampUtil {
+public final class TimestampUtil {
 
     /**
      * Get timestamp in pattern of `yyyy-MM-dd HH:mm:ss`

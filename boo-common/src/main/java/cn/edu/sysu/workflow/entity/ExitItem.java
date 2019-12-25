@@ -1,13 +1,14 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.enums.FailedWorkItemStatus;
 import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
- * ExitItem of BooWFMS
+ * ExitItem of BooWFMS.
  *
  * Created by Skye on 2019/12/18.
  */
@@ -33,6 +34,7 @@ public class ExitItem extends BooPagedQuery {
 
     /**
      * 状态
+     * @see FailedWorkItemStatus
      */
     private int status;
 

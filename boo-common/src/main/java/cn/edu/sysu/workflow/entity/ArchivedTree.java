@@ -6,7 +6,7 @@ import cn.edu.sysu.workflow.util.IdUtil;
 import java.util.Objects;
 
 /**
- * ArchivedTree of BooWFMS
+ * ArchivedTree of BooWFMS.
  *
  * Created by Skye on 2019/12/18.
  */

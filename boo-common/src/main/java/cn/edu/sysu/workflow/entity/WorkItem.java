@@ -1,14 +1,16 @@
 package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.enums.WorkItemResourcingStatus;
+import cn.edu.sysu.workflow.enums.WorkItemStatus;
 import cn.edu.sysu.workflow.util.IdUtil;
 
 import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
- * WorkItem of BooWFMS
- *
+ * WorkItem of BooWFMS.
+ * <p>
  * Created by Skye on 2019/12/18.
  */
 public class WorkItem extends BooPagedQuery {
@@ -77,14 +79,16 @@ public class WorkItem extends BooPagedQuery {
     private Timestamp finishTimestamp;
 
     /**
-     * TODO 资源服务状态
+     * 工作项状态
+     * @see WorkItemStatus
      */
     private String status;
 
     /**
-     * TODO 资源生命周期状态
+     * 工作项资源调度生命周期状态
+     * @see WorkItemResourcingStatus
      */
-    private String resourceStatus;
+    private String resourcingStatus;
 
     /**
      * 工作项启动者ID
@@ -225,12 +229,12 @@ public class WorkItem extends BooPagedQuery {
         this.status = status;
     }
 
-    public String getResourceStatus() {
-        return resourceStatus;
+    public String getResourcingStatus() {
+        return resourcingStatus;
     }
 
-    public void setResourceStatus(String resourceStatus) {
-        this.resourceStatus = resourceStatus;
+    public void setResourcingStatus(String resourcingStatus) {
+        this.resourcingStatus = resourcingStatus;
     }
 
     public String getLaunchAccountId() {
@@ -308,7 +312,7 @@ public class WorkItem extends BooPagedQuery {
                 Objects.equals(launchTimestamp, workItem.launchTimestamp) &&
                 Objects.equals(finishTimestamp, workItem.finishTimestamp) &&
                 Objects.equals(status, workItem.status) &&
-                Objects.equals(resourceStatus, workItem.resourceStatus) &&
+                Objects.equals(resourcingStatus, workItem.resourcingStatus) &&
                 Objects.equals(launchAccountId, workItem.launchAccountId) &&
                 Objects.equals(finishAccountId, workItem.finishAccountId) &&
                 Objects.equals(timerTriggerId, workItem.timerTriggerId) &&
@@ -319,6 +323,9 @@ public class WorkItem extends BooPagedQuery {
 
     @Override
     public int hashCode() {
-        return Objects.hash(workItemId, processInstanceId, resourceServiceId, processId, businessObjectId, taskId, taskPolymorphismId, arguments, createTimestamp, allocateTimestamp, launchTimestamp, finishTimestamp, status, resourceStatus, launchAccountId, finishAccountId, timerTriggerId, timerExpiryId, lastLaunchTime, executeTime, callbackNodeId);
+        return Objects.hash(workItemId, processInstanceId, resourceServiceId, processId, businessObjectId, taskId,
+                taskPolymorphismId, arguments, createTimestamp, allocateTimestamp, launchTimestamp, finishTimestamp,
+                status, resourcingStatus, launchAccountId, finishAccountId, timerTriggerId, timerExpiryId,
+                lastLaunchTime, executeTime, callbackNodeId);
     }
 }

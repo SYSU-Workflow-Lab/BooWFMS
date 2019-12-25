@@ -5,7 +5,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 /**
  * Created by Skye on 2019/9/19.
  */
-public class EncryptUtil {
+public final class EncryptUtil {
 
     /**
      * Encrypt a string using SHA256

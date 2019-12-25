@@ -6,7 +6,7 @@ import cn.edu.sysu.workflow.util.IdUtil;
 import java.util.Objects;
 
 /**
- * Role of BooWFMS
+ * Role of BooWFMS.
  *
  * Created by Skye on 2019/12/17.
  */

@@ -3,8 +3,8 @@ package cn.edu.sysu.workflow.entity.access;
 import cn.edu.sysu.workflow.util.IdUtil;
 
 /**
- * Association of Role and Account of BooWFMS
- * <p>
+ * Association of Role and Account of BooWFMS.
+ *
  * Created by Skye on 2019/12/18.
  */
 public class RoleAccount {

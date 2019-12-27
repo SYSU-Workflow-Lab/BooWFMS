@@ -10,7 +10,8 @@ import java.util.Objects;
 /**
  * Business Process Instance of BooWFMS.
  *
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class ProcessInstance extends BooPagedQuery {
 
@@ -93,13 +94,16 @@ public class ProcessInstance extends BooPagedQuery {
      */
     private String tag;
 
-
     public ProcessInstance() {
-        this.processInstanceId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getProcessInstanceId() {
         return processInstanceId;
+    }
+
+    public void setProcessInstanceId(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
     }
 
     public String getProcessId() {

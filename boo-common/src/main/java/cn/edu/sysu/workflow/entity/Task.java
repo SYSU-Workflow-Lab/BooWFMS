@@ -8,7 +8,8 @@ import java.util.Objects;
 /**
  * Task (deserialize from model) of BooWFMS.
  *
- * Created by Skye on 2019/12/24.
+ * @author Skye
+ * Created on 2019/12/24
  */
 public class Task extends BooPagedQuery {
 
@@ -66,11 +67,15 @@ public class Task extends BooPagedQuery {
     private String parameters;
 
     public Task() {
-        this.taskId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getTaskId() {
         return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 
     public String getBusinessObjectId() {

@@ -5,7 +5,8 @@ import cn.edu.sysu.workflow.util.IdUtil;
 /**
  * Association of Role and Organization of BooWFMS.
  *
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class RoleOrganization {
 
@@ -27,11 +28,15 @@ public class RoleOrganization {
     private String organizationId;
 
     public RoleOrganization() {
-        this.roleOrganizationId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getRoleOrganizationId() {
         return roleOrganizationId;
+    }
+
+    public void setRoleOrganizationId(String roleOrganizationId) {
+        this.roleOrganizationId = roleOrganizationId;
     }
 
     public String getRoleId() {

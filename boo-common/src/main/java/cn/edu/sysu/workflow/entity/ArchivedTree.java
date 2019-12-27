@@ -6,9 +6,10 @@ import cn.edu.sysu.workflow.util.IdUtil;
 import java.util.Objects;
 
 /**
- * ArchivedTree of BooWFMS.
+ * TODO ArchivedTree of BooWFMS.
  *
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class ArchivedTree extends BooPagedQuery {
 
@@ -16,7 +17,7 @@ public class ArchivedTree extends BooPagedQuery {
     public static final String PREFIX = "at-";
 
     /**
-     * TODO ID
+     * 数据库主键
      */
     private String archivedTreeId;
 
@@ -31,11 +32,15 @@ public class ArchivedTree extends BooPagedQuery {
     private String tree;
 
     public ArchivedTree() {
-        this.archivedTreeId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getArchivedTreeId() {
         return archivedTreeId;
+    }
+
+    public void setArchivedTreeId(String archivedTreeId) {
+        this.archivedTreeId = archivedTreeId;
     }
 
     public String getProcessInstanceId() {

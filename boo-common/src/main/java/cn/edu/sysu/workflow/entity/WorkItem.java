@@ -10,8 +10,9 @@ import java.util.Objects;
 
 /**
  * WorkItem of BooWFMS.
- * <p>
- * Created by Skye on 2019/12/18.
+ *
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class WorkItem extends BooPagedQuery {
 
@@ -126,11 +127,15 @@ public class WorkItem extends BooPagedQuery {
     private String callbackNodeId;
 
     public WorkItem() {
-        this.workItemId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getWorkItemId() {
         return workItemId;
+    }
+
+    public void setWorkItemId(String workItemId) {
+        this.workItemId = workItemId;
     }
 
     public String getProcessInstanceId() {

@@ -8,7 +8,8 @@ import java.util.Objects;
 /**
  * Role of BooWFMS.
  *
- * Created by Skye on 2019/12/17.
+ * @author Skye
+ * Created on 2019/12/17
  */
 public class Role extends BooPagedQuery {
 
@@ -31,11 +32,15 @@ public class Role extends BooPagedQuery {
     private String description;
 
     public Role() {
-        this.roleId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getRoleId() {
         return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     public String getLevel() {

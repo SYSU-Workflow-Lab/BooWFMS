@@ -5,7 +5,8 @@ import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
 /**
  * Service Info of BooWFMS.
  *
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class ServiceInfo extends BooPagedQuery {
 
@@ -24,7 +25,7 @@ public class ServiceInfo extends BooPagedQuery {
     /**
      * 服务是否存活
      */
-    private int isActive;
+    private boolean isActive;
 
     /**
      * 繁忙程度性能指标
@@ -42,7 +43,7 @@ public class ServiceInfo extends BooPagedQuery {
     private double memoryOccupancyRate;
 
     /**
-     * tomcat连接并发数
+     * Tomcat连接并发数
      */
     private double tomcatConcurrency;
 
@@ -51,13 +52,17 @@ public class ServiceInfo extends BooPagedQuery {
      */
     private double workItemCount;
 
-    public ServiceInfo(String serviceInfoId) {
-        this.serviceInfoId = serviceInfoId;
-        this.isActive = 1;
+    public ServiceInfo() {
+        super();
+        this.isActive = true;
     }
 
-    public String getServiceInfo() {
+    public String getServiceInfoId() {
         return serviceInfoId;
+    }
+
+    public void setServiceInfoId(String serviceInfoId) {
+        this.serviceInfoId = serviceInfoId;
     }
 
     public String getUrl() {
@@ -68,12 +73,12 @@ public class ServiceInfo extends BooPagedQuery {
         this.url = url;
     }
 
-    public int getIsActive() {
+    public boolean isActive() {
         return isActive;
     }
 
-    public void setIsActive(int isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public double getBusiness() {
@@ -114,5 +119,12 @@ public class ServiceInfo extends BooPagedQuery {
 
     public void setWorkItemCount(double workItemCount) {
         this.workItemCount = workItemCount;
+    }
+
+    /**
+     * 更新繁忙程度指标
+     */
+    public void updateBusiness() {
+        this.business = cpuOccupancyRate + memoryOccupancyRate + tomcatConcurrency + workItemCount / 10000.0;
     }
 }

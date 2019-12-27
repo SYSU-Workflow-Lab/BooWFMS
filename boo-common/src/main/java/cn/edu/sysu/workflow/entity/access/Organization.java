@@ -9,7 +9,8 @@ import java.util.Objects;
 /**
  * Organization of BooWFMS.
  *
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class Organization extends BooPagedQuery {
 
@@ -45,11 +46,15 @@ public class Organization extends BooPagedQuery {
     // private String organGateway;
 
     public Organization() {
-        this.organizationId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getOrganizationId() {
         return organizationId;
+    }
+
+    public void setOrganizationId(String organizationId) {
+        this.organizationId = organizationId;
     }
 
     public String getName() {

@@ -10,7 +10,8 @@ import java.util.Objects;
  * BinStep of BooWFMS.
  * 用于流程实例数据快照。
  *
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class BinStep extends BooPagedQuery {
 
@@ -43,11 +44,15 @@ public class BinStep extends BooPagedQuery {
     private byte[] binlog;
 
     public BinStep() {
-        this.binStepId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getBinStepId() {
         return binStepId;
+    }
+
+    public void setBinStepId(String binStepId) {
+        this.binStepId = binStepId;
     }
 
     public String getProcessInstanceId() {

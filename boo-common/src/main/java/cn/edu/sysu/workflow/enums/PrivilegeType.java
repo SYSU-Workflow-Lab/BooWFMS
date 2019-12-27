@@ -3,7 +3,8 @@ package cn.edu.sysu.workflow.enums;
 /**
  * Enum for participant privileges.
  *
- * Created by Skye on 2019/12/25.
+ * @author Skye
+ * Created on 2019/12/25
  */
 public enum PrivilegeType {
     CAN_SUSPEND(1),

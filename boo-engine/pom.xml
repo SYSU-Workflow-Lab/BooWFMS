@@ -18,11 +18,35 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--Data Access Component-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <!--Actuator-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
         <!--BooWFMS Common-->
         <dependency>
             <groupId>cn.edu.sysu.workflow</groupId>
             <artifactId>boo-common</artifactId>
         </dependency>
+
+        <!-- JMX monitor -->
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

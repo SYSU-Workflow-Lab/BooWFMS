@@ -33,6 +33,13 @@
                 <artifactId>boo-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.jolokia/jolokia-core -->
+            <dependency>
+                <groupId>org.jolokia</groupId>
+                <artifactId>jolokia-core</artifactId>
+                <version>1.6.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

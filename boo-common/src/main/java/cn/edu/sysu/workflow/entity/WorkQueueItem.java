@@ -8,7 +8,8 @@ import java.util.Objects;
 /**
  * WorkQueue Item of BooWFMS.
  *
- * Created by Skye on 2019/12/24.
+ * @author Skye
+ * Created on 2019/12/24
  */
 public class WorkQueueItem extends BooPagedQuery {
 
@@ -31,11 +32,15 @@ public class WorkQueueItem extends BooPagedQuery {
     private String workItemId;
 
     public WorkQueueItem() {
-        this.workQueueItemId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getWorkQueueItemId() {
         return workQueueItemId;
+    }
+
+    public void setWorkQueueItemId(String workQueueItemId) {
+        this.workQueueItemId = workQueueItemId;
     }
 
     public String getWorkQueueId() {

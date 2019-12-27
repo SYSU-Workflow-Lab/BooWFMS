@@ -10,7 +10,8 @@ import java.util.Objects;
 /**
  * ExitItem of BooWFMS.
  *
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class ExitItem extends BooPagedQuery {
 
@@ -59,11 +60,15 @@ public class ExitItem extends BooPagedQuery {
     private String reason;
 
     public ExitItem() {
-        this.exitItemId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getExitItemId() {
         return exitItemId;
+    }
+
+    public void setExitItemId(String exitItemId) {
+        this.exitItemId = exitItemId;
     }
 
     public String getWorkItemId() {

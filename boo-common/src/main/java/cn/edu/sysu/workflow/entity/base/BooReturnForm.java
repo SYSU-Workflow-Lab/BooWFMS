@@ -3,7 +3,8 @@ package cn.edu.sysu.workflow.entity.base;
 import java.io.Serializable;
 
 /**
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class BooReturnForm implements Serializable {
 

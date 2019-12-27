@@ -9,7 +9,8 @@ import java.util.Objects;
 /**
  * Account of BooWFMS.
  *
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class Account extends BooPagedQuery {
 
@@ -52,11 +53,15 @@ public class Account extends BooPagedQuery {
     private Timestamp lastLoginTimestamp;
 
     public Account() {
-        this.accountId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getAccountId() {
         return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     public String getUsername() {
@@ -91,11 +96,11 @@ public class Account extends BooPagedQuery {
         this.status = status;
     }
 
-    public Timestamp getCreatedTimestamp() {
+    public Timestamp getCreateTimestamp() {
         return createTimestamp;
     }
 
-    public void setCreatedTimestamp(Timestamp createdTimestamp) {
+    public void setCreateTimestamp(Timestamp createdTimestamp) {
         this.createTimestamp = createdTimestamp;
     }
 

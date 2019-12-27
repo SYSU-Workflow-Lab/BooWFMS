@@ -3,7 +3,8 @@ package cn.edu.sysu.workflow.util;
 /**
  * Id generator based on Snowflake of BooWFMS
  *
- * Created by Skye on 2019/12/22.
+ * @author Skye
+ * Created on 2019/12/22
  */
 public final class IdUtil {
 

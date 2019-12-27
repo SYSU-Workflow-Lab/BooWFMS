@@ -5,7 +5,8 @@ import cn.edu.sysu.workflow.util.IdUtil;
 /**
  * Association of Role and Account of BooWFMS.
  *
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class RoleAccount {
 
@@ -27,11 +28,15 @@ public class RoleAccount {
     private String accountId;
 
     public RoleAccount() {
-        this.roleAccountId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getRoleAccountId() {
         return roleAccountId;
+    }
+
+    public void setRoleAccountId(String roleAccountId) {
+        this.roleAccountId = roleAccountId;
     }
 
     public String getRoleId() {

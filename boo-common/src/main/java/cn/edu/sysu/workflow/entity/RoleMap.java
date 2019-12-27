@@ -8,7 +8,8 @@ import java.util.Objects;
 /**
  * Role Map of BooWFMS.
  *
- * Created by Skye on 2019/12/24.
+ * @author Skye
+ * Created on 2019/12/24
  */
 public class RoleMap extends BooPagedQuery {
 
@@ -51,11 +52,15 @@ public class RoleMap extends BooPagedQuery {
     private int isArchived;
 
     public RoleMap() {
-        this.roleMapId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getRoleMapId() {
         return roleMapId;
+    }
+
+    public void setRoleMapId(String roleMapId) {
+        this.roleMapId = roleMapId;
     }
 
     public String getProcessInstanceId() {

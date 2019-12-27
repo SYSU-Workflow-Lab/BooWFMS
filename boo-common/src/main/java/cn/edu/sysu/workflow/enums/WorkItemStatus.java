@@ -3,7 +3,8 @@ package cn.edu.sysu.workflow.enums;
 /**
  * Enum for work item execution status.
  *
- * Created by Skye on 2019/12/25.
+ * @author Skye
+ * Created on 2019/12/25
  */
 public enum WorkItemStatus {
     Enabled,

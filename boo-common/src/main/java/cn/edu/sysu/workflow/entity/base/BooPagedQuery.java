@@ -5,7 +5,8 @@ import java.io.Serializable;
 /**
  * Paging Query Base Class for BooWFMS
  *
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class BooPagedQuery implements Serializable {
 

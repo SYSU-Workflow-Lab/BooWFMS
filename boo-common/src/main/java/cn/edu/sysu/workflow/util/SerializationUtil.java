@@ -3,7 +3,10 @@ package cn.edu.sysu.workflow.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Created by Skye on 2019/9/19.
+ * Json Serialization and Deserialization
+ *
+ * @author Skye
+ * Created on 2019/9/19
  */
 public final class SerializationUtil {
     /**

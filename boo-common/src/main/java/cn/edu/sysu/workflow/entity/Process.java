@@ -9,7 +9,8 @@ import java.util.Objects;
 /**
  * Business Process of BooWFMS.
  *
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class Process extends BooPagedQuery {
 
@@ -68,11 +69,15 @@ public class Process extends BooPagedQuery {
 
 
     public Process() {
-        this.processId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getProcessId() {
         return processId;
+    }
+
+    public void setProcessId(String processId) {
+        this.processId = processId;
     }
 
     public String getProcessName() {

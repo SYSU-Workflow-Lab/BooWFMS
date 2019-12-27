@@ -9,7 +9,8 @@ import java.util.Objects;
 /**
  * Process Participant of BooWFMS.
  *
- * Created by Skye on 2019/12/24.
+ * @author Skye
+ * Created on 2019/12/24
  */
 public class ProcessParticipant extends BooPagedQuery {
 
@@ -48,11 +49,15 @@ public class ProcessParticipant extends BooPagedQuery {
     private String note;
 
     public ProcessParticipant() {
-        this.processParticipantId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getProcessParticipantId() {
         return processParticipantId;
+    }
+
+    public void setProcessParticipantId(String processParticipantId) {
+        this.processParticipantId = processParticipantId;
     }
 
     public String getAccountId() {

@@ -9,7 +9,8 @@ import java.util.Objects;
 /**
  * Business Object of BooWFMS.
  *
- * Created by Skye on 2019/12/18.
+ * @author Skye
+ * Created on 2019/12/18
  */
 public class BusinessObject extends BooPagedQuery {
 
@@ -52,11 +53,15 @@ public class BusinessObject extends BooPagedQuery {
     private String businessRoles;
 
     public BusinessObject() {
-        this.businessObjectId = PREFIX + IdUtil.nextId();
+        super();
     }
 
     public String getBusinessObjectId() {
         return businessObjectId;
+    }
+
+    public void setBusinessObjectId(String businessObjectId) {
+        this.businessObjectId = businessObjectId;
     }
 
     public String getBusinessObjectName() {

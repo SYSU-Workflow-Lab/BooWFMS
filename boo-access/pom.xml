@@ -18,6 +18,25 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--Data Access Component-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <!--Test-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--MySQL-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
         <!--BooWFMS Common-->
         <dependency>
             <groupId>cn.edu.sysu.workflow</groupId>

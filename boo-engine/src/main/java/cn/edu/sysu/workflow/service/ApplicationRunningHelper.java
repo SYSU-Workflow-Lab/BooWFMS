@@ -47,7 +47,7 @@ public class ApplicationRunningHelper {
             ServiceInfo serviceInfo = new ServiceInfo();
             serviceInfo.setServiceInfoId(BooEngineApplication.ENGINE_ID);
             serviceInfo.setUrl(URL);
-            serviceInfoDAO.saveOrUpdate(serviceInfo);
+            serviceInfoDAO.save(serviceInfo);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -87,12 +87,13 @@ public class ApplicationRunningHelper {
             double tomcatResult = tomcatValue / maxThreads;
             sb.append("当前Tomcat并发数：").append(tomcatValue);
 
-            ServiceInfo serviceInfo = serviceInfoDAO.findByServiceInfoId(BooEngineApplication.ENGINE_ID);
+            ServiceInfo serviceInfo = new ServiceInfo();
+            serviceInfo.setServiceInfoId(BooEngineApplication.ENGINE_ID);
             serviceInfo.setCpuOccupancyRate(cpuValue);
             serviceInfo.setMemoryOccupancyRate(memoryResult);
             serviceInfo.setTomcatConcurrency(tomcatResult);
             serviceInfo.updateBusiness();
-            serviceInfoDAO.saveOrUpdate(serviceInfo);
+            serviceInfoDAO.update(serviceInfo);
             sb.insert(0, "当前繁忙程度指标：" + serviceInfo.getBusiness() + "% | ");
 
             log.debug(sb.toString());

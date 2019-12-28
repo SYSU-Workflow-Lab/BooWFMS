@@ -2,6 +2,8 @@ package cn.edu.sysu.workflow.entity;
 
 import cn.edu.sysu.workflow.entity.base.BooPagedQuery;
 
+import java.sql.Timestamp;
+
 /**
  * Service Info of BooWFMS.
  *
@@ -25,36 +27,46 @@ public class ServiceInfo extends BooPagedQuery {
     /**
      * 服务是否存活
      */
-    private boolean isActive;
+    private Boolean isActive;
 
     /**
      * 繁忙程度性能指标
      */
-    private double business;
+    private Double business;
 
     /**
      * CPU占用率
      */
-    private double cpuOccupancyRate;
+    private Double cpuOccupancyRate;
 
     /**
      * 内存占用率
      */
-    private double memoryOccupancyRate;
+    private Double memoryOccupancyRate;
 
     /**
      * Tomcat连接并发数
      */
-    private double tomcatConcurrency;
+    private Double tomcatConcurrency;
 
     /**
      * 工作项个数
      */
-    private double workItemCount;
+    private Double workItemCount;
+
+    /**
+     * 最后更新时间
+     */
+    private Timestamp lastUpdateTimestamp;
 
     public ServiceInfo() {
         super();
         this.isActive = true;
+        this.business = 0.0;
+        this.cpuOccupancyRate = 0.0;
+        this.memoryOccupancyRate = 0.0;
+        this.tomcatConcurrency = 0.0;
+        this.workItemCount = 0.0;
     }
 
     public String getServiceInfoId() {
@@ -81,44 +93,52 @@ public class ServiceInfo extends BooPagedQuery {
         isActive = active;
     }
 
-    public double getBusiness() {
+    public Double getBusiness() {
         return business;
     }
 
-    public void setBusiness(double business) {
+    public void setBusiness(Double business) {
         this.business = business;
     }
 
-    public double getCpuOccupancyRate() {
+    public Double getCpuOccupancyRate() {
         return cpuOccupancyRate;
     }
 
-    public void setCpuOccupancyRate(double cpuOccupancyRate) {
+    public void setCpuOccupancyRate(Double cpuOccupancyRate) {
         this.cpuOccupancyRate = cpuOccupancyRate;
     }
 
-    public double getMemoryOccupancyRate() {
+    public Double getMemoryOccupancyRate() {
         return memoryOccupancyRate;
     }
 
-    public void setMemoryOccupancyRate(double memoryOccupancyRate) {
+    public void setMemoryOccupancyRate(Double memoryOccupancyRate) {
         this.memoryOccupancyRate = memoryOccupancyRate;
     }
 
-    public double getTomcatConcurrency() {
+    public Double getTomcatConcurrency() {
         return tomcatConcurrency;
     }
 
-    public void setTomcatConcurrency(double tomcatConcurrency) {
+    public void setTomcatConcurrency(Double tomcatConcurrency) {
         this.tomcatConcurrency = tomcatConcurrency;
     }
 
-    public double getWorkItemCount() {
+    public Double getWorkItemCount() {
         return workItemCount;
     }
 
-    public void setWorkItemCount(double workItemCount) {
+    public void setWorkItemCount(Double workItemCount) {
         this.workItemCount = workItemCount;
+    }
+
+    public Timestamp getLastUpdateTimestamp() {
+        return lastUpdateTimestamp;
+    }
+
+    public void setLastUpdateTimestamp(Timestamp lastUpdateTimestamp) {
+        this.lastUpdateTimestamp = lastUpdateTimestamp;
     }
 
     /**

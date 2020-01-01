@@ -6,7 +6,7 @@ import cn.edu.sysu.workflow.common.enums.ProcessParticipantType;
 import java.util.Objects;
 
 /**
- * Process Participant of BooWFMS.
+ * BusinessProcess Participant of BooWFMS.
  *
  * @author Skye
  * Created on 2019/12/24

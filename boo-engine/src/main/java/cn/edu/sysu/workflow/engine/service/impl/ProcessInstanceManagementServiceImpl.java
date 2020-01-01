@@ -19,7 +19,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @see cn.edu.sysu.workflow.engine.service.ProcessInstanceManagementService
+ * {@link cn.edu.sysu.workflow.engine.service.ProcessInstanceManagementService}
+ *
  * @author Skye
  * Created on 2019/12/31
  */

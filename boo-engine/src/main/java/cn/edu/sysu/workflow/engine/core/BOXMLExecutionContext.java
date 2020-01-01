@@ -120,12 +120,12 @@ public class BOXMLExecutionContext implements BOXMLIOProcessor {
     public String RootNodeId;
 
     /**
-     * Process for this executor runtime record id.
+     * BusinessProcess for this executor runtime record id.
      */
     public String processInstanceId;
 
     /**
-     * Process global id.
+     * BusinessProcess global id.
      */
     public String processId;
 

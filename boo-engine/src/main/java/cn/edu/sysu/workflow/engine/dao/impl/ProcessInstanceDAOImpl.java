@@ -19,7 +19,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 /**
- * @see cn.edu.sysu.workflow.engine.dao.ProcessInstanceDAO
+ * {@link cn.edu.sysu.workflow.engine.dao.ProcessInstanceDAO}
+ *
  * @author Skye
  * Created on 2019/12/29
  */

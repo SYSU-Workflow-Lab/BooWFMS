@@ -11,20 +11,20 @@ import java.util.Objects;
  * @author Skye
  * Created on 2019/12/18
  */
-public class Process extends BooPagedQuery {
+public class BusinessProcess extends BooPagedQuery {
 
     private static final long serialVersionUID = 6470788893684196731L;
-    public static final String PREFIX = "process-";
+    public static final String PREFIX = "bp-";
 
     /**
-     * 流程ID
+     * 业务流程ID
      */
-    private String processId;
+    private String businessProcessId;
 
     /**
-     * 流程名称
+     * 业务流程名称
      */
-    private String processName;
+    private String businessProcessName;
 
     /**
      * 主业务对象ID
@@ -62,24 +62,24 @@ public class Process extends BooPagedQuery {
     private Timestamp lastLaunchTimestamp;
 
 
-    public Process() {
+    public BusinessProcess() {
         super();
     }
 
-    public String getProcessId() {
-        return processId;
+    public String getBusinessProcessId() {
+        return businessProcessId;
     }
 
-    public void setProcessId(String processId) {
-        this.processId = processId;
+    public void setBusinessProcessId(String businessProcessId) {
+        this.businessProcessId = businessProcessId;
     }
 
-    public String getProcessName() {
-        return processName;
+    public String getBusinessProcessName() {
+        return businessProcessName;
     }
 
-    public void setProcessName(String processName) {
-        this.processName = processName;
+    public void setBusinessProcessName(String businessProcessName) {
+        this.businessProcessName = businessProcessName;
     }
 
     public String getMainBusinessObjectId() {
@@ -146,20 +146,20 @@ public class Process extends BooPagedQuery {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Process process = (Process) o;
-        return Objects.equals(processId, process.processId) &&
-                Objects.equals(processName, process.processName) &&
-                Objects.equals(mainBusinessObjectId, process.mainBusinessObjectId) &&
-                Objects.equals(creatorId, process.creatorId) &&
-                Objects.equals(launchCount, process.launchCount) &&
-                Objects.equals(successCount, process.successCount) &&
-                Objects.equals(averageCost, process.averageCost) &&
-                Objects.equals(status, process.status) &&
-                Objects.equals(lastLaunchTimestamp, process.lastLaunchTimestamp);
+        BusinessProcess that = (BusinessProcess) o;
+        return Objects.equals(businessProcessId, that.businessProcessId) &&
+                Objects.equals(businessProcessName, that.businessProcessName) &&
+                Objects.equals(mainBusinessObjectId, that.mainBusinessObjectId) &&
+                Objects.equals(creatorId, that.creatorId) &&
+                Objects.equals(launchCount, that.launchCount) &&
+                Objects.equals(successCount, that.successCount) &&
+                Objects.equals(averageCost, that.averageCost) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(lastLaunchTimestamp, that.lastLaunchTimestamp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(processId, processName, mainBusinessObjectId, creatorId, launchCount, successCount, averageCost, status, lastLaunchTimestamp);
+        return Objects.hash(businessProcessId, businessProcessName, mainBusinessObjectId, creatorId, launchCount, successCount, averageCost, status, lastLaunchTimestamp);
     }
 }

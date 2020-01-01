@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 31/12/2019 21:48:59
+ Date: 01/01/2020 17:09:17
 */
 
 SET NAMES utf8mb4;
@@ -59,6 +59,25 @@ CREATE TABLE `boo_business_object`  (
   `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
   `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
   PRIMARY KEY (`business_object_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for boo_business_process
+-- ----------------------------
+DROP TABLE IF EXISTS `boo_business_process`;
+CREATE TABLE `boo_business_process`  (
+  `business_process_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务流程ID',
+  `business_process_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务流程名称',
+  `main_business_object_Id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主业务对象ID',
+  `creator_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者ID',
+  `launch_count` int(11) NOT NULL COMMENT '启动次数',
+  `success_count` int(11) UNSIGNED ZEROFILL NOT NULL COMMENT '成功完成次数',
+  `average_cost` bigint(20) UNSIGNED ZEROFILL NOT NULL COMMENT '平均完成时间（ms）',
+  `status` int(11) NULL DEFAULT NULL COMMENT '流程状态（0-停用，1-正常）',
+  `last_launch_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后一次启动时间戳',
+  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
+  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
+  PRIMARY KEY (`business_process_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------

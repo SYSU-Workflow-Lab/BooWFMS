@@ -18,7 +18,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 /**
- * @see cn.edu.sysu.workflow.engine.dao.ArchivedTreeDAO
+ * {@link cn.edu.sysu.workflow.engine.dao.ArchivedTreeDAO}
+ *
  * @author Skye
  * Created on 2019/12/31
  */

@@ -13,7 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @see cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO
+ * {@link cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO}
+ *
  * @author Skye
  * Created on 2019/12/31
  */
@@ -44,13 +45,13 @@ public class BusinessObjectDAOTest {
         // save
         Assert.assertEquals(1, businessObjectDAO.save(businessObject));
         // findOne
-        Assert.assertArrayEquals(new byte[]{1, 0, 1}, businessObjectDAO.findOne(businessObjectId).getSerialization());
+        Assert.assertEquals(businessObject, businessObjectDAO.findOne(businessObjectId));
 
         // update
         businessObject.setSerialization(new byte[]{0, 1, 0});
         Assert.assertEquals(1, businessObjectDAO.update(businessObject));
         // findOne
-        Assert.assertArrayEquals(new byte[]{0, 1, 0}, businessObjectDAO.findOne(businessObjectId).getSerialization());
+        Assert.assertEquals(businessObject, businessObjectDAO.findOne(businessObjectId));
     }
 
     /**

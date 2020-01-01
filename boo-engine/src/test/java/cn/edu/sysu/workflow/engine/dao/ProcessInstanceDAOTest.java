@@ -15,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 
 /**
- * @see cn.edu.sysu.workflow.engine.dao.ProcessInstanceDAO
+ * {@link cn.edu.sysu.workflow.engine.dao.ProcessInstanceDAO}
+ *
  * @author Skye
  * Created on 2019/12/31
  */
@@ -52,13 +53,16 @@ public class ProcessInstanceDAOTest {
         // save
         Assert.assertEquals(1, processInstanceDAO.save(processInstance));
         // findOne
-        Assert.assertEquals(0L, (long) processInstanceDAO.findOne(processInstanceId).getLaunchType());
+        Assert.assertEquals(processInstance, processInstanceDAO.findOne(processInstanceId));
 
         long currentTimestamp = System.currentTimeMillis();
         processInstance.setLaunchTimestamp(new Timestamp(currentTimestamp));
         processInstance.setFinishTimestamp(new Timestamp(currentTimestamp));
         // update
         Assert.assertEquals(1, processInstanceDAO.update(processInstance));
+        // findOne
+        Assert.assertEquals(processInstance, processInstanceDAO.findOne(processInstanceId));
+
     }
 
 }

@@ -14,7 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @see cn.edu.sysu.workflow.engine.dao.ServiceInfoDAO
+ * {@link cn.edu.sysu.workflow.engine.dao.ServiceInfoDAO}
+ *
  * @author Skye
  * Created on 2019/12/28
  */

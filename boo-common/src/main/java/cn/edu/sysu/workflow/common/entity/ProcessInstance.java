@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Business Process Instance of BooWFMS.
+ * Business BusinessProcess Instance of BooWFMS.
  *
  * @author Skye
  * Created on 2019/12/18

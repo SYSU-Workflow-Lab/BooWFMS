@@ -14,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 /**
- * @see cn.edu.sysu.workflow.engine.dao.ArchivedTreeDAO
+ * {@link cn.edu.sysu.workflow.engine.dao.ArchivedTreeDAO}
+ *
  * @author Skye
  * Created on 2019/12/31
  */
@@ -41,7 +42,7 @@ public class ArchivedTreeDAOTest {
         // save
         Assert.assertEquals(1, archivedTreeDAO.save(archivedTree));
         // findOne
-        Assert.assertEquals("tree", archivedTreeDAO.findOne(processInstanceId).getTree());
+        Assert.assertEquals(archivedTree, archivedTreeDAO.findOne(processInstanceId));
 
     }
 

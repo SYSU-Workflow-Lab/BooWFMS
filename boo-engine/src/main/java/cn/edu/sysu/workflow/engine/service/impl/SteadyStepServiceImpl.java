@@ -31,7 +31,8 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 
 /**
- * @see cn.edu.sysu.workflow.engine.service.SteadyStepService
+ * {@link cn.edu.sysu.workflow.engine.service.SteadyStepService}
+ *
  * @author Skye
  * Created on 2019/12/31
  */

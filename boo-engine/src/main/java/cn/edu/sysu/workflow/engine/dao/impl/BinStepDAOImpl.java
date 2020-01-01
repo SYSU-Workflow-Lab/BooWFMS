@@ -20,7 +20,8 @@ import java.sql.Types;
 import java.util.List;
 
 /**
- * @see cn.edu.sysu.workflow.engine.dao.BinStepDAO
+ * {@link cn.edu.sysu.workflow.engine.dao.BinStepDAO}
+ *
  * @author Skye
  * Created on 2019/12/31
  */
@@ -131,7 +132,7 @@ public class BinStepDAOImpl implements BinStepDAO {
         } catch (EmptyResultDataAccessException e) {
             return null;
         } catch (Exception e) {
-            log.error("[" + binStepId + "]Error on querying process instance by processInstanceId.", e);
+            log.error("[" + binStepId + "]Error on querying bin step by binStepId.", e);
             return null;
         }
     }

@@ -20,9 +20,10 @@ import java.sql.Types;
 import java.util.List;
 
 /**
+ * {@link cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO}
+ *
  * @author Skye
  * Created on 2019/12/31
- * @see cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO
  */
 @Repository
 public class BusinessObjectDAOImpl implements BusinessObjectDAO {
@@ -152,7 +153,7 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
         } catch (EmptyResultDataAccessException e) {
             return null;
         } catch (Exception e) {
-            log.error("[" + businessObjectId + "]Error on querying archived tree by processInstanceId.", e);
+            log.error("[" + businessObjectId + "]Error on querying business object by businessObjectId.", e);
             return null;
         }
     }

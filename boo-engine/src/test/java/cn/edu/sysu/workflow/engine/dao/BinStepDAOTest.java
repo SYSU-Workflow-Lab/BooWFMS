@@ -15,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @see cn.edu.sysu.workflow.engine.dao.BinStepDAO
+ * {@link cn.edu.sysu.workflow.engine.dao.BinStepDAO}
+ *
  * @author Skye
  * Created on 2019/12/31
  */
@@ -49,14 +50,14 @@ public class BinStepDAOTest {
         // save
         Assert.assertEquals(1, binStepDAO.save(binStep));
         // findOne
-        Assert.assertArrayEquals(binlog, binStepDAO.findOne(binStepId).getBinlog());
+        Assert.assertEquals(binStep, binStepDAO.findOne(binStepId));
 
         // update
         binlog = new byte[]{0, 1, 0};
         binStep.setBinlog(binlog);
         Assert.assertEquals(1, binStepDAO.update(binStep));
         // findOne
-        Assert.assertArrayEquals(binlog, binStepDAO.findOne(binStepId).getBinlog());
+        Assert.assertEquals(binStep, binStepDAO.findOne(binStepId));
 
     }
 
@@ -84,7 +85,7 @@ public class BinStepDAOTest {
         binStep.setBinStepId(binStepId2);
         Assert.assertEquals(1, binStepDAO.save(binStep));
 
-        Assert.assertEquals(binStepId2, binStepDAO.findBinStepsByProcessInstanceId(processInstanceId).get(1).getBinStepId());
+        Assert.assertEquals(binStep, binStepDAO.findBinStepsByProcessInstanceId(processInstanceId).get(1));
     }
 
     /**

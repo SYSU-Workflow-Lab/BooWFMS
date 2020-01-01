@@ -34,7 +34,7 @@ public class BusinessObject extends BooPagedQuery {
     /**
      * 业务对象状态（0-停用，1-正常）
      */
-    private int status;
+    private Integer status;
 
     /**
      * 业务对象模型内容
@@ -79,11 +79,11 @@ public class BusinessObject extends BooPagedQuery {
         this.processId = processId;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -120,10 +120,10 @@ public class BusinessObject extends BooPagedQuery {
             return false;
         }
         BusinessObject that = (BusinessObject) o;
-        return status == that.status &&
-                Objects.equals(businessObjectId, that.businessObjectId) &&
+        return Objects.equals(businessObjectId, that.businessObjectId) &&
                 Objects.equals(businessObjectName, that.businessObjectName) &&
                 Objects.equals(processId, that.processId) &&
+                Objects.equals(status, that.status) &&
                 Objects.equals(content, that.content) &&
                 Arrays.equals(serialization, that.serialization) &&
                 Objects.equals(businessRoles, that.businessRoles);

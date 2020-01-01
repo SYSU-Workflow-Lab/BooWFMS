@@ -35,5 +35,4 @@ public class BooEngineApplication {
         return new RestTemplate();
     }
 
-
 }

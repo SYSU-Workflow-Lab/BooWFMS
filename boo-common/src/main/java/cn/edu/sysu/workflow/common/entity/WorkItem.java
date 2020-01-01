@@ -113,7 +113,7 @@ public class WorkItem extends BooPagedQuery {
     /**
      * TODO 执行时间间隔（ms）
      */
-    private long executeTime;
+    private Long executeTime;
 
     /**
      * 回调事件发送目的地业务对象的标识符
@@ -268,11 +268,11 @@ public class WorkItem extends BooPagedQuery {
         this.lastLaunchTime = lastLaunchTime;
     }
 
-    public long getExecuteTime() {
+    public Long getExecuteTime() {
         return executeTime;
     }
 
-    public void setExecuteTime(long executeTime) {
+    public void setExecuteTime(Long executeTime) {
         this.executeTime = executeTime;
     }
 
@@ -293,8 +293,7 @@ public class WorkItem extends BooPagedQuery {
             return false;
         }
         WorkItem workItem = (WorkItem) o;
-        return executeTime == workItem.executeTime &&
-                Objects.equals(workItemId, workItem.workItemId) &&
+        return Objects.equals(workItemId, workItem.workItemId) &&
                 Objects.equals(processInstanceId, workItem.processInstanceId) &&
                 Objects.equals(resourceServiceId, workItem.resourceServiceId) &&
                 Objects.equals(processId, workItem.processId) &&
@@ -312,6 +311,7 @@ public class WorkItem extends BooPagedQuery {
                 Objects.equals(timerTriggerId, workItem.timerTriggerId) &&
                 Objects.equals(timerExpiryId, workItem.timerExpiryId) &&
                 Objects.equals(lastLaunchTime, workItem.lastLaunchTime) &&
+                Objects.equals(executeTime, workItem.executeTime) &&
                 Objects.equals(callbackNodeId, workItem.callbackNodeId);
     }
 

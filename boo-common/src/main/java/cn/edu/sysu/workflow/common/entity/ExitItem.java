@@ -36,12 +36,12 @@ public class ExitItem extends BooPagedQuery {
      * 状态
      * @see FailedWorkItemStatus
      */
-    private int status;
+    private Integer status;
 
     /**
      * 可见性
      */
-    private int visibility;
+    private Integer visibility;
 
     /**
      * TODO 处理者名称
@@ -86,19 +86,19 @@ public class ExitItem extends BooPagedQuery {
         this.processInstanceId = processInstanceId;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public int getVisibility() {
+    public Integer getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(int visibility) {
+    public void setVisibility(Integer visibility) {
         this.visibility = visibility;
     }
 
@@ -135,11 +135,11 @@ public class ExitItem extends BooPagedQuery {
             return false;
         }
         ExitItem exitItem = (ExitItem) o;
-        return status == exitItem.status &&
-                visibility == exitItem.visibility &&
-                Objects.equals(exitItemId, exitItem.exitItemId) &&
+        return Objects.equals(exitItemId, exitItem.exitItemId) &&
                 Objects.equals(workItemId, exitItem.workItemId) &&
                 Objects.equals(processInstanceId, exitItem.processInstanceId) &&
+                Objects.equals(status, exitItem.status) &&
+                Objects.equals(visibility, exitItem.visibility) &&
                 Objects.equals(handlerAuthName, exitItem.handlerAuthName) &&
                 Objects.equals(timestamp, exitItem.timestamp) &&
                 Objects.equals(reason, exitItem.reason);

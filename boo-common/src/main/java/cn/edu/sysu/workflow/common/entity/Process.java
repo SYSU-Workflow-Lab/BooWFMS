@@ -39,17 +39,17 @@ public class Process extends BooPagedQuery {
     /**
      * 启动次数
      */
-    private int launchCount;
+    private Integer launchCount;
 
     /**
      * 成功完成次数
      */
-    private int successCount;
+    private Integer successCount;
 
     /**
      * TODO 平均完成时间（ms）
      */
-    private long averageCost;
+    private Long averageCost;
 
     /**
      * 流程状态（0-停用，1-正常）
@@ -98,27 +98,27 @@ public class Process extends BooPagedQuery {
         this.creatorId = creatorId;
     }
 
-    public int getLaunchCount() {
+    public Integer getLaunchCount() {
         return launchCount;
     }
 
-    public void setLaunchCount(int launchCount) {
+    public void setLaunchCount(Integer launchCount) {
         this.launchCount = launchCount;
     }
 
-    public int getSuccessCount() {
+    public Integer getSuccessCount() {
         return successCount;
     }
 
-    public void setSuccessCount(int successCount) {
+    public void setSuccessCount(Integer successCount) {
         this.successCount = successCount;
     }
 
-    public long getAverageCost() {
+    public Long getAverageCost() {
         return averageCost;
     }
 
-    public void setAverageCost(long averageCost) {
+    public void setAverageCost(Long averageCost) {
         this.averageCost = averageCost;
     }
 
@@ -147,14 +147,14 @@ public class Process extends BooPagedQuery {
             return false;
         }
         Process process = (Process) o;
-        return launchCount == process.launchCount &&
-                successCount == process.successCount &&
-                averageCost == process.averageCost &&
-                status.equals(process.status) &&
-                Objects.equals(processId, process.processId) &&
+        return Objects.equals(processId, process.processId) &&
                 Objects.equals(processName, process.processName) &&
                 Objects.equals(mainBusinessObjectId, process.mainBusinessObjectId) &&
                 Objects.equals(creatorId, process.creatorId) &&
+                Objects.equals(launchCount, process.launchCount) &&
+                Objects.equals(successCount, process.successCount) &&
+                Objects.equals(averageCost, process.averageCost) &&
+                Objects.equals(status, process.status) &&
                 Objects.equals(lastLaunchTimestamp, process.lastLaunchTimestamp);
     }
 

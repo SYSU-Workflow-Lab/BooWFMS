@@ -77,6 +77,7 @@ public class BinStepDAOImpl implements BinStepDAO {
         if (null != binStep.getBinlog() && 0 != binStep.getBinlog().length) {
             sql += ", binlog = ?";
         }
+        // binStepId
         sql += " WHERE bin_step_id = ?";
         try {
             return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
@@ -98,7 +99,7 @@ public class BinStepDAOImpl implements BinStepDAO {
                     if (null != binStep.getBinlog() && 0 != binStep.getBinlog().length) {
                         JdbcUtil.preparedStatementSetter(ps, index(), binStep.getBinlog(), Types.BLOB);
                     }
-                    // serviceInfoId
+                    // binStepId
                     JdbcUtil.preparedStatementSetter(ps, index(), binStep.getBinStepId(), Types.VARCHAR);
                 }
             });

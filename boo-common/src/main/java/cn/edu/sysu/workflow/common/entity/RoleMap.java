@@ -48,7 +48,7 @@ public class RoleMap extends BooPagedQuery {
     /**
      * TODO
      */
-    private int isArchived;
+    private Integer isArchived;
 
     public RoleMap() {
         super();
@@ -102,11 +102,11 @@ public class RoleMap extends BooPagedQuery {
         this.dataVersion = dataVersion;
     }
 
-    public int getIsArchived() {
+    public Integer getIsArchived() {
         return isArchived;
     }
 
-    public void setIsArchived(int isArchived) {
+    public void setIsArchived(Integer isArchived) {
         this.isArchived = isArchived;
     }
 
@@ -119,13 +119,13 @@ public class RoleMap extends BooPagedQuery {
             return false;
         }
         RoleMap roleMap = (RoleMap) o;
-        return isArchived == roleMap.isArchived &&
-                Objects.equals(roleMapId, roleMap.roleMapId) &&
+        return Objects.equals(roleMapId, roleMap.roleMapId) &&
                 Objects.equals(processInstanceId, roleMap.processInstanceId) &&
                 Objects.equals(businessRoleName, roleMap.businessRoleName) &&
                 Objects.equals(organizationId, roleMap.organizationId) &&
                 Objects.equals(mappedId, roleMap.mappedId) &&
-                Objects.equals(dataVersion, roleMap.dataVersion);
+                Objects.equals(dataVersion, roleMap.dataVersion) &&
+                Objects.equals(isArchived, roleMap.isArchived);
     }
 
     @Override

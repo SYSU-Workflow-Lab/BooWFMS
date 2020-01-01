@@ -123,6 +123,7 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
         if (!StringUtils.isEmpty(processInstance.getTag())) {
             sql += ", tag = ?";
         }
+        // processInstanceId
         sql += " WHERE process_instance_id = ?";
         try {
             return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
@@ -176,7 +177,7 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
                     if (!StringUtils.isEmpty(processInstance.getTag())) {
                         JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getTag(), Types.VARCHAR);
                     }
-                    // serviceInfoId
+                    // processInstanceId
                     JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getProcessInstanceId(), Types.VARCHAR);
                 }
             });

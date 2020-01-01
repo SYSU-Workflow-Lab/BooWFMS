@@ -35,8 +35,9 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
     public int save(ProcessInstance processInstance) {
         String sql = "INSERT INTO boo_process_instance " +
                 "(process_instance_id, process_id, launch_account_id, launch_method, launch_type, engine_id, " +
-                "resource_service_id, resource_binding, resource_binding_type, failure_type, result_type, tag, create_timestamp) " +
-                "VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+                "resource_service_id, resource_binding, resource_binding_type, failure_type, result_type, tag, " +
+                "create_timestamp, last_update_timestamp) " +
+                "VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
         try {
             return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
                 @Override

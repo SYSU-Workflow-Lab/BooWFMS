@@ -46,7 +46,7 @@ public class Tasks implements Serializable {
     }
 
     /**
-     * Add a Task.
+     * Add a TaskItem.
      *
      * @param taskObj The task child to be added.
      */

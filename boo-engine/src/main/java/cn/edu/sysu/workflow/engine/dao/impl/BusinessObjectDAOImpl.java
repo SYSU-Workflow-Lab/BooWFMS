@@ -20,9 +20,9 @@ import java.sql.Types;
 import java.util.List;
 
 /**
- * @see cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO
  * @author Skye
  * Created on 2019/12/31
+ * @see cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO
  */
 @Repository
 public class BusinessObjectDAOImpl implements BusinessObjectDAO {
@@ -31,6 +31,37 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Override
+    public int save(BusinessObject businessObject) {
+        String sql = "INSERT INTO boo_business_object (business_object_id, business_object_name, process_id, status, " +
+                "content, serialization, business_roles, create_timestamp, last_update_timestamp) " +
+                "VALUE (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+        try {
+            return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
+                @Override
+                public void customSetValues(PreparedStatement ps) throws SQLException {
+                    // businessObjectId
+                    JdbcUtil.preparedStatementSetter(ps, index(), businessObject.getBusinessObjectId(), Types.VARCHAR);
+                    // businessObjectName
+                    JdbcUtil.preparedStatementSetter(ps, index(), businessObject.getBusinessObjectName(), Types.VARCHAR);
+                    // processId
+                    JdbcUtil.preparedStatementSetter(ps, index(), businessObject.getProcessId(), Types.VARCHAR);
+                    // status
+                    JdbcUtil.preparedStatementSetter(ps, index(), businessObject.getStatus(), Types.INTEGER);
+                    // content
+                    JdbcUtil.preparedStatementSetter(ps, index(), businessObject.getContent(), Types.VARCHAR);
+                    // serialization
+                    JdbcUtil.preparedStatementSetter(ps, index(), businessObject.getSerialization(), Types.BLOB);
+                    // businessRoles
+                    JdbcUtil.preparedStatementSetter(ps, index(), businessObject.getBusinessRoles(), Types.VARCHAR);
+                }
+            });
+        } catch (Exception e) {
+            log.error("[" + businessObject.getBusinessObjectId() + "]Error on creating business object by businessObjectId.", e);
+            return 0;
+        }
+    }
 
     @Override
     public int update(BusinessObject businessObject) {
@@ -60,7 +91,7 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
             sql += ", business_roles = ?";
         }
         // businessObjectId
-        sql += " WHERE bin_step_id = ?";
+        sql += " WHERE business_object_id = ?";
         try {
             return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
                 @Override
@@ -96,6 +127,33 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
         } catch (Exception e) {
             log.error("[" + businessObject.getBusinessObjectId() + "]Error on updating business object by businessObjectId.", e);
             return 0;
+        }
+    }
+
+    @Override
+    public BusinessObject findOne(String businessObjectId) {
+        String sql = "SELECT business_object_id, business_object_name, process_id, status, content, serialization, business_roles " +
+                "FROM boo_business_object WHERE business_object_id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{businessObjectId}, new RowMapper<BusinessObject>() {
+                @Override
+                public BusinessObject mapRow(ResultSet resultSet, int i) throws SQLException {
+                    BusinessObject businessObject = new BusinessObject();
+                    businessObject.setBusinessObjectId(resultSet.getString("business_object_id"));
+                    businessObject.setBusinessObjectName(resultSet.getString("business_object_name"));
+                    businessObject.setProcessId(resultSet.getString("process_id"));
+                    businessObject.setStatus(resultSet.getInt("status"));
+                    businessObject.setContent(resultSet.getString("content"));
+                    businessObject.setSerialization(resultSet.getBytes("serialization"));
+                    businessObject.setBusinessRoles(resultSet.getString("business_roles"));
+                    return businessObject;
+                }
+            });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        } catch (Exception e) {
+            log.error("[" + businessObjectId + "]Error on querying archived tree by processInstanceId.", e);
+            return null;
         }
     }
 

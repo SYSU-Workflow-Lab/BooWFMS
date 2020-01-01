@@ -35,8 +35,8 @@ public class ServiceInfoDAOImpl implements ServiceInfoDAO {
     public int save(ServiceInfo serviceInfo) {
         String sql = "INSERT INTO boo_service_info " +
                 "(service_info_id, url, is_active, business, cpu_occupancy_rate, memory_occupancy_rate, " +
-                "tomcat_concurrency, work_item_count, create_timestamp) " +
-                "VALUE (?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+                "tomcat_concurrency, work_item_count, create_timestamp, last_update_timestamp) " +
+                "VALUE (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
         try {
             return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
                 @Override

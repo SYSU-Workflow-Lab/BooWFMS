@@ -1,5 +1,7 @@
 package cn.edu.sysu.workflow.engine.dao;
 
+import cn.edu.sysu.workflow.common.entity.BusinessObject;
+import cn.edu.sysu.workflow.common.util.IdUtil;
 import cn.edu.sysu.workflow.engine.BooEngineApplication;
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,11 +26,39 @@ public class BusinessObjectDAOTest {
     private BusinessObjectDAO businessObjectDAO;
 
     /**
-     * Test {@link cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO#findBusinessObjectsByProcessId(String)}
+     * Test CRUD
      */
     @Test
     @Transactional
     public void test1() {
+        String businessObjectId = "test-bo-" + IdUtil.nextId();
+        BusinessObject businessObject = new BusinessObject();
+        businessObject.setBusinessObjectId(businessObjectId);
+        businessObject.setBusinessObjectName("businessObjectName");
+        businessObject.setProcessId("processId");
+        businessObject.setStatus(0);
+        businessObject.setContent("content");
+        businessObject.setSerialization(new byte[]{1, 0, 1});
+        businessObject.setBusinessRoles("businessRoles");
+
+        // save
+        Assert.assertEquals(1, businessObjectDAO.save(businessObject));
+        // findOne
+        Assert.assertArrayEquals(new byte[]{1, 0, 1}, businessObjectDAO.findOne(businessObjectId).getSerialization());
+
+        // update
+        businessObject.setSerialization(new byte[]{0, 1, 0});
+        Assert.assertEquals(1, businessObjectDAO.update(businessObject));
+        // findOne
+        Assert.assertArrayEquals(new byte[]{0, 1, 0}, businessObjectDAO.findOne(businessObjectId).getSerialization());
+    }
+
+    /**
+     * Test {@link cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO#findBusinessObjectsByProcessId(String)}
+     */
+    @Test
+    @Transactional
+    public void test2() {
         Assert.assertEquals(0, businessObjectDAO.findBusinessObjectsByProcessId("1").size());
     }
 

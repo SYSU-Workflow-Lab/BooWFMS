@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Author: Rinkako
  * Date  : 2018/3/1
- * Usage : Label context of Task.
+ * Usage : Label context of TaskItem.
  */
 public class Task extends ParamsContainer implements Serializable {
     /**
@@ -25,12 +25,12 @@ public class Task extends ParamsContainer implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Task polymorphism id, unique in a process.
+     * TaskItem polymorphism id, unique in a process.
      */
     private String id;
 
     /**
-     * Task polymorphism name.
+     * TaskItem polymorphism name.
      */
     private String name;
 
@@ -50,12 +50,12 @@ public class Task extends ParamsContainer implements Serializable {
     private String event = "";
 
     /**
-     * Task resourcing principle.
+     * TaskItem resourcing principle.
      */
     private Principle principle;
 
     /**
-     * Task callbacks.
+     * TaskItem callbacks.
      */
     private ArrayList<Callback> callbacks = new ArrayList<>();
 
@@ -141,7 +141,7 @@ public class Task extends ParamsContainer implements Serializable {
     /**
      * Set id.
      *
-     * @param id Task id
+     * @param id TaskItem id
      */
     public void setId(String id) {
         this.id = id;
@@ -157,7 +157,7 @@ public class Task extends ParamsContainer implements Serializable {
     /**
      * Set name.
      *
-     * @param name Task name
+     * @param name TaskItem name
      */
     public void setName(String name) {
         this.name = name;
@@ -173,7 +173,7 @@ public class Task extends ParamsContainer implements Serializable {
     /**
      * Set agent.
      *
-     * @param brole Task Business Role name
+     * @param brole TaskItem Business Role name
      */
     public void setBrole(String brole) {
         this.brole = brole;

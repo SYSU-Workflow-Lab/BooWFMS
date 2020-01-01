@@ -5,20 +5,20 @@ import cn.edu.sysu.workflow.common.entity.base.BooPagedQuery;
 import java.util.Objects;
 
 /**
- * Task (deserialize from model) of BooWFMS.
+ * TaskItem (deserialize from model) of BooWFMS.
  *
  * @author Skye
  * Created on 2019/12/24
  */
-public class Task extends BooPagedQuery {
+public class TaskItem extends BooPagedQuery {
 
     private static final long serialVersionUID = 982206185945701947L;
-    public static final String PREFIX = "task-";
+    public static final String PREFIX = "ti-";
 
     /**
      * 数据库主键
      */
-    private String taskId;
+    private String taskItemId;
 
     /**
      * 业务对象ID
@@ -65,16 +65,16 @@ public class Task extends BooPagedQuery {
      */
     private String parameters;
 
-    public Task() {
+    public TaskItem() {
         super();
     }
 
-    public String getTaskId() {
-        return taskId;
+    public String getTaskItemId() {
+        return taskItemId;
     }
 
-    public void setTaskId(String taskId) {
-        this.taskId = taskId;
+    public void setTaskItemId(String taskItemId) {
+        this.taskItemId = taskItemId;
     }
 
     public String getBusinessObjectId() {
@@ -157,21 +157,21 @@ public class Task extends BooPagedQuery {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Task task = (Task) o;
-        return Objects.equals(taskId, task.taskId) &&
-                Objects.equals(businessObjectId, task.businessObjectId) &&
-                Objects.equals(taskPolymorphismName, task.taskPolymorphismName) &&
-                Objects.equals(taskPolymorphismId, task.taskPolymorphismId) &&
-                Objects.equals(businessRole, task.businessRole) &&
-                Objects.equals(principle, task.principle) &&
-                Objects.equals(eventDescriptor, task.eventDescriptor) &&
-                Objects.equals(hookDescriptor, task.hookDescriptor) &&
-                Objects.equals(documentation, task.documentation) &&
-                Objects.equals(parameters, task.parameters);
+        TaskItem taskItem = (TaskItem) o;
+        return Objects.equals(taskItemId, taskItem.taskItemId) &&
+                Objects.equals(businessObjectId, taskItem.businessObjectId) &&
+                Objects.equals(taskPolymorphismName, taskItem.taskPolymorphismName) &&
+                Objects.equals(taskPolymorphismId, taskItem.taskPolymorphismId) &&
+                Objects.equals(businessRole, taskItem.businessRole) &&
+                Objects.equals(principle, taskItem.principle) &&
+                Objects.equals(eventDescriptor, taskItem.eventDescriptor) &&
+                Objects.equals(hookDescriptor, taskItem.hookDescriptor) &&
+                Objects.equals(documentation, taskItem.documentation) &&
+                Objects.equals(parameters, taskItem.parameters);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(taskId, businessObjectId, taskPolymorphismName, taskPolymorphismId, businessRole, principle, eventDescriptor, hookDescriptor, documentation, parameters);
+        return Objects.hash(taskItemId, businessObjectId, taskPolymorphismName, taskPolymorphismId, businessRole, principle, eventDescriptor, hookDescriptor, documentation, parameters);
     }
 }

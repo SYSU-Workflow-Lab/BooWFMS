@@ -32,7 +32,7 @@ public class ArchivedTreeDAOImpl implements ArchivedTreeDAO {
 
     @Override
     public int save(ArchivedTree archivedTree) {
-        String sql = "INSERT INTO boo_archived_tree (process_instance_id, tree, create_timestamp) VALUE (?, ?, NOW())";
+        String sql = "INSERT INTO boo_archived_tree (process_instance_id, tree, create_timestamp, last_update_timestamp) VALUE (?, ?, NOW(), NOW())";
         try {
             return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
                 @Override

@@ -32,7 +32,7 @@ public class ArchivedTreeDAOTest {
     @Test
     @Transactional
     public void test1() {
-        String processInstanceId = "test-pi-" + IdUtil.nextId();
+        String processInstanceId = "test-at-" + IdUtil.nextId();
 
         ArchivedTree archivedTree = new ArchivedTree();
         archivedTree.setProcessInstanceId(processInstanceId);

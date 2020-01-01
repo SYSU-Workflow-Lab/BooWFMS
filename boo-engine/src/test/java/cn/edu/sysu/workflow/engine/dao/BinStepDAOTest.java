@@ -66,7 +66,6 @@ public class BinStepDAOTest {
     @Test
     @Transactional
     public void test2() {
-
         String binStepId1 = "test-bs-" + IdUtil.nextId();
         String binStepId2 = "test-bs-" + IdUtil.nextId();
         String processInstanceId = "processInstanceId";

@@ -35,8 +35,8 @@ public class BinStepDAOImpl implements BinStepDAO {
     @Override
     public int save(BinStep binStep) {
         String sql = "INSERT INTO boo_bin_step " +
-                "(bin_step_id, process_instance_id, parent_id, notification_id, binlog, create_timestamp) " +
-                "VALUE (?, ?, ?, ?, ?, NOW())";
+                "(bin_step_id, process_instance_id, parent_id, notification_id, binlog, create_timestamp, last_update_timestamp) " +
+                "VALUE (?, ?, ?, ?, ?, NOW(), NOW())";
         try {
             return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
                 @Override

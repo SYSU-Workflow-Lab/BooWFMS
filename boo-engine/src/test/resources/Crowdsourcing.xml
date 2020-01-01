@@ -25,66 +25,66 @@
 
     <!-- 任务模型 -->
     <operations>
-        <task id="judge" name="judgeTask" brole="judger">
+        <taskItem id="judge" name="judgeTask" brole="judger">
             <principle method="Allocate" distributor="Round"/>
             <callback on="complete" event="judgeComplete"/>
-            <documentation>Judge task let judgers judge crowdsourcing task to be simple or complex.</documentation>
+            <documentation>Judge taskItem let judgers judge crowdsourcing taskItem to be simple or complex.</documentation>
             <param name="taskName"/>
             <param name="taskDescription"/>
-        </task>
-        <task id="decompose" name="decomposeTask" brole="decomposer">
+        </taskItem>
+        <taskItem id="decompose" name="decomposeTask" brole="decomposer">
             <principle method="Allocate" distributor="Round"/>
             <callback on="complete" event="decomposeComplete"/>
-            <documentation>Decompose task let decomposers decompose crowdsourcing task to be several sub tasks.
+            <documentation>Decompose taskItem let decomposers decompose crowdsourcing taskItem to be several sub tasks.
             </documentation>
             <param name="taskName"/>
             <param name="taskDescription"/>
-        </task>
-        <task id="decomposeVote" name="decomposeVoteTask" brole="decomposeVoter">
+        </taskItem>
+        <taskItem id="decomposeVote" name="decomposeVoteTask" brole="decomposeVoter">
             <principle method="Allocate" distributor="Round"/>
             <callback on="complete" event="decomposeVoteComplete"/>
-            <documentation>DecomposeVote task let decomposeVoters vote for decompose plans of a crowdsourcing task.
+            <documentation>DecomposeVote taskItem let decomposeVoters vote for decompose plans of a crowdsourcing taskItem.
             </documentation>
             <param name="taskName"/>
             <param name="taskDescription"/>
-        </task>
-        <task id="getBestSchema" name="getBestSchemaTask" brole="decomposeQuerier">
+        </taskItem>
+        <taskItem id="getBestSchema" name="getBestSchemaTask" brole="decomposeQuerier">
             <principle method="Allocate" distributor="Random"/>
             <callback on="complete" event="queryComplete"/>
-            <documentation>GetBestSchema task let a automicQuerier agent query for the best decompose schema in the
+            <documentation>GetBestSchema taskItem let a automicQuerier agent query for the best decompose schema in the
                 database and return.
             </documentation>
-        </task>
-        <task id="solve" name="solveTask" brole="solver">
+        </taskItem>
+        <taskItem id="solve" name="solveTask" brole="solver">
             <principle method="Allocate" distributor="Round"/>
             <callback on="complete" event="solveComplete"/>
-            <documentation>Solve task let solvers solve a crowdsourcing task.</documentation>
+            <documentation>Solve taskItem let solvers solve a crowdsourcing taskItem.</documentation>
             <param name="taskName"/>
             <param name="taskDescription"/>
-        </task>
-        <task id="solveVoting" name="solveVoteTask" brole="solveVoter">
+        </taskItem>
+        <taskItem id="solveVoting" name="solveVoteTask" brole="solveVoter">
             <principle method="Allocate" distributor="Round"/>
             <callback on="complete" event="solveVoteComplete"/>
-            <documentation>SolveVote task let solveVoters vote for solutions of a crowdsourcing task.</documentation>
+            <documentation>SolveVote taskItem let solveVoters vote for solutions of a crowdsourcing taskItem.</documentation>
             <param name="taskName"/>
             <param name="taskDescription"/>
-        </task>
-        <task id="getBestSolution" name="getBestSolutionTask" brole="solutionQuerier">
+        </taskItem>
+        <taskItem id="getBestSolution" name="getBestSolutionTask" brole="solutionQuerier">
             <principle method="Allocate" distributor="Random"/>
             <callback on="complete" event="choseComplete"/>
-            <documentation>GetBestSchema task let a automicQuerier agent query for the best solution in the database and
+            <documentation>GetBestSchema taskItem let a automicQuerier agent query for the best solution in the database and
                 return.
             </documentation>
             <param name="supervisor"/>
             <param name="ordinal"/>
-        </task>
-        <task id="merge" name="mergeTask" brole="merger">
+        </taskItem>
+        <taskItem id="merge" name="mergeTask" brole="merger">
             <principle method="Allocate" distributor="Random"/>
             <callback on="complete" event="merged"/>
-            <documentation>Merge task let a merger agent merge solutions of sub tasks to be a complete solution of a
-                crowdsourcing task.
+            <documentation>Merge taskItem let a merger agent merge solutions of sub tasks to be a complete solution of a
+                crowdsourcing taskItem.
             </documentation>
-        </task>
+        </taskItem>
     </operations>
 
 

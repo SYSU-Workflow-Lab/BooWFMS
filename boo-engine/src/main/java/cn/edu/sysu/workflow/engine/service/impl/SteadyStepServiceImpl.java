@@ -72,7 +72,7 @@ public class SteadyStepServiceImpl implements SteadyStepService {
                 binStep.setBinStepId(exctx.NodeId);
                 binStep.setProcessInstanceId(exctx.processInstanceId);
                 binStep.setNotificationId(exctx.NotifiableId);
-                RInstanceTree tree = InstanceManager.GetInstanceTree(exctx.processInstanceId);
+                RInstanceTree tree = InstanceManager.getInstanceTree(exctx.processInstanceId);
                 RTreeNode parentNode = tree.GetNodeById(exctx.NodeId).Parent;
                 binStep.setParentId(parentNode != null ? parentNode.getExect().NodeId : "");
                 BOInstance boInstance = exctx.getSCXMLExecutor().detachInstance();

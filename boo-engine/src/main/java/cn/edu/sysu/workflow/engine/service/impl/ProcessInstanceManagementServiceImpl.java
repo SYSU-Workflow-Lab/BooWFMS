@@ -32,7 +32,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
     @Override
     @Transactional(rollbackFor = Exception.class)
     public String getSpanTreeDescriptor(String processInstanceId) {
-        RInstanceTree tree = InstanceManager.GetInstanceTree(processInstanceId, false);
+        RInstanceTree tree = InstanceManager.getInstanceTree(processInstanceId, false);
         if (tree == null || tree.Root == null) {
             ArchivedTree archivedTree = null;
             try {

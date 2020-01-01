@@ -142,7 +142,7 @@ public class Call extends ParamsContainer implements Serializable {
                             }
                             for (int times = 0; times < timesBorder; times++) {
                                 try {
-                                    ServiceInfoDAO serviceInfoDAO = (ServiceInfoDAO) SpringContextUtil.getBean("serviceInfoDAO");
+                                    ServiceInfoDAO serviceInfoDAO = (ServiceInfoDAO) SpringContextUtil.getBean("serviceInfoDAOImpl");
                                     String resourceServiceUrl = serviceInfoDAO.findResourceServiceUrlByProcessInstanceId(scxmlExecContext.processInstanceId);
                                     RestTemplate restTemplate = (RestTemplate) SpringContextUtil.getBean("restTemplate");
                                     restTemplate.postForObject(resourceServiceUrl + LocationContext.URL_RS_SUBMITTASK, requestEntity, String.class);
@@ -183,7 +183,7 @@ public class Call extends ParamsContainer implements Serializable {
                         requestEntity.add("rtid", scxmlExecContext.processInstanceId);
                         if (!BooEngineApplication.IS_LOCAL_DEBUG) {
                             try {
-                                ServiceInfoDAO serviceInfoDAO = (ServiceInfoDAO) SpringContextUtil.getBean("serviceInfoDAO");
+                                ServiceInfoDAO serviceInfoDAO = (ServiceInfoDAO) SpringContextUtil.getBean("serviceInfoDAOImpl");
                                 String resourceServiceUrl = serviceInfoDAO.findResourceServiceUrlByProcessInstanceId(scxmlExecContext.processInstanceId);
                                 RestTemplate restTemplate = (RestTemplate) SpringContextUtil.getBean("restTemplate");
                                 restTemplate.postForObject(resourceServiceUrl + LocationContext.URL_RS_SUBMITTASK, requestEntity, String.class);

@@ -464,7 +464,7 @@ public class BOXMLExecutor implements BOXMLIOProcessor {
                 RInstanceTree myTree = new RInstanceTree();
                 RTreeNode nRoot = new RTreeNode(this.exctx.getStateMachine().getName(), this.NodeId, this.exctx, null);
                 myTree.SetRoot(nRoot);
-                InstanceManager.RegisterInstanceTree(this.exctx.processInstanceId, myTree);
+                InstanceManager.registerInstanceTree(this.exctx.processInstanceId, myTree);
                 this.RootNodeId = this.NodeId;
                 this.exctx.RootNodeId = this.RootNodeId;
             }
@@ -491,13 +491,13 @@ public class BOXMLExecutor implements BOXMLIOProcessor {
                 RInstanceTree myTree = new RInstanceTree();
                 RTreeNode nRoot = new RTreeNode(this.exctx.getStateMachine().getName(), this.NodeId, this.exctx, null);
                 myTree.SetRoot(nRoot);
-                InstanceManager.RegisterInstanceTree(this.exctx.processInstanceId, myTree);
+                InstanceManager.registerInstanceTree(this.exctx.processInstanceId, myTree);
                 this.RootNodeId = this.NodeId;
                 this.exctx.RootNodeId = this.RootNodeId;
             }
             // add self node to the tree
             else {
-                RInstanceTree myTree = InstanceManager.GetInstanceTree(this.exctx.processInstanceId);
+                RInstanceTree myTree = InstanceManager.getInstanceTree(this.exctx.processInstanceId);
                 RTreeNode supervisor = myTree.GetNodeById(supervisorNodeId);
                 RTreeNode curNode = new RTreeNode(this.exctx.getStateMachine().getName(), this.NodeId, this.exctx, supervisor);
                 supervisor.AddChild(curNode);

@@ -8,9 +8,10 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Author: Rinkako
- * Date  : 2017/3/15
- * Usage : Maintaining all running BO trees and providing methods for service operations.
+ * Maintaining all running BO trees and providing methods for service operations.
+ *
+ * @author Skye
+ * Created on 2020/1/1
  */
 public class InstanceManager {
 
@@ -26,8 +27,8 @@ public class InstanceManager {
      * @param nodeId tree node global id
      * @return executor at fetched node
      */
-    public static BOXMLExecutor GetExecutor(String processInstanceId, String nodeId) {
-        return InstanceManager.GetExecContext(processInstanceId, nodeId).getSCXMLExecutor();
+    public static BOXMLExecutor getExecutor(String processInstanceId, String nodeId) {
+        return InstanceManager.getExecContext(processInstanceId, nodeId).getSCXMLExecutor();
     }
 
     /**
@@ -37,8 +38,8 @@ public class InstanceManager {
      * @param nodeId tree node global id
      * @return execution context at fetched node
      */
-    public static BOXMLExecutionContext GetExecContext(String processInstanceId, String nodeId) {
-        return InstanceManager.GetInstanceTree(processInstanceId).GetNodeById(nodeId).getExect();
+    public static BOXMLExecutionContext getExecContext(String processInstanceId, String nodeId) {
+        return InstanceManager.getInstanceTree(processInstanceId).GetNodeById(nodeId).getExect();
     }
 
     /**
@@ -47,8 +48,8 @@ public class InstanceManager {
      * @param processInstanceId process instance id
      * @return tree reference
      */
-    public static RInstanceTree GetInstanceTree(String processInstanceId) {
-        return InstanceManager.GetInstanceTree(processInstanceId, true);
+    public static RInstanceTree getInstanceTree(String processInstanceId) {
+        return InstanceManager.getInstanceTree(processInstanceId, true);
     }
 
     /**
@@ -58,7 +59,7 @@ public class InstanceManager {
      * @param warning produce warning message when missing tree
      * @return tree reference
      */
-    public static RInstanceTree GetInstanceTree(String processInstanceId, boolean warning) {
+    public static RInstanceTree getInstanceTree(String processInstanceId, boolean warning) {
         if (InstanceManager.InstanceTreeTable.containsKey(processInstanceId)) {
             return InstanceManager.InstanceTreeTable.get(processInstanceId);
         } else {
@@ -75,7 +76,7 @@ public class InstanceManager {
      * @param processInstanceId process instance id
      * @return whether tree exist or not
      */
-    public static boolean ContainsInstanceTree(String processInstanceId) {
+    public static boolean containsInstanceTree(String processInstanceId) {
         return InstanceManager.InstanceTreeTable.containsKey(processInstanceId);
     }
 
@@ -86,7 +87,7 @@ public class InstanceManager {
      * @param processInstanceId process instance id
      * @param tree Tree reference
      */
-    public static void RegisterInstanceTree(String processInstanceId, RInstanceTree tree) {
+    public static void registerInstanceTree(String processInstanceId, RInstanceTree tree) {
         if (tree == null || tree.Root == null) {
             log.error("[" + processInstanceId + "]Instance tree must not null: " + processInstanceId);
         } else if (InstanceManager.InstanceTreeTable.containsKey(processInstanceId)) {
@@ -101,7 +102,7 @@ public class InstanceManager {
      *
      * @param processInstanceId process instance id
      */
-    public static void UnregisterInstanceTree(String processInstanceId) {
+    public static void unregisterInstanceTree(String processInstanceId) {
         InstanceManager.InstanceTreeTable.remove(processInstanceId);
     }
 

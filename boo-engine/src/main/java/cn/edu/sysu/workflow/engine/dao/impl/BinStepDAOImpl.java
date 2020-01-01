@@ -7,6 +7,7 @@ import cn.edu.sysu.workflow.engine.dao.BinStepDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -127,6 +128,8 @@ public class BinStepDAOImpl implements BinStepDAO {
                     return binStep;
                 }
             });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         } catch (Exception e) {
             log.error("[" + binStepId + "]Error on querying process instance by processInstanceId.", e);
             return null;

@@ -1,0 +1,24 @@
+<!--suppress ALL -->
+<businessclass initial="first" name="foreach" version="1.0" xmlns="http://www.w3.org/2005/07/scxml">
+    <state id="first">
+        <onentry>
+            <log label="temp lable" expr="'into first'"/>
+        </onentry>
+        <transition event="test" target="testState"/>
+    </state>
+
+    <state id="testState">
+        <onentry>
+            <foreach array="_event.data" item="kvp">
+                <log label="KEY" expr="kvp.getKey()"/>
+                <log label="VALUE" expr="kvp.getValue()"/>
+                <newbo src="InitBOTestSub.xml" instanceExpr="1">
+                    <param name="dataA" expr="666"/>
+                </newbo>
+            </foreach>
+        </onentry>
+        <transition target="finished"/>
+    </state>
+
+    <final id="finished"/>
+</businessclass>

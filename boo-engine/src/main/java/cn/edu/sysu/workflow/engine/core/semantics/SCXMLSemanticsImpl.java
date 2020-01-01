@@ -45,7 +45,7 @@ public class SCXMLSemanticsImpl implements BOXMLSemantics {
     private SteadyStepService steadyStepService;
 
     public SCXMLSemanticsImpl() {
-        this.steadyStepService = (SteadyStepService) SpringContextUtil.getBean("steadyStepService");
+        this.steadyStepService = (SteadyStepService) SpringContextUtil.getBean("steadyStepServiceImpl");
     }
 
     /**
@@ -155,7 +155,7 @@ public class SCXMLSemanticsImpl implements BOXMLSemantics {
             }
         }
         // write entity step unless whole process finished
-        if (InstanceManager.ContainsInstanceTree(exctx.processInstanceId)) {
+        if (InstanceManager.containsInstanceTree(exctx.processInstanceId)) {
             steadyStepService.writeSteady(exctx);
         }
         // handle goto final
@@ -214,12 +214,12 @@ public class SCXMLSemanticsImpl implements BOXMLSemantics {
                     // remove entity snapshot
                     steadyStepService.clearSteadyWriteArchivedTree(exctx.processInstanceId);
                     // remove instance tree
-                    InstanceManager.UnregisterInstanceTree(exctx.processInstanceId);
+                    InstanceManager.unregisterInstanceTree(exctx.processInstanceId);
                     // notify resource service GC
                     if (!BooEngineApplication.IS_LOCAL_DEBUG) {
                         LinkedMultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
                         requestEntity.add("rtid", exctx.processInstanceId);
-                        ServiceInfoDAO serviceInfoDAO = (ServiceInfoDAO) SpringContextUtil.getBean("serviceInfoDAO");
+                        ServiceInfoDAO serviceInfoDAO = (ServiceInfoDAO) SpringContextUtil.getBean("serviceInfoDAOImpl");
                         String resourceServiceUrl = serviceInfoDAO.findResourceServiceUrlByProcessInstanceId(exctx.processInstanceId);
                         RestTemplate restTemplate = (RestTemplate) SpringContextUtil.getBean("restTemplate");
                         restTemplate.postForObject(resourceServiceUrl + LocationContext.URL_RS_FINISH, requestEntity, String.class);

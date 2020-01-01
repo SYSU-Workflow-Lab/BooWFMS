@@ -157,7 +157,7 @@ public class NewBO extends NamelistHolder implements PathResolverHolder {
                 //Ariana:get the serialized BO from the database and deserialize it into SCXML object
                 try {
                     byte[] serializedBO = null;
-                    BusinessObjectDAO businessObjectDAO = (BusinessObjectDAO) SpringContextUtil.getBean("businessObjectDAO");
+                    BusinessObjectDAO businessObjectDAO = (BusinessObjectDAO) SpringContextUtil.getBean("businessObjectDAOImpl");
                     List<BusinessObject> boList = businessObjectDAO.findBusinessObjectsByProcessId(currentExecutionContext.processId);
                     for (BusinessObject bo : boList) {
                         if (bo.getBusinessObjectName().equalsIgnoreCase(boName)) {
@@ -191,7 +191,7 @@ public class NewBO extends NamelistHolder implements PathResolverHolder {
             }
 
             // launch sub state machine of the number of instances
-            RInstanceTree iTree = InstanceManager.GetInstanceTree(currentExecutionContext.processInstanceId);
+            RInstanceTree iTree = InstanceManager.getInstanceTree(currentExecutionContext.processInstanceId);
             RTreeNode curNode = iTree.GetNodeById(currentExecutionContext.NodeId);
             Evaluator evaluator = EvaluatorFactory.getEvaluator(scxml);
             Context tmpCtx = evaluator.newContext(ctx);

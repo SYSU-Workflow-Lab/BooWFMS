@@ -7,6 +7,7 @@ import cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -118,6 +119,8 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
                     return businessObject;
                 }
             });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         } catch (Exception e) {
             log.error("[" + processId + "]Error on querying business object list by processId.", e);
             return null;

@@ -7,6 +7,7 @@ import cn.edu.sysu.workflow.common.entity.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -216,6 +217,8 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
                     return processInstance;
                 }
             });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         } catch (Exception e) {
             log.error("[" + processInstanceId + "]Error on querying process instance by processInstanceId.", e);
             return null;

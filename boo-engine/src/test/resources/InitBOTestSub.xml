@@ -1,0 +1,23 @@
+<!--suppress ALL -->
+<businessclass initial="first" name="InitBOTestSub" version="1.0" xmlns="http://www.w3.org/2005/07/scxml">
+
+    <datamodel>
+        <data id="dataA" expr="1"></data>
+        <data id="dataB" expr="2333"></data>
+    </datamodel>
+
+    <state id="first">
+        <onentry>
+            <log label="SUB" expr="'dataA(should be 666, not 1) is ' + dataA"/>
+            <log label="SUB" expr="'dataB is ' + dataB"/>
+        </onentry>
+        <transition event="stop" target="finished"/>
+    </state>
+
+    <final id="finished">
+        <onentry>
+            <send event="finish" type="scxml" messageMode="TO_PARENT"/>
+            <log label="SUB" expr="'finished, id is: ' + _id"/>
+        </onentry>
+    </final>
+</businessclass>

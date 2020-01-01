@@ -7,6 +7,7 @@ import cn.edu.sysu.workflow.common.util.JdbcUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -161,6 +162,8 @@ public class ServiceInfoDAOImpl implements ServiceInfoDAO {
                     return serviceInfo;
                 }
             });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         } catch (Exception e) {
             log.error("[" + serviceInfoId + "]Error on querying service info by serviceInfoId.", e);
             return null;
@@ -189,6 +192,8 @@ public class ServiceInfoDAOImpl implements ServiceInfoDAO {
                     return resultSet.getString("url");
                 }
             });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         } catch (Exception e) {
             log.error("[" + processInstanceId + "]Error on querying resource service url by processInstanceId.", e);
             return null;

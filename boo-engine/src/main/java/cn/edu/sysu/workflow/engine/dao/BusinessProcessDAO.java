@@ -3,7 +3,7 @@ package cn.edu.sysu.workflow.engine.dao;
 import cn.edu.sysu.workflow.common.entity.BusinessProcess;
 
 /**
- * 业务流程数据库处理
+ * 业务流程数据库操作
  *
  * @author Skye
  * Created on 2020/1/1

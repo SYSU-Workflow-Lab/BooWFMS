@@ -5,7 +5,7 @@ import cn.edu.sysu.workflow.common.entity.BinStep;
 import java.util.List;
 
 /**
- * 用于流程实例单步数据快照数据库处理
+ * 用于流程实例单步数据快照数据库操作
  *
  * @author Skye
  * Created on 2019/12/31

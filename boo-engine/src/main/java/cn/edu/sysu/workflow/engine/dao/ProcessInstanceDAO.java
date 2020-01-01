@@ -3,7 +3,7 @@ package cn.edu.sysu.workflow.engine.dao;
 import cn.edu.sysu.workflow.common.entity.ProcessInstance;
 
 /**
- * 流程实例数据库处理
+ * 流程实例数据库操作
  *
  * @author Skye
  * Created on 2019/12/29
@@ -24,6 +24,7 @@ public interface ProcessInstanceDAO {
      *                        <li>resourceBinding</li>
      *                        <li>resourceBindingType</li>
      *                        <li>failureType</li>
+     *                        <li>participantCache</li>
      *                        <li>resultType</li>
      *                        <li>tag</li>
      *                        </ul>
@@ -45,8 +46,10 @@ public interface ProcessInstanceDAO {
      *                        <li>resourceBinding</li>
      *                        <li>resourceBindingType</li>
      *                        <li>failureType</li>
+     *                        <li>participantCache</li>
      *                        <li>launchTimestamp</li>
      *                        <li>finishTimestamp</li>
+     *                        <li>resultType</li>
      *                        <li>tag</li>
      *                        </ul>
      * @return 修改的数据量

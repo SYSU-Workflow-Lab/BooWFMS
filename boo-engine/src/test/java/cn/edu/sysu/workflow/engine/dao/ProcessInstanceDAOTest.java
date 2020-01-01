@@ -47,6 +47,7 @@ public class ProcessInstanceDAOTest {
         processInstance.setResourceBinding("resourceBinding");
         processInstance.setResourceBindingType(1);
         processInstance.setFailureType(2);
+        processInstance.setParticipantCache("participantCache");
         processInstance.setResultType(4);
         processInstance.setTag("tag");
 

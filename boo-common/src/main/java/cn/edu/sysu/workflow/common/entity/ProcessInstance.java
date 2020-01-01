@@ -71,7 +71,7 @@ public class ProcessInstance extends BooPagedQuery {
     /**
      * 流程实例参与者缓存
      */
-    private List<String> participantCache;
+    private String participantCache;
 
     /**
      * 提交运行时间戳
@@ -177,11 +177,11 @@ public class ProcessInstance extends BooPagedQuery {
         this.failureType = failureType;
     }
 
-    public List<String> getParticipantCache() {
+    public String getParticipantCache() {
         return participantCache;
     }
 
-    public void setParticipantCache(List<String> participantCache) {
+    public void setParticipantCache(String participantCache) {
         this.participantCache = participantCache;
     }
 

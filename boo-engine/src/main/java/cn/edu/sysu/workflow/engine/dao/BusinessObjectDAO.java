@@ -5,7 +5,7 @@ import cn.edu.sysu.workflow.common.entity.BusinessObject;
 import java.util.List;
 
 /**
- * 业务对象数据库处理
+ * 业务对象数据库操作
  *
  * @author Skye
  * Created on 2019/12/30

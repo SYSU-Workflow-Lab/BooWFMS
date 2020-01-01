@@ -3,7 +3,7 @@ package cn.edu.sysu.workflow.engine.dao;
 import cn.edu.sysu.workflow.common.entity.ArchivedTree;
 
 /**
- * ArchivedTree数据库处理
+ * ArchivedTree数据库操作
  *
  * @author Skye
  * Created on 2019/12/31

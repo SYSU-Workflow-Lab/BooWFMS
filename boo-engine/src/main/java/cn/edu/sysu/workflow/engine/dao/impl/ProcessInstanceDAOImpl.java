@@ -36,9 +36,9 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
     public int save(ProcessInstance processInstance) {
         String sql = "INSERT INTO boo_process_instance " +
                 "(process_instance_id, process_id, launch_account_id, launch_method, launch_type, engine_id, " +
-                "resource_service_id, resource_binding, resource_binding_type, failure_type, result_type, tag, " +
+                "resource_service_id, resource_binding, resource_binding_type, failure_type, participant_cache, result_type, tag, " +
                 "create_timestamp, last_update_timestamp) " +
-                "VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+                "VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
         try {
             return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
                 @Override
@@ -63,6 +63,8 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
                     JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getResourceBindingType(), Types.INTEGER);
                     // failureType
                     JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getFailureType(), Types.INTEGER);
+                    // participantCache
+                    JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getParticipantCache(), Types.VARCHAR);
                     // resultType
                     JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getResultType(), Types.INTEGER);
                     // tag
@@ -114,6 +116,10 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
         if (null != processInstance.getFailureType()) {
             sql += ", failure_type = ?";
         }
+        // participantCache
+        if (!StringUtils.isEmpty(processInstance.getParticipantCache())) {
+            sql += ", participant_cache = ?";
+        }
         // launchTimestamp
         if (null != processInstance.getLaunchTimestamp()) {
             sql += ", launch_timestamp = ?";
@@ -121,6 +127,10 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
         // finishTimestamp
         if (null != processInstance.getFinishTimestamp()) {
             sql += ", finish_timestamp = ?";
+        }
+        // resultType
+        if (null != processInstance.getResultType()) {
+            sql += ", result_type = ?";
         }
         // tag
         if (!StringUtils.isEmpty(processInstance.getTag())) {
@@ -168,6 +178,10 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
                     if (null != processInstance.getFailureType()) {
                         JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getFailureType(), Types.INTEGER);
                     }
+                    // participantCache
+                    if (!StringUtils.isEmpty(processInstance.getParticipantCache())) {
+                        JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getParticipantCache(), Types.VARCHAR);
+                    }
                     // launchTimestamp
                     if (null != processInstance.getLaunchTimestamp()) {
                         JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getLaunchTimestamp(), Types.TIMESTAMP);
@@ -175,6 +189,10 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
                     // finishTimestamp
                     if (null != processInstance.getFinishTimestamp()) {
                         JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getFinishTimestamp(), Types.TIMESTAMP);
+                    }
+                    // resultType
+                    if (null != processInstance.getResultType()) {
+                        JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getResultType(), Types.INTEGER);
                     }
                     // tag
                     if (!StringUtils.isEmpty(processInstance.getTag())) {
@@ -193,7 +211,7 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
     @Override
     public ProcessInstance findOne(String processInstanceId) {
         String sql = "SELECT process_instance_id, process_id, launch_account_id, launch_method, launch_type, engine_id, " +
-                "resource_service_id, resource_binding, resource_binding_type, failure_type, launch_timestamp, " +
+                "resource_service_id, resource_binding, resource_binding_type, failure_type, participant_cache, launch_timestamp, " +
                 "finish_timestamp, result_type, tag " +
                 "FROM boo_process_instance " +
                 "WHERE process_instance_id = ?";
@@ -212,6 +230,7 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
                     processInstance.setResourceBinding(resultSet.getString("resource_binding"));
                     processInstance.setResourceBindingType(resultSet.getInt("resource_binding_type"));
                     processInstance.setFailureType(resultSet.getInt("failure_type"));
+                    processInstance.setParticipantCache(resultSet.getString("participant_cache"));
                     processInstance.setLaunchTimestamp(resultSet.getTimestamp("launch_timestamp"));
                     processInstance.setFinishTimestamp(resultSet.getTimestamp("finish_timestamp"));
                     processInstance.setResultType(resultSet.getInt("result_type"));

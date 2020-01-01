@@ -3,7 +3,7 @@ package cn.edu.sysu.workflow.engine.dao;
 import cn.edu.sysu.workflow.common.entity.ServiceInfo;
 
 /**
- * 服务信息数据库处理
+ * 服务信息数据库操作
  *
  * @author Skye
  * Created on 2019/12/26

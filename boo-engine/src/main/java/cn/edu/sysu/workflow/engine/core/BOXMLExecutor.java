@@ -643,12 +643,12 @@ public class BOXMLExecutor implements BOXMLIOProcessor {
         return exctx;
     }
 
-    public void setProcessInstanceId(String rtid) {
-        this.exctx.setProcessInstanceId(rtid);
+    public void setProcessInstanceId(String processInstanceId) {
+        this.exctx.setProcessInstanceId(processInstanceId);
     }
 
-    public void setProcessId(String pid) {
-        this.exctx.processId = pid;
+    public void setProcessId(String processId) {
+        this.exctx.processId = processId;
     }
 
     public void setNotifiableId(String notifiableId) {

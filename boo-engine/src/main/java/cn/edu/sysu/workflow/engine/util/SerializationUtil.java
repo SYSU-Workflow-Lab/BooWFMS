@@ -67,7 +67,7 @@ public final class SerializationUtil {
             out.writeObject(instance);
             return byteArrayOutputStream.toByteArray();
         } catch (Exception ex) {
-            log.error("[" + instance.Rtid + "]When SerializationBOInstanceToString exception occurred, " + ex.toString());
+            log.error("[" + instance.processInstanceId + "]When SerializationBOInstanceToString exception occurred, " + ex.toString());
             return null;
         }
     }

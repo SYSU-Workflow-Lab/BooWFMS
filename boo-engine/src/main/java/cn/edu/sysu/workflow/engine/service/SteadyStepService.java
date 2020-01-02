@@ -30,9 +30,9 @@ public interface SteadyStepService {
     /**
      * Resume instances from entity memory, and register it to instance manager.
      *
-     * @param rtidList rtid in JSON list
+     * @param processInstanceIdItems processInstanceIds in JSON list
      */
-    List<String> resumeSteadyMany(String rtidList);
+    List<String> resumeSteadyMany(String processInstanceIdItems);
 
     /**
      * Resume a instance from entity memory, and register it to instance manager.

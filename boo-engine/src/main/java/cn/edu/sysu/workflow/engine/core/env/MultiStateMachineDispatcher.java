@@ -96,7 +96,7 @@ public class MultiStateMachineDispatcher extends SimpleDispatcher implements Ser
      * @see EventDispatcher#send(String, String, String, MessageMode, String, String, String, String, Object, Object, long)
      */
     @Override
-    public void send(String rtid, String currentId, String id, MessageMode messageMode, String targetName, String targetState, String type, String event, Object data, Object hints, long delay) {
+    public void send(String processInstanceId, String currentId, String id, MessageMode messageMode, String targetName, String targetState, String type, String event, Object data, Object hints, long delay) {
         // log send action
         if (log.isInfoEnabled()) {
             String buf = "send ( id: " + id +
@@ -112,7 +112,7 @@ public class MultiStateMachineDispatcher extends SimpleDispatcher implements Ser
         }
         if (type == null || type.equalsIgnoreCase(BOXMLIOProcessor.SCXML_EVENT_PROCESSOR) ||
                 type.equals(BOXMLIOProcessor.DEFAULT_EVENT_PROCESSOR)) {
-            BOXMLIOProcessor ioProcessor = InstanceManager.getExecutor(rtid, currentId);
+            BOXMLIOProcessor ioProcessor = InstanceManager.getExecutor(processInstanceId, currentId);
             // null event handle
             if (event == null) {
                 if (log.isWarnEnabled()) {
@@ -134,35 +134,35 @@ public class MultiStateMachineDispatcher extends SimpleDispatcher implements Ser
             // do send
             switch (messageMode) {
                 case BROADCAST:
-                    sendBroadCast(rtid, currentId, targetName, targetState, event, data, hints, delay);
+                    sendBroadCast(processInstanceId, currentId, targetName, targetState, event, data, hints, delay);
                     break;
                 case MULTICAST:
-                    sendMulticast(rtid, currentId, targetName, targetState, event, data, hints, delay);
+                    sendMulticast(processInstanceId, currentId, targetName, targetState, event, data, hints, delay);
                     break;
                 case TO_PARENT:
-                    sendToParent(rtid, currentId, targetName, targetState, event, data, hints, delay);
+                    sendToParent(processInstanceId, currentId, targetName, targetState, event, data, hints, delay);
                     break;
                 case TO_CHILD:
-                    sendToChild(rtid, currentId, targetName, targetState, event, data, hints, delay);
+                    sendToChild(processInstanceId, currentId, targetName, targetState, event, data, hints, delay);
                     break;
                 case TO_ANCESTOR:
-                    sendToAncestor(rtid, currentId, targetName, targetState, event, data, hints, delay);
+                    sendToAncestor(processInstanceId, currentId, targetName, targetState, event, data, hints, delay);
                     break;
                 case TO_OFFSPRING:
-                    sendToOffSpring(rtid, currentId, targetName, targetState, event, data, hints, delay);
+                    sendToOffSpring(processInstanceId, currentId, targetName, targetState, event, data, hints, delay);
                     break;
                 case TO_SIBLING:
-                    sendToSibling(rtid, currentId, targetName, targetState, event, data, hints, delay);
+                    sendToSibling(processInstanceId, currentId, targetName, targetState, event, data, hints, delay);
                     break;
                 case UNICAST:
-                    sendUnicast(rtid, currentId, targetName, targetState, event, data, hints, delay);
+                    sendUnicast(processInstanceId, currentId, targetName, targetState, event, data, hints, delay);
                     break;
                 case TO_NOTIFIABLE_ID:
-                    sendToNotifiableId(rtid, currentId, targetName, targetState, event, data, hints, delay);
+                    sendToNotifiableId(processInstanceId, currentId, targetName, targetState, event, data, hints, delay);
                     break;
                 default:
                     System.out.println("Unknown message mode");
-                    log.error("[" + rtid + "]Dispatcher unknown message mode: " + messageMode);
+                    log.error("[" + processInstanceId + "]Dispatcher unknown message mode: " + messageMode);
                     break;
             }
         }
@@ -370,7 +370,7 @@ public class MultiStateMachineDispatcher extends SimpleDispatcher implements Ser
     /**
      * send the event to the tree node according to the specified target name.
      *
-     * @param treeId        tree rtid
+     * @param treeId        tree processInstanceId
      * @param currentNodeId the id of the current node
      * @param targetName    target BO name
      * @param targetState   target state name, empty string means no limitation

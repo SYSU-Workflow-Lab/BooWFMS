@@ -55,11 +55,6 @@ public class SteadyStepServiceImpl implements SteadyStepService {
 
     private boolean enableSteadyStep = true;
 
-    /**
-     * Write a entity step to entity memory.
-     *
-     * @param exctx BOXML execution context
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void writeSteady(BOXMLExecutionContext exctx) {
@@ -93,11 +88,6 @@ public class SteadyStepServiceImpl implements SteadyStepService {
         }
     }
 
-    /**
-     * Clear entity step snapshot after final state, and write a span tree descriptor to archived tree table.
-     *
-     * @param processInstanceId process runtime record id
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void clearSteadyWriteArchivedTree(String processInstanceId) {
@@ -113,30 +103,20 @@ public class SteadyStepServiceImpl implements SteadyStepService {
         }
     }
 
-    /**
-     * Resume instances from entity memory, and register it to instance manager.
-     *
-     * @param rtidList rtid in JSON list
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     @SuppressWarnings("unchecked")
-    public List<String> resumeSteadyMany(String rtidList) {
-        List<String> rtidItems = JsonUtil.jsonDeserialization(rtidList, List.class);
+    public List<String> resumeSteadyMany(String processInstanceIdItems) {
+        List<String> processInstanceIdList = JsonUtil.jsonDeserialization(processInstanceIdItems, List.class);
         List<String> failedList = new ArrayList<>();
-        for (String rtid : rtidItems) {
-            if (!this.resumeSteady(rtid)) {
-                failedList.add(rtid);
+        for (String processInstanceId : processInstanceIdList) {
+            if (!this.resumeSteady(processInstanceId)) {
+                failedList.add(processInstanceId);
             }
         }
         return failedList;
     }
 
-    /**
-     * Resume a instance from entity memory, and register it to instance manager.
-     *
-     * @param processInstanceId
-     */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean resumeSteady(String processInstanceId) {

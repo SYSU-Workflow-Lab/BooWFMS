@@ -9,40 +9,40 @@ public class LocationContext {
     /**
      * Service URL for BO Engine Serialization BO.
      */
-    public static final String URL_ENGINE_SERIALIZEBO = "/gateway/serializeBO";
+    public static final String URL_ENGINE_SERIALIZEBO = "/engine/serializeBO";
 
     /**
      * Service URL for BO Engine Serialization BO.
      */
-    public static final String URL_ENGINE_START = "/gateway/launchProcess";
+    public static final String URL_ENGINE_START = "/engine/launchProcess";
 
     /**
      * Service URL for BO Engine event callback.
      */
-    public static final String URL_ENGINE_SPANTREE = "/gateway/getSpanTree";
+    public static final String URL_ENGINE_SPANTREE = "/engine/getSpanTree";
 
     /**
      * Service URL for BO Engine event callback.
      */
-    public static final String URL_ENGINE_CALLBACK = "/gateway/callback";
+    public static final String URL_ENGINE_CALLBACK = "/engine/callback";
 
     /**
      * Service URL for RS submit task.
      */
-    public static final String URL_RS_SUBMITTASK = "/internal/submitTask";
+    public static final String URL_RS_SUBMITTASK = "/resource/submitTask";
 
     /**
      * Service URL for RS finish life cycle of BO.
      */
-    public static final String URL_RS_FINISH = "/internal/finRtid";
+    public static final String URL_RS_FINISH = "/resource/finish";
 
     /**
      * Service URL gateway for RS workitem actions.
      */
-    public static final String GATEWAY_RS_WORKITEM = "/workitem/";
+    public static final String GATEWAY_RS_WORKITEM = "/resource/workitem/";
 
     /**
      * Service URL gateway for RS workqueue actions.
      */
-    public static final String GATEWAY_RS_QUEUE = "/queue/";
+    public static final String GATEWAY_RS_QUEUE = "/resource/queue/";
 }

@@ -218,7 +218,7 @@ public class SCXMLSemanticsImpl implements BOXMLSemantics {
                     // notify resource service GC
                     if (!BooEngineApplication.IS_LOCAL_DEBUG) {
                         LinkedMultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
-                        requestEntity.add("rtid", exctx.processInstanceId);
+                        requestEntity.add("processInstanceId", exctx.processInstanceId);
                         ServiceInfoDAO serviceInfoDAO = (ServiceInfoDAO) SpringContextUtil.getBean("serviceInfoDAOImpl");
                         String resourceServiceUrl = serviceInfoDAO.findResourceServiceUrlByProcessInstanceId(exctx.processInstanceId);
                         RestTemplate restTemplate = (RestTemplate) SpringContextUtil.getBean("restTemplate");

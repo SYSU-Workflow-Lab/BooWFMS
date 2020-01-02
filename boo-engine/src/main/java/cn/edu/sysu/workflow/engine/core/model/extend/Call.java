@@ -131,7 +131,7 @@ public class Call extends ParamsContainer implements Serializable {
                         requestEntity.add("boname", scxmlExecContext.getSCXMLExecutor().getStateMachine().getName());
                         requestEntity.add("nodeId", scxmlExecContext.getSCXMLExecutor().NodeId);
                         requestEntity.add("args", jsonifyParam);
-                        requestEntity.add("rtid", scxmlExecContext.processInstanceId);
+                        requestEntity.add("processInstanceId", scxmlExecContext.processInstanceId);
                         if (!BooEngineApplication.IS_LOCAL_DEBUG) {
                             int timesBorder = (int) scxmlExecContext.getEvaluator().eval(ctx, this.instanceExpr);
                             if ("Offer".equalsIgnoreCase(t.getPrinciple().getMethod())) {
@@ -180,7 +180,7 @@ public class Call extends ParamsContainer implements Serializable {
                         requestEntity.add("nodeId", scxmlExecContext.getSCXMLExecutor().NodeId);
                         //params of the task
                         requestEntity.add("args", jsonifyParam);
-                        requestEntity.add("rtid", scxmlExecContext.processInstanceId);
+                        requestEntity.add("processInstanceId", scxmlExecContext.processInstanceId);
                         if (!BooEngineApplication.IS_LOCAL_DEBUG) {
                             try {
                                 ServiceInfoDAO serviceInfoDAO = (ServiceInfoDAO) SpringContextUtil.getBean("serviceInfoDAOImpl");

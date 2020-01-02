@@ -153,7 +153,7 @@ public class SimpleDispatcher implements EventDispatcher, Serializable {
         }
     }
 
-    public void send(String rtid, String currentId, String id, MessageMode messageMode, String targetName, String targetState, String type, String event, Object data, Object hints, long delay) {
+    public void send(String processInstanceId, String currentId, String id, MessageMode messageMode, String targetName, String targetState, String type, String event, Object data, Object hints, long delay) {
         // Do nothing
     }
 

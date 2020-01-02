@@ -47,13 +47,17 @@ public class ApplicationPerformanceMonitorService {
             serviceInfo.setUrl(url);
             serviceInfoDAO.save(serviceInfo);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("When creating service info, exception occurred, " + e.toString());
         }
     }
 
     @PreDestroy
     public void preDestroy() {
-        serviceInfoDAO.deleteByServiceInfoId(BooEngineApplication.ENGINE_ID);
+        try {
+            serviceInfoDAO.deleteByServiceInfoId(BooEngineApplication.ENGINE_ID);
+        } catch (Exception e) {
+            log.error("When deleting service info, exception occurred, " + e.toString());
+        }
     }
 
     /**
@@ -96,7 +100,7 @@ public class ApplicationPerformanceMonitorService {
 
             log.debug(sb.toString());
         } catch (MalformedObjectNameException | InstanceNotFoundException | ReflectionException | NullPointerException e) {
-            e.printStackTrace();
+            log.error("When updating service info, exception occurred, " + e.toString());
         }
     }
 }

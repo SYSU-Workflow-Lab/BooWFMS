@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.engine.dao.impl;
 
 import cn.edu.sysu.workflow.common.entity.BinStep;
+import cn.edu.sysu.workflow.common.entity.exception.DAOException;
 import cn.edu.sysu.workflow.common.entity.jdbc.BooPreparedStatementSetter;
 import cn.edu.sysu.workflow.common.util.JdbcUtil;
 import cn.edu.sysu.workflow.engine.dao.BinStepDAO;
@@ -56,7 +57,7 @@ public class BinStepDAOImpl implements BinStepDAO {
             });
         } catch (Exception e) {
             log.error("[" + binStep.getBinStepId() + "]Error on creating bin step by binStepId.", e);
-            return 0;
+            throw new DAOException(e);
         }
     }
 
@@ -107,7 +108,7 @@ public class BinStepDAOImpl implements BinStepDAO {
             });
         } catch (Exception e) {
             log.error("[" + binStep.getBinStepId() + "]Error on updating bin step by binStepId.", e);
-            return 0;
+            throw new DAOException(e);
         }
     }
 
@@ -133,7 +134,7 @@ public class BinStepDAOImpl implements BinStepDAO {
             return null;
         } catch (Exception e) {
             log.error("[" + binStepId + "]Error on querying bin step by binStepId.", e);
-            return null;
+            throw new DAOException(e);
         }
     }
 
@@ -157,7 +158,7 @@ public class BinStepDAOImpl implements BinStepDAO {
             });
         } catch (Exception e) {
             log.error("[" + processInstanceId + "]Error on querying bin step list by processInstanceId.", e);
-            return null;
+            throw new DAOException(e);
         }
     }
 
@@ -168,7 +169,7 @@ public class BinStepDAOImpl implements BinStepDAO {
             return jdbcTemplate.update(sql, processInstanceId);
         } catch (Exception e) {
             log.error("[" + processInstanceId + "]Error on deleting bin step list by processInstanceId.", e);
-            return 0;
+            throw new DAOException(e);
         }
     }
 

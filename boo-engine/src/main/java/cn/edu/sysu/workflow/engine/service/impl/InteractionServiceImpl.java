@@ -1,5 +1,6 @@
 package cn.edu.sysu.workflow.engine.service.impl;
 
+import cn.edu.sysu.workflow.common.entity.exception.ServiceFailureException;
 import cn.edu.sysu.workflow.common.util.JsonUtil;
 import cn.edu.sysu.workflow.engine.core.BOXMLExecutionContext;
 import cn.edu.sysu.workflow.engine.core.BOXMLIOProcessor;
@@ -11,6 +12,7 @@ import cn.edu.sysu.workflow.engine.core.model.extend.MessageMode;
 import cn.edu.sysu.workflow.engine.service.InteractionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
@@ -20,6 +22,7 @@ import java.util.HashMap;
  * @author Rinkako, Skye
  * Created on 2020/1/2
  */
+@Service
 public class InteractionServiceImpl implements InteractionService {
 
     private static final Logger log = LoggerFactory.getLogger(InteractionServiceImpl.class);
@@ -48,7 +51,7 @@ public class InteractionServiceImpl implements InteractionService {
         } catch (Exception e) {
             log.error(String.format("[%s]Dispatch callback(BO:%s | ON:%s | EVT:%s | P:%s ), but exception occurred, %s",
                     processInstanceId, bo, on, event, payload, e));
-            throw e;
+            throw new ServiceFailureException(e);
         }
     }
 
@@ -76,7 +79,7 @@ public class InteractionServiceImpl implements InteractionService {
         } catch (Exception e) {
             log.warn(String.format("[%s]Dispatch callback(Notifiable:%s | ON:%s | EVT:%s | P:%s ), but exception occurred, %s",
                     processInstanceId, notifiableId, on, event, payload, e));
-            throw e;
+            throw new ServiceFailureException(e);
         }
     }
 }

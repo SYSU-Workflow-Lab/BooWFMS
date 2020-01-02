@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.engine.dao.impl;
 
 import cn.edu.sysu.workflow.common.entity.TaskItem;
+import cn.edu.sysu.workflow.common.entity.exception.DAOException;
 import cn.edu.sysu.workflow.common.entity.jdbc.BooPreparedStatementSetter;
 import cn.edu.sysu.workflow.common.util.JdbcUtil;
 import cn.edu.sysu.workflow.engine.dao.TaskItemDAO;
@@ -62,7 +63,7 @@ public class TaskItemDAOImpl implements TaskItemDAO {
             });
         } catch (Exception e) {
             log.error("[" + taskItem.getTaskItemId() + "]Error on creating task item by taskItemId.", e);
-            return 0;
+            throw new DAOException(e);
         }
     }
 }

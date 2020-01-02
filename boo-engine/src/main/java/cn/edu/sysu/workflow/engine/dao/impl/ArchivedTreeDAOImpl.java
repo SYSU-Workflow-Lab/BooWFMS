@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.engine.dao.impl;
 
 import cn.edu.sysu.workflow.common.entity.ArchivedTree;
+import cn.edu.sysu.workflow.common.entity.exception.DAOException;
 import cn.edu.sysu.workflow.common.entity.jdbc.BooPreparedStatementSetter;
 import cn.edu.sysu.workflow.common.util.JdbcUtil;
 import cn.edu.sysu.workflow.engine.dao.ArchivedTreeDAO;
@@ -47,7 +48,7 @@ public class ArchivedTreeDAOImpl implements ArchivedTreeDAO {
             });
         } catch (Exception e) {
             log.error("[" + archivedTree.getProcessInstanceId() + "]Error on creating archived tree by processInstanceId.", e);
-            return 0;
+            throw new DAOException(e);
         }
     }
 
@@ -68,7 +69,7 @@ public class ArchivedTreeDAOImpl implements ArchivedTreeDAO {
             return null;
         } catch (Exception e) {
             log.error("[" + processInstanceId + "]Error on querying archived tree by processInstanceId.", e);
-            return null;
+            throw new DAOException(e);
         }
     }
 

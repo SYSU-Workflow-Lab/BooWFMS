@@ -1,8 +1,9 @@
 package cn.edu.sysu.workflow.engine.service;
 
+import cn.edu.sysu.workflow.engine.core.model.ModelException;
 import cn.edu.sysu.workflow.engine.core.model.SCXML;
 
-import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 流程实例管理服务
@@ -17,7 +18,7 @@ public interface ProcessInstanceManagementService {
      *
      * @param processInstanceId
      */
-    void launchProcess(String processInstanceId);
+    void launchProcess(String processInstanceId) throws ModelException, Exception;
 
     /**
      * Serialize a list of BO by their id and return involved business role names.
@@ -25,7 +26,7 @@ public interface ProcessInstanceManagementService {
      * @param boIdList
      * @return
      */
-    HashSet<String> serializeBO(String boIdList);
+    Set<String> serializeBO(String boIdList) throws Exception;
 
     /**
      * Get a user-friendly descriptor of an instance tree.
@@ -42,6 +43,6 @@ public interface ProcessInstanceManagementService {
      * @param processInstanceId
      * @param processId
      */
-    void executeBO(SCXML scxml, String processInstanceId, String processId);
+    void executeBO(SCXML scxml, String processInstanceId, String processId) throws ModelException, Exception;
 
 }

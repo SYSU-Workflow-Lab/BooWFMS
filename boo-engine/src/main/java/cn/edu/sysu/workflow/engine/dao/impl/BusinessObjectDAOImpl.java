@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.engine.dao.impl;
 
 import cn.edu.sysu.workflow.common.entity.BusinessObject;
+import cn.edu.sysu.workflow.common.entity.exception.DAOException;
 import cn.edu.sysu.workflow.common.entity.jdbc.BooPreparedStatementSetter;
 import cn.edu.sysu.workflow.common.util.JdbcUtil;
 import cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO;
@@ -60,7 +61,7 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
             });
         } catch (Exception e) {
             log.error("[" + businessObject.getBusinessObjectId() + "]Error on creating business object by businessObjectId.", e);
-            return 0;
+            throw new DAOException(e);
         }
     }
 
@@ -127,7 +128,7 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
             });
         } catch (Exception e) {
             log.error("[" + businessObject.getBusinessObjectId() + "]Error on updating business object by businessObjectId.", e);
-            return 0;
+            throw new DAOException(e);
         }
     }
 
@@ -154,7 +155,7 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
             return null;
         } catch (Exception e) {
             log.error("[" + businessObjectId + "]Error on querying business object by businessObjectId.", e);
-            return null;
+            throw new DAOException(e);
         }
     }
 
@@ -182,7 +183,7 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
             return null;
         } catch (Exception e) {
             log.error("[" + processId + "]Error on querying business object list by processId.", e);
-            return null;
+            throw new DAOException(e);
         }
     }
 

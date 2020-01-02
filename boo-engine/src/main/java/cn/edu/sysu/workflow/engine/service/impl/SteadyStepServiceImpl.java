@@ -82,9 +82,9 @@ public class SteadyStepServiceImpl implements SteadyStepService {
                 binStepDAO.update(binStep);
             }
 
-        } catch (Exception ex) {
+        } catch (Exception e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error("[" + exctx.processInstanceId + "]Write service entity step to DB failed, save action rollback.");
+            log.error("[" + exctx.processInstanceId + "]Write service entity step to DB failed, save action rollback. " + e.toString());
         }
     }
 

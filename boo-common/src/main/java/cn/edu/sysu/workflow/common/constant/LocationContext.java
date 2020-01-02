@@ -9,12 +9,12 @@ public class LocationContext {
     /**
      * Service URL for BO Engine Serialization BO.
      */
-    public static final String URL_ENGINE_SERIALIZEBO = "/engine/serializeBO";
+    public static final String URL_ENGINE_START = "/engine/launchProcess";
 
     /**
      * Service URL for BO Engine Serialization BO.
      */
-    public static final String URL_ENGINE_START = "/engine/launchProcess";
+    public static final String URL_ENGINE_SERIALIZEBO = "/engine/serializeBO";
 
     /**
      * Service URL for BO Engine event callback.

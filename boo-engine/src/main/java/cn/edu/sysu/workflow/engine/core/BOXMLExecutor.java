@@ -1,5 +1,6 @@
 package cn.edu.sysu.workflow.engine.core;
 
+import cn.edu.sysu.workflow.common.entity.exception.ServiceFailureException;
 import cn.edu.sysu.workflow.engine.core.instanceTree.InstanceManager;
 import cn.edu.sysu.workflow.engine.core.instanceTree.RInstanceTree;
 import cn.edu.sysu.workflow.engine.core.instanceTree.RTreeNode;

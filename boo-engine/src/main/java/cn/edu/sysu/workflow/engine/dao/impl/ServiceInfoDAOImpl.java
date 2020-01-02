@@ -1,5 +1,6 @@
 package cn.edu.sysu.workflow.engine.dao.impl;
 
+import cn.edu.sysu.workflow.common.entity.exception.DAOException;
 import cn.edu.sysu.workflow.engine.dao.ServiceInfoDAO;
 import cn.edu.sysu.workflow.common.entity.ServiceInfo;
 import cn.edu.sysu.workflow.common.entity.jdbc.BooPreparedStatementSetter;
@@ -62,7 +63,7 @@ public class ServiceInfoDAOImpl implements ServiceInfoDAO {
             });
         } catch (Exception e) {
             log.error("[" + serviceInfo.getServiceInfoId() + "]Error on creating service info by serviceInfoId.", e);
-            return 0;
+            throw new DAOException(e);
         }
     }
 
@@ -136,7 +137,7 @@ public class ServiceInfoDAOImpl implements ServiceInfoDAO {
             });
         } catch (Exception e) {
             log.error("[" + serviceInfo.getServiceInfoId() + "]Error on updating service info by serviceInfoId.", e);
-            return 0;
+            throw new DAOException(e);
         }
     }
 
@@ -167,7 +168,7 @@ public class ServiceInfoDAOImpl implements ServiceInfoDAO {
             return null;
         } catch (Exception e) {
             log.error("[" + serviceInfoId + "]Error on querying service info by serviceInfoId.", e);
-            return null;
+            throw new DAOException(e);
         }
     }
 
@@ -178,7 +179,7 @@ public class ServiceInfoDAOImpl implements ServiceInfoDAO {
             return jdbcTemplate.update(sql, serviceInfoId);
         } catch (Exception e) {
             log.error("[" + serviceInfoId + "]Error on deleting service info by serviceInfoId.", e);
-            return 0;
+            throw new DAOException(e);
         }
     }
 
@@ -197,7 +198,7 @@ public class ServiceInfoDAOImpl implements ServiceInfoDAO {
             return null;
         } catch (Exception e) {
             log.error("[" + processInstanceId + "]Error on querying resource service url by processInstanceId.", e);
-            return null;
+            throw new DAOException(e);
         }
     }
 

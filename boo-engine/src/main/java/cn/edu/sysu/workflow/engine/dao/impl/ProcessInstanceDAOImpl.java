@@ -1,5 +1,6 @@
 package cn.edu.sysu.workflow.engine.dao.impl;
 
+import cn.edu.sysu.workflow.common.entity.exception.DAOException;
 import cn.edu.sysu.workflow.common.entity.jdbc.BooPreparedStatementSetter;
 import cn.edu.sysu.workflow.common.util.JdbcUtil;
 import cn.edu.sysu.workflow.engine.dao.ProcessInstanceDAO;
@@ -73,7 +74,7 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
             });
         } catch (Exception e) {
             log.error("[" + processInstance.getProcessInstanceId() + "]Error on creating process instance by processInstanceId.", e);
-            return 0;
+            throw new DAOException(e);
         }
     }
 
@@ -204,7 +205,7 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
             });
         } catch (Exception e) {
             log.error("[" + processInstance.getProcessInstanceId() + "]Error on updating process instance by processInstanceId.", e);
-            return 0;
+            throw new DAOException(e);
         }
     }
 
@@ -242,7 +243,7 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
             return null;
         } catch (Exception e) {
             log.error("[" + processInstanceId + "]Error on querying process instance by processInstanceId.", e);
-            return null;
+            throw new DAOException(e);
         }
     }
 

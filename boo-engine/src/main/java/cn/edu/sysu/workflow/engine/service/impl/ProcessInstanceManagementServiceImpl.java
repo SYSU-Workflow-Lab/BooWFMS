@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.engine.service.impl;
 
 import cn.edu.sysu.workflow.common.entity.*;
+import cn.edu.sysu.workflow.common.entity.exception.ServiceFailureException;
 import cn.edu.sysu.workflow.common.util.IdUtil;
 import cn.edu.sysu.workflow.common.util.JsonUtil;
 import cn.edu.sysu.workflow.engine.BooEngineApplication;
@@ -75,21 +76,21 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
             if (businessProcess == null) {
                 throw new RuntimeException("RenProcessEntity:" + processId + " is NULL!");
             }
-            String mainBO = businessProcess.getMainBusinessObjectName();
+            String mainBusinessObjectName = businessProcess.getMainBusinessObjectName();
             List<BusinessObject> boList = businessObjectDAO.findBusinessObjectsByProcessId(processId);
-            BusinessObject mainBoEntity = null;
+            BusinessObject mainBusinessObject = null;
             for (BusinessObject bo : boList) {
-                if (bo.getBusinessObjectName().equals(mainBO)) {
-                    mainBoEntity = bo;
+                if (bo.getBusinessObjectName().equals(mainBusinessObjectName)) {
+                    mainBusinessObject = bo;
                     break;
                 }
             }
             cmtFlag = true;
-            if (mainBoEntity == null) {
+            if (mainBusinessObject == null) {
                 log.error("[" + processInstanceId +"]Main BO not exist for launching process: " + processInstanceId);
                 return;
             }
-            byte[] serializedBO = mainBoEntity.getSerialization();
+            byte[] serializedBO = mainBusinessObject.getSerialization();
             SCXML deserializedBO = SerializationUtil.DeserializationSCXMLByByteArray(serializedBO);
             this.executeBO(deserializedBO, processInstanceId, processId);
         } catch (Exception e) {
@@ -97,14 +98,15 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             }
             log.error("[" + processInstanceId +"]When read bo by processInstanceId, exception occurred, " + e.toString() + ", service rollback");
+            throw new ServiceFailureException(e);
         }
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public HashSet<String> serializeBO(String boIdList) {
-        HashSet<String> retSet = new HashSet<>();
+    public Set<String> serializeBO(String boIdList) throws Exception {
         try {
+            Set<String> retSet = new HashSet<>();
             String[] boIdItems = boIdList.split(",");
             for (String boId : boIdItems) {
                 BusinessObject businessObject = businessObjectDAO.findOne(boId);
@@ -141,8 +143,8 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
         } catch (Exception e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             log.error("[" + boIdList +"]" + String.format("When serialize BOList(%s), exception occurred, %s, service rollback", boIdList, e));
+            throw new ServiceFailureException(e);
         }
-        return retSet;
     }
 
     @Override
@@ -167,7 +169,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
     }
 
     @Override
-    public void executeBO(SCXML scxml, String processInstanceId, String processId) {
+    public void executeBO(SCXML scxml, String processInstanceId, String processId) throws Exception {
         try {
             Evaluator evaluator = EvaluatorFactory.getEvaluator(scxml);
             BOXMLExecutor executor = new BOXMLExecutor(evaluator, new MultiStateMachineDispatcher(), new SimpleErrorReporter());
@@ -179,6 +181,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
             executor.go();
         } catch (Exception e) {
             log.error("[" + processInstanceId +"]When ExecuteBO, exception occurred, " + e.toString());
+            throw new ServiceFailureException(e);
         }
     }
 

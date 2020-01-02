@@ -18,7 +18,7 @@ public interface ProcessInstanceManagementService {
      *
      * @param processInstanceId
      */
-    void launchProcess(String processInstanceId) throws ModelException, Exception;
+    void launchProcess(String processInstanceId);
 
     /**
      * Serialize a list of BO by their id and return involved business role names.
@@ -26,7 +26,7 @@ public interface ProcessInstanceManagementService {
      * @param boIdList
      * @return
      */
-    Set<String> serializeBO(String boIdList) throws Exception;
+    Set<String> serializeBO(String boIdList);
 
     /**
      * Get a user-friendly descriptor of an instance tree.
@@ -43,6 +43,6 @@ public interface ProcessInstanceManagementService {
      * @param processInstanceId
      * @param processId
      */
-    void executeBO(SCXML scxml, String processInstanceId, String processId) throws ModelException, Exception;
+    void executeBO(SCXML scxml, String processInstanceId, String processId);
 
 }

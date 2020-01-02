@@ -46,7 +46,7 @@ public class EngineController {
      * @return booReturnForm
      */
     @RequestMapping(value = "/launchProcess", produces = {"application/json"})
-    public BooReturnForm launchProcess(@RequestParam(value = "processInstanceId", required = false) String processInstanceId) throws Exception {
+    public BooReturnForm launchProcess(@RequestParam(value = "processInstanceId", required = false) String processInstanceId) {
         // miss params
         List<String> missingParams = new ArrayList<>();
         if (StringUtils.isEmpty(processInstanceId)) {
@@ -72,7 +72,7 @@ public class EngineController {
      * @return booReturnForm
      */
     @RequestMapping(value = "/serializeBO", produces = {"application/json"})
-    public BooReturnForm serializeBO(@RequestParam(value = "boIdList", required = false) String boIdList) throws Exception {
+    public BooReturnForm serializeBO(@RequestParam(value = "boIdList", required = false) String boIdList) {
         // miss params
         List<String> missingParams = new ArrayList<>();
         if (StringUtils.isEmpty(boIdList)) {
@@ -166,6 +166,7 @@ public class EngineController {
         // logic
         HashMap<String, List<String>> data = new HashMap<>();
         data.put("failed", steadyStepService.resumeSteadyMany(processInstanceIdList));
+
         // return
         BooReturnForm booReturnForm = new BooReturnForm();
         booReturnForm.setMessage("resume many successful");

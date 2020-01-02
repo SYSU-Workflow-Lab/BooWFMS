@@ -35,6 +35,5 @@ public class GlobalExceptionHandler {
         booReturnForm.setMessage(e.toString());
         return booReturnForm;
     }
-
-
+    
 }

@@ -104,7 +104,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Set<String> serializeBO(String boIdList) throws Exception {
+    public Set<String> serializeBO(String boIdList) {
         try {
             Set<String> retSet = new HashSet<>();
             String[] boIdItems = boIdList.split(",");
@@ -169,7 +169,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
     }
 
     @Override
-    public void executeBO(SCXML scxml, String processInstanceId, String processId) throws Exception {
+    public void executeBO(SCXML scxml, String processInstanceId, String processId) {
         try {
             Evaluator evaluator = EvaluatorFactory.getEvaluator(scxml);
             BOXMLExecutor executor = new BOXMLExecutor(evaluator, new MultiStateMachineDispatcher(), new SimpleErrorReporter());

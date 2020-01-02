@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 02/01/2020 10:57:29
+ Date: 02/01/2020 11:12:14
 */
 
 SET NAMES utf8mb4;
@@ -138,6 +138,8 @@ CREATE TABLE `boo_task_item`  (
   `hook_descriptor` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'post hooks like onOffer in descriptor json string',
   `documentation` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `parameters` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '参数(JSON)',
+  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
+  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
   PRIMARY KEY (`task_item_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 

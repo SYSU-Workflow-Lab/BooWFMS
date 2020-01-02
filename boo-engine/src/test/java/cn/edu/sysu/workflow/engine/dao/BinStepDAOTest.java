@@ -4,6 +4,7 @@ import cn.edu.sysu.workflow.common.entity.BinStep;
 import cn.edu.sysu.workflow.common.util.IdUtil;
 import cn.edu.sysu.workflow.engine.BooEngineApplication;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,36 +29,34 @@ public class BinStepDAOTest {
     @Autowired
     private BinStepDAO binStepDAO;
 
+    private BinStep binStep;
+
+    @Before
+    public void setUp() {
+        this.binStep = new BinStep();
+        this.binStep.setBinStepId("test-bs-" + IdUtil.nextId());
+        this.binStep.setProcessInstanceId("processInstanceId");
+        this.binStep.setParentId("parentId");
+        this.binStep.setNotificationId("notificationId");
+        this.binStep.setBinlog(new byte[]{1, 0, 1});
+    }
+
     /**
      * Test CRUD
      */
     @Test
     @Transactional
     public void test1() {
-        String binStepId = "test-bs-" + IdUtil.nextId();
-        String processInstanceId = "processInstanceId";
-        String parentId = "parentId";
-        String notificationId = "notificationId";
-        byte[] binlog = new byte[]{1, 0, 1};
-
-        BinStep binStep = new BinStep();
-        binStep.setBinStepId(binStepId);
-        binStep.setProcessInstanceId(processInstanceId);
-        binStep.setParentId(parentId);
-        binStep.setNotificationId(notificationId);
-        binStep.setBinlog(binlog);
-
         // save
         Assert.assertEquals(1, binStepDAO.save(binStep));
         // findOne
-        Assert.assertEquals(binStep, binStepDAO.findOne(binStepId));
+        Assert.assertEquals(binStep, binStepDAO.findOne(binStep.getBinStepId()));
 
         // update
-        binlog = new byte[]{0, 1, 0};
-        binStep.setBinlog(binlog);
+        binStep.setBinlog(new byte[]{0, 1, 0});
         Assert.assertEquals(1, binStepDAO.update(binStep));
         // findOne
-        Assert.assertEquals(binStep, binStepDAO.findOne(binStepId));
+        Assert.assertEquals(binStep, binStepDAO.findOne(binStep.getBinStepId()));
 
     }
 
@@ -67,25 +66,15 @@ public class BinStepDAOTest {
     @Test
     @Transactional
     public void test2() {
-        String binStepId1 = "test-bs-" + IdUtil.nextId();
-        String binStepId2 = "test-bs-" + IdUtil.nextId();
-        String processInstanceId = "processInstanceId";
-        String parentId = "parentId";
-        String notificationId = "notificationId";
-        byte[] binlog = new byte[]{1, 0, 1};
-
-        BinStep binStep = new BinStep();
-        binStep.setBinStepId(binStepId1);
-        binStep.setProcessInstanceId(processInstanceId);
-        binStep.setParentId(parentId);
-        binStep.setNotificationId(notificationId);
-        binStep.setBinlog(binlog);
-
-        Assert.assertEquals(1, binStepDAO.save(binStep));
-        binStep.setBinStepId(binStepId2);
+        // save
         Assert.assertEquals(1, binStepDAO.save(binStep));
 
-        Assert.assertEquals(binStep, binStepDAO.findBinStepsByProcessInstanceId(processInstanceId).get(1));
+        // save
+        binStep.setBinStepId("test-bs-" + IdUtil.nextId());
+        Assert.assertEquals(1, binStepDAO.save(binStep));
+
+        // findBinStepsByProcessInstanceId
+        Assert.assertEquals(binStep, binStepDAO.findBinStepsByProcessInstanceId(binStep.getProcessInstanceId()).get(1));
     }
 
     /**
@@ -94,28 +83,18 @@ public class BinStepDAOTest {
     @Test
     @Transactional
     public void test3() {
-
-        String binStepId1 = "test-bs-" + IdUtil.nextId();
-        String binStepId2 = "test-bs-" + IdUtil.nextId();
-        String processInstanceId = "processInstanceId";
-        String parentId = "parentId";
-        String notificationId = "notificationId";
-        byte[] binlog = new byte[]{1, 0, 1};
-
-        BinStep binStep = new BinStep();
-        binStep.setBinStepId(binStepId1);
-        binStep.setProcessInstanceId(processInstanceId);
-        binStep.setParentId(parentId);
-        binStep.setNotificationId(notificationId);
-        binStep.setBinlog(binlog);
-
-        Assert.assertEquals(1, binStepDAO.save(binStep));
-        binStep.setBinStepId(binStepId2);
+        // save
         Assert.assertEquals(1, binStepDAO.save(binStep));
 
-        Assert.assertEquals(2, binStepDAO.deleteByProcessInstanceId(processInstanceId));
-        Assert.assertNull(binStepDAO.findOne(binStepId1));
-        Assert.assertNull(binStepDAO.findOne(binStepId2));
+        // save
+        binStep.setBinStepId("test-bs-" + IdUtil.nextId());
+        Assert.assertEquals(1, binStepDAO.save(binStep));
+
+        // deleteByProcessInstanceId
+        Assert.assertEquals(2, binStepDAO.deleteByProcessInstanceId(binStep.getProcessInstanceId()));
+
+        // deleteByProcessInstanceId
+        Assert.assertEquals(0, binStepDAO.findBinStepsByProcessInstanceId(binStep.getProcessInstanceId()).size());
     }
 
 }

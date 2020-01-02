@@ -5,6 +5,7 @@ import cn.edu.sysu.workflow.common.util.IdUtil;
 import cn.edu.sysu.workflow.engine.BooEngineApplication;
 import cn.edu.sysu.workflow.common.entity.ServiceInfo;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,38 +31,42 @@ public class ServiceInfoDAOTest {
     @Autowired
     private ProcessInstanceDAO processInstanceDAO;
 
+    private ServiceInfo serviceInfo;
+
+    @Before
+    public void setUp() {
+        this.serviceInfo = new ServiceInfo();
+        this.serviceInfo.setServiceInfoId("test-resource-" + IdUtil.nextId());
+        this.serviceInfo.setUrl("https://test.com");
+        this.serviceInfo.setActive(true);
+        this.serviceInfo.setBusiness(1.0);
+        this.serviceInfo.setCpuOccupancyRate(2.0);
+        this.serviceInfo.setMemoryOccupancyRate(3.0);
+        this.serviceInfo.setTomcatConcurrency(4.0);
+        this.serviceInfo.setWorkItemCount(5.0);
+    }
+
     /**
      * Test CRU
      */
     @Test
     @Transactional
     public void test1() {
-        String serviceInfoId = "test-engine-" + IdUtil.nextId();
-        ServiceInfo serviceInfo = new ServiceInfo();
-        serviceInfo.setServiceInfoId(serviceInfoId);
-        serviceInfo.setUrl("https://test.com");
-        serviceInfo.setActive(true);
-        serviceInfo.setBusiness(1.0);
-        serviceInfo.setCpuOccupancyRate(2.0);
-        serviceInfo.setMemoryOccupancyRate(3.0);
-        serviceInfo.setTomcatConcurrency(4.0);
-        serviceInfo.setWorkItemCount(5.0);
-
         // save
         Assert.assertEquals(1, serviceInfoDAO.save(serviceInfo));
         // findOne
-        Assert.assertTrue(serviceInfoDAO.findOne(serviceInfoId).isActive());
+        Assert.assertTrue(serviceInfoDAO.findOne(serviceInfo.getServiceInfoId()).isActive());
 
         // update
         serviceInfo.setActive(false);
         Assert.assertEquals(1, serviceInfoDAO.update(serviceInfo));
         // findOne
-        Assert.assertFalse(serviceInfoDAO.findOne(serviceInfoId).isActive());
+        Assert.assertFalse(serviceInfoDAO.findOne(serviceInfo.getServiceInfoId()).isActive());
 
         // delete
-        Assert.assertEquals(1, serviceInfoDAO.deleteByServiceInfoId(serviceInfoId));
+        Assert.assertEquals(1, serviceInfoDAO.deleteByServiceInfoId(serviceInfo.getServiceInfoId()));
         // findOne
-        Assert.assertNull(serviceInfoDAO.findOne(serviceInfoId));
+        Assert.assertNull(serviceInfoDAO.findOne(serviceInfo.getServiceInfoId()));
     }
 
     /**
@@ -71,19 +76,16 @@ public class ServiceInfoDAOTest {
     @Transactional
     public void test2() {
         String processInstanceId = "test-pi-" + IdUtil.nextId();
-        String resourceServiceId = "test-ri-123";
-        String resourceServiceUrl = "http://test.ri.com";
-
+        String resourceServiceId = serviceInfo.getServiceInfoId();
         ProcessInstance processInstance = new ProcessInstance();
         processInstance.setProcessInstanceId(processInstanceId);
         processInstance.setResourceServiceId(resourceServiceId);
-        processInstanceDAO.save(processInstance);
 
-        ServiceInfo serviceInfo = new ServiceInfo();
-        serviceInfo.setServiceInfoId(resourceServiceId);
-        serviceInfo.setUrl(resourceServiceUrl);
-        serviceInfoDAO.save(serviceInfo);
+        // save
+        Assert.assertEquals(1, processInstanceDAO.save(processInstance));
+        Assert.assertEquals(1, serviceInfoDAO.save(serviceInfo));
 
-        Assert.assertEquals(resourceServiceUrl, serviceInfoDAO.findResourceServiceUrlByProcessInstanceId(processInstanceId));
+        // findResourceServiceUrlByProcessInstanceId
+        Assert.assertEquals(serviceInfo.getUrl(), serviceInfoDAO.findResourceServiceUrlByProcessInstanceId(processInstanceId));
     }
 }

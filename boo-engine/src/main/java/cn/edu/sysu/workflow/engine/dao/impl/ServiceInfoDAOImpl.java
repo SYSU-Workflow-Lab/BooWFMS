@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 /**
- * {@link cn.edu.sysu.workflow.engine.dao.ServiceInfoDAO}
+ * {@link ServiceInfoDAO}
  *
  * @author Skye
  * Created on 2019/12/26

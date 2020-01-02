@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 /**
- * {@link cn.edu.sysu.workflow.engine.dao.ArchivedTreeDAO}
+ * {@link ArchivedTreeDAO}
  *
  * @author Skye
  * Created on 2019/12/31

@@ -34,7 +34,7 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
- * {@link cn.edu.sysu.workflow.engine.service.ProcessInstanceManagementService}
+ * {@link ProcessInstanceManagementService}
  *
  * @author Ariana, Rinkako, Skye
  * Created on 2019/12/31

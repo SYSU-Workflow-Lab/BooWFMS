@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 /**
- * {@link cn.edu.sysu.workflow.engine.dao.BusinessProcessDAO}
+ * {@link BusinessProcessDAO}
  *
  * @author Skye
  * Created on 2020/1/1

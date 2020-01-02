@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 
 /**
- * {@link cn.edu.sysu.workflow.engine.dao.BusinessProcessDAO}
+ * {@link BusinessProcessDAO}
  *
  * @author Skye
  * Created on 2020/1/1

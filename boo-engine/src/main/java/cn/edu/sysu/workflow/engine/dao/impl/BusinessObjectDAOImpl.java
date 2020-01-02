@@ -20,7 +20,7 @@ import java.sql.Types;
 import java.util.List;
 
 /**
- * {@link cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO}
+ * {@link BusinessObjectDAO}
  *
  * @author Skye
  * Created on 2019/12/31

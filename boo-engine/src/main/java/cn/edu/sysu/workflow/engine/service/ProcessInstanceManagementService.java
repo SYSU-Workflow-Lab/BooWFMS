@@ -7,7 +7,7 @@ import java.util.HashSet;
 /**
  * 流程实例管理服务
  *
- * @author Skye
+ * @author Ariana, Rinkako, Skye
  * Created on 2019/12/31
  */
 public interface ProcessInstanceManagementService {

@@ -3,7 +3,7 @@ package cn.edu.sysu.workflow.common.util;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
- * @author Skye
+ * @author Rinkako, Skye
  * Created on 2019/9/19
  */
 public final class EncryptUtil {

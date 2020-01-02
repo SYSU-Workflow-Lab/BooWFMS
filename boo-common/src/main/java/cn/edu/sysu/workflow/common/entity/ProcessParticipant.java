@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * BusinessProcess Participant of BooWFMS.
  *
- * @author Skye
+ * @author Rinkako, Skye
  * Created on 2019/12/24
  */
 public class ProcessParticipant extends BooPagedQuery {

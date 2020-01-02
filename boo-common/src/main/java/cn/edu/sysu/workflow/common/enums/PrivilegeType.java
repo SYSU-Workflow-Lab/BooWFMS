@@ -3,7 +3,7 @@ package cn.edu.sysu.workflow.common.enums;
 /**
  * Enum for participant privileges.
  *
- * @author Skye
+ * @author Rinkako, Skye
  * Created on 2019/12/25
  */
 public enum PrivilegeType {

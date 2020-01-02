@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * WorkItem of BooWFMS.
  *
- * @author Skye
+ * @author Rinkako, Skye
  * Created on 2019/12/18
  */
 public class WorkItem extends BooPagedQuery {

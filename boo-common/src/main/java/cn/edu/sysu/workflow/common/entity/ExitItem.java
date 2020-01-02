@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * ExitItem of BooWFMS.
  *
- * @author Skye
+ * @author Rinkako, Skye
  * Created on 2019/12/18
  */
 public class ExitItem extends BooPagedQuery {

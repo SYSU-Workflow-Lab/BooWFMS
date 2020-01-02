@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Role Map of BooWFMS.
  *
- * @author Skye
+ * @author Rinkako, Skye
  * Created on 2019/12/24
  */
 public class RoleMap extends BooPagedQuery {

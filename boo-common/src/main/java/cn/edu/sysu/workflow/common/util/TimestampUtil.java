@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @author Skye
+ * @author Rinkako, Skye
  * Created on 2019/9/19
  */
 public final class TimestampUtil {

@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * TaskItem (deserialize from model) of BooWFMS.
  *
- * @author Skye
+ * @author Rinkako, Skye
  * Created on 2019/12/24
  */
 public class TaskItem extends BooPagedQuery {
@@ -26,14 +26,14 @@ public class TaskItem extends BooPagedQuery {
     private String businessObjectId;
 
     /**
-     * 来源任务的模型名
-     */
-    private String taskPolymorphismName;
-
-    /**
      * 来源任务的模型ID
      */
     private String taskPolymorphismId;
+
+    /**
+     * 来源任务的模型名
+     */
+    private String taskPolymorphismName;
 
     /**
      * 涉及业务角色
@@ -46,12 +46,12 @@ public class TaskItem extends BooPagedQuery {
     private String principle;
 
     /**
-     * TODO
+     * TODO event name like eventSuccess in descriptor json string
      */
     private String eventDescriptor;
 
     /**
-     * TODO
+     * TODO post hooks like onOffer in descriptor json string
      */
     private String hookDescriptor;
 
@@ -61,7 +61,7 @@ public class TaskItem extends BooPagedQuery {
     private String documentation;
 
     /**
-     * 参数
+     * 参数(JSON)
      */
     private String parameters;
 
@@ -85,20 +85,20 @@ public class TaskItem extends BooPagedQuery {
         this.businessObjectId = businessObjectId;
     }
 
-    public String getTaskPolymorphismName() {
-        return taskPolymorphismName;
-    }
-
-    public void setTaskPolymorphismName(String taskPolymorphismName) {
-        this.taskPolymorphismName = taskPolymorphismName;
-    }
-
     public String getTaskPolymorphismId() {
         return taskPolymorphismId;
     }
 
     public void setTaskPolymorphismId(String taskPolymorphismId) {
         this.taskPolymorphismId = taskPolymorphismId;
+    }
+
+    public String getTaskPolymorphismName() {
+        return taskPolymorphismName;
+    }
+
+    public void setTaskPolymorphismName(String taskPolymorphismName) {
+        this.taskPolymorphismName = taskPolymorphismName;
     }
 
     public String getBusinessRole() {
@@ -160,8 +160,8 @@ public class TaskItem extends BooPagedQuery {
         TaskItem taskItem = (TaskItem) o;
         return Objects.equals(taskItemId, taskItem.taskItemId) &&
                 Objects.equals(businessObjectId, taskItem.businessObjectId) &&
-                Objects.equals(taskPolymorphismName, taskItem.taskPolymorphismName) &&
                 Objects.equals(taskPolymorphismId, taskItem.taskPolymorphismId) &&
+                Objects.equals(taskPolymorphismName, taskItem.taskPolymorphismName) &&
                 Objects.equals(businessRole, taskItem.businessRole) &&
                 Objects.equals(principle, taskItem.principle) &&
                 Objects.equals(eventDescriptor, taskItem.eventDescriptor) &&
@@ -172,6 +172,6 @@ public class TaskItem extends BooPagedQuery {
 
     @Override
     public int hashCode() {
-        return Objects.hash(taskItemId, businessObjectId, taskPolymorphismName, taskPolymorphismId, businessRole, principle, eventDescriptor, hookDescriptor, documentation, parameters);
+        return Objects.hash(taskItemId, businessObjectId, taskPolymorphismId, taskPolymorphismName, businessRole, principle, eventDescriptor, hookDescriptor, documentation, parameters);
     }
 }

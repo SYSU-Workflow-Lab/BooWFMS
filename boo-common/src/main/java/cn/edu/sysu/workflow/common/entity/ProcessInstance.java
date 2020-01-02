@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Business BusinessProcess Instance of BooWFMS.
  *
- * @author Skye
+ * @author Rinkako, Skye
  * Created on 2019/12/18
  */
 public class ProcessInstance extends BooPagedQuery {

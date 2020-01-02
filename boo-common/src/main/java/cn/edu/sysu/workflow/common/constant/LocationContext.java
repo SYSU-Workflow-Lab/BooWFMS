@@ -1,7 +1,7 @@
 package cn.edu.sysu.workflow.common.constant;
 
 /**
- * @author Skye
+ * @author Rinkako, Skye
  * Created on 2019/12/18
  */
 public class LocationContext {

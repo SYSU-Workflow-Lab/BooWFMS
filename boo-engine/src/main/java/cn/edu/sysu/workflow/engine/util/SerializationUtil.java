@@ -2,7 +2,6 @@ package cn.edu.sysu.workflow.engine.util;
 
 import cn.edu.sysu.workflow.engine.core.BOInstance;
 import cn.edu.sysu.workflow.engine.core.model.SCXML;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- * @author Skye
+ * @author Rinkako, Skye
  * Created on 2019/12/29
  */
 public final class SerializationUtil {

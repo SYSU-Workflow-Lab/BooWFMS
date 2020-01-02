@@ -9,7 +9,7 @@ import java.util.Objects;
  * BinStep of BooWFMS.
  * 流程实例单步数据快照。
  *
- * @author Skye
+ * @author Rinkako, Skye
  * Created on 2019/12/18
  */
 public class BinStep extends BooPagedQuery {

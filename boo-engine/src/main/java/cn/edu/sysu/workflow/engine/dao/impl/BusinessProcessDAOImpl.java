@@ -35,7 +35,7 @@ public class BusinessProcessDAOImpl implements BusinessProcessDAO {
     @Override
     public int save(BusinessProcess businessProcess) {
         String sql = "INSERT INTO boo_business_process " +
-                "(business_process_id, business_process_name, main_business_object_Id, creator_id, launch_count, " +
+                "(business_process_id, business_process_name, main_business_object_name, creator_id, launch_count, " +
                 "success_count, average_cost, status, last_launch_timestamp, create_timestamp, last_update_timestamp) " +
                 "VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
         try {
@@ -46,8 +46,8 @@ public class BusinessProcessDAOImpl implements BusinessProcessDAO {
                     JdbcUtil.preparedStatementSetter(ps, index(), businessProcess.getBusinessProcessId(), Types.VARCHAR);
                     // businessProcessName
                     JdbcUtil.preparedStatementSetter(ps, index(), businessProcess.getBusinessProcessName(), Types.VARCHAR);
-                    // mainBusinessObjectId
-                    JdbcUtil.preparedStatementSetter(ps, index(), businessProcess.getMainBusinessObjectId(), Types.VARCHAR);
+                    // mainBusinessObjectName
+                    JdbcUtil.preparedStatementSetter(ps, index(), businessProcess.getMainBusinessObjectName(), Types.VARCHAR);
                     // creatorId
                     JdbcUtil.preparedStatementSetter(ps, index(), businessProcess.getCreatorId(), Types.VARCHAR);
                     // launchCount
@@ -75,9 +75,9 @@ public class BusinessProcessDAOImpl implements BusinessProcessDAO {
         if (!StringUtils.isEmpty(businessProcess.getBusinessProcessName())) {
             sql += ", business_process_name = ?";
         }
-        // mainBusinessObjectId
-        if (!StringUtils.isEmpty(businessProcess.getMainBusinessObjectId())) {
-            sql += ", main_business_object_id = ?";
+        // mainBusinessObjectName
+        if (!StringUtils.isEmpty(businessProcess.getMainBusinessObjectName())) {
+            sql += ", main_business_object_name = ?";
         }
         // creatorId
         if (!StringUtils.isEmpty(businessProcess.getCreatorId())) {
@@ -113,9 +113,9 @@ public class BusinessProcessDAOImpl implements BusinessProcessDAO {
                     if (!StringUtils.isEmpty(businessProcess.getBusinessProcessName())) {
                         JdbcUtil.preparedStatementSetter(ps, index(), businessProcess.getBusinessProcessName(), Types.VARCHAR);
                     }
-                    // mainBusinessObjectId
-                    if (!StringUtils.isEmpty(businessProcess.getMainBusinessObjectId())) {
-                        JdbcUtil.preparedStatementSetter(ps, index(), businessProcess.getMainBusinessObjectId(), Types.VARCHAR);
+                    // mainBusinessObjectName
+                    if (!StringUtils.isEmpty(businessProcess.getMainBusinessObjectName())) {
+                        JdbcUtil.preparedStatementSetter(ps, index(), businessProcess.getMainBusinessObjectName(), Types.VARCHAR);
                     }
                     // creatorId
                     if (!StringUtils.isEmpty(businessProcess.getCreatorId())) {
@@ -152,7 +152,7 @@ public class BusinessProcessDAOImpl implements BusinessProcessDAO {
 
     @Override
     public BusinessProcess findOne(String businessProcessId) {
-        String sql = "SELECT business_process_id, business_process_name, main_business_object_Id, creator_id, " +
+        String sql = "SELECT business_process_id, business_process_name, main_business_object_name, creator_id, " +
                 "launch_count, success_count, average_cost, status, last_launch_timestamp " +
                 "FROM boo_business_process " +
                 "WHERE business_process_id = ?";
@@ -163,7 +163,7 @@ public class BusinessProcessDAOImpl implements BusinessProcessDAO {
                     BusinessProcess businessProcess = new BusinessProcess();
                     businessProcess.setBusinessProcessId(resultSet.getString("business_process_id"));
                     businessProcess.setBusinessProcessName(resultSet.getString("business_process_name"));
-                    businessProcess.setMainBusinessObjectId(resultSet.getString("main_business_object_id"));
+                    businessProcess.setMainBusinessObjectName(resultSet.getString("main_business_object_name"));
                     businessProcess.setCreatorId(resultSet.getString("creator_id"));
                     businessProcess.setLaunchCount(resultSet.getInt("launch_count"));
                     businessProcess.setSuccessCount(resultSet.getInt("success_count"));

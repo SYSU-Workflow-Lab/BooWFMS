@@ -16,7 +16,7 @@ public interface BusinessProcessDAO {
      * @param businessProcess <ul>
      *                        <li>businessProcessId</li>
      *                        <li>businessProcessName</li>
-     *                        <li>mainBusinessObjectId</li>
+     *                        <li>mainBusinessObjectName</li>
      *                        <li>creatorId</li>
      *                        <li>launchCount</li>
      *                        <li>successCount</li>
@@ -34,7 +34,7 @@ public interface BusinessProcessDAO {
      * @param businessProcess <ul>
      *                        <li>businessProcessId</li>
      *                        <li>businessProcessName</li>
-     *                        <li>mainBusinessObjectId</li>
+     *                        <li>mainBusinessObjectName</li>
      *                        <li>creatorId</li>
      *                        <li>launchCount</li>
      *                        <li>successCount</li>

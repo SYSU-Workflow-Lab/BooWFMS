@@ -27,9 +27,9 @@ public class BusinessProcess extends BooPagedQuery {
     private String businessProcessName;
 
     /**
-     * 主业务对象ID
+     * 主业务对象名称
      */
-    private String mainBusinessObjectId;
+    private String mainBusinessObjectName;
 
     /**
      * 创建者ID
@@ -82,12 +82,12 @@ public class BusinessProcess extends BooPagedQuery {
         this.businessProcessName = businessProcessName;
     }
 
-    public String getMainBusinessObjectId() {
-        return mainBusinessObjectId;
+    public String getMainBusinessObjectName() {
+        return mainBusinessObjectName;
     }
 
-    public void setMainBusinessObjectId(String mainBusinessObjectId) {
-        this.mainBusinessObjectId = mainBusinessObjectId;
+    public void setMainBusinessObjectName(String mainBusinessObjectName) {
+        this.mainBusinessObjectName = mainBusinessObjectName;
     }
 
     public String getCreatorId() {
@@ -149,7 +149,7 @@ public class BusinessProcess extends BooPagedQuery {
         BusinessProcess that = (BusinessProcess) o;
         return Objects.equals(businessProcessId, that.businessProcessId) &&
                 Objects.equals(businessProcessName, that.businessProcessName) &&
-                Objects.equals(mainBusinessObjectId, that.mainBusinessObjectId) &&
+                Objects.equals(mainBusinessObjectName, that.mainBusinessObjectName) &&
                 Objects.equals(creatorId, that.creatorId) &&
                 Objects.equals(launchCount, that.launchCount) &&
                 Objects.equals(successCount, that.successCount) &&
@@ -160,6 +160,6 @@ public class BusinessProcess extends BooPagedQuery {
 
     @Override
     public int hashCode() {
-        return Objects.hash(businessProcessId, businessProcessName, mainBusinessObjectId, creatorId, launchCount, successCount, averageCost, status, lastLaunchTimestamp);
+        return Objects.hash(businessProcessId, businessProcessName, mainBusinessObjectName, creatorId, launchCount, successCount, averageCost, status, lastLaunchTimestamp);
     }
 }

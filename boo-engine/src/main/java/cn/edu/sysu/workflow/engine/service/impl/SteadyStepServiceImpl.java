@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 @Service
 public class SteadyStepServiceImpl implements SteadyStepService {
 
-    private static final Logger log = LoggerFactory.getLogger(SteadyStepService.class);
+    private static final Logger log = LoggerFactory.getLogger(SteadyStepServiceImpl.class);
 
     @Autowired
     private ProcessInstanceManagementService processInstanceManagementService;

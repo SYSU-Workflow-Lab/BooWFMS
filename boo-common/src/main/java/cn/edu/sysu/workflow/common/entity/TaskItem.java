@@ -46,17 +46,17 @@ public class TaskItem extends BooPagedQuery {
     private String principle;
 
     /**
-     * TODO event name like eventSuccess in descriptor json string
+     * event name like eventSuccess in descriptor json string
      */
     private String eventDescriptor;
 
     /**
-     * TODO post hooks like onOffer in descriptor json string
+     * post hooks like onOffer in descriptor json string
      */
     private String hookDescriptor;
 
     /**
-     * TODO
+     * documentation
      */
     private String documentation;
 

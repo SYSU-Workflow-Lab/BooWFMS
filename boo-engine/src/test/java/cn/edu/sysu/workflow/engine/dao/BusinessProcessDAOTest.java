@@ -36,7 +36,7 @@ public class BusinessProcessDAOTest {
         this.businessProcess = new BusinessProcess();
         this.businessProcess.setBusinessProcessId("test-bp-" + IdUtil.nextId());
         this.businessProcess.setBusinessProcessName("businessProcessName");
-        this.businessProcess.setMainBusinessObjectId("mainBusinessObjectId");
+        this.businessProcess.setMainBusinessObjectName("mainBusinessObjectId");
         this.businessProcess.setCreatorId("creatorId");
         this.businessProcess.setLaunchCount(0);
         this.businessProcess.setSuccessCount(1);

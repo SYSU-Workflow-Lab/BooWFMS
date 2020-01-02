@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 02/01/2020 11:12:14
+ Date: 02/01/2020 12:09:50
 */
 
 SET NAMES utf8mb4;
@@ -68,7 +68,7 @@ DROP TABLE IF EXISTS `boo_business_process`;
 CREATE TABLE `boo_business_process`  (
   `business_process_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务流程ID',
   `business_process_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务流程名称',
-  `main_business_object_Id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主业务对象ID',
+  `main_business_object_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主业务对象名称',
   `creator_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者ID',
   `launch_count` int(11) NOT NULL COMMENT '启动次数',
   `success_count` int(11) NOT NULL COMMENT '成功完成次数',

@@ -43,7 +43,6 @@ public class ArchivedTreeDAOImpl implements ArchivedTreeDAO {
                     JdbcUtil.preparedStatementSetter(ps, index(), archivedTree.getProcessInstanceId(), Types.VARCHAR);
                     // tree
                     JdbcUtil.preparedStatementSetter(ps, index(), archivedTree.getTree(), Types.VARCHAR);
-
                 }
             });
         } catch (Exception e) {

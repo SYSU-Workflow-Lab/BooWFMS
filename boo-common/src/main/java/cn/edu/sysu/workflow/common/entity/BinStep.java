@@ -28,12 +28,12 @@ public class BinStep extends BooPagedQuery {
     private String processInstanceId;
 
     /**
-     * TODO 父节点ID
+     * 父节点ID
      */
     private String parentId;
 
     /**
-     * TODO 通知ID
+     * 通知ID
      */
     private String notificationId;
 

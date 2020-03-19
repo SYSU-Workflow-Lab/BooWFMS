@@ -41,7 +41,7 @@ public class TaskItem extends BooPagedQuery {
     private String businessRole;
 
     /**
-     * TODO
+     * TODO Task resourcing principle.
      */
     private String principle;
 

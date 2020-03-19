@@ -22,7 +22,7 @@ public interface ArchivedTreeDAO {
     int save(ArchivedTree archivedTree);
 
     /**
-     * 根据流程实例Id查找ArchivedTree数据库处理数据
+     * 根据流程实例Id查找ArchivedTree
      *
      * @param processInstanceId
      * @return

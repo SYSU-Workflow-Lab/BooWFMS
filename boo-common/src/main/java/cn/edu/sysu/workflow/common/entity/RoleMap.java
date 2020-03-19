@@ -36,7 +36,7 @@ public class RoleMap extends BooPagedQuery {
     private String organizationId;
 
     /**
-     * TODO
+     * TODO 映射用户账户ID
      */
     private String mappedId;
 

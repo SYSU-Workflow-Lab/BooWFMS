@@ -41,7 +41,7 @@ public class CrowdSourcingTest {
     @Transactional
     public void test1() throws Exception {
         String processInstanceId = "test-pi-" + IdUtil.nextId();
-        URL url = SCXMLTestHelper.getResource("Request.xml");
+        URL url = BOXMLTestHelper.getResource("Request.xml");
         SCXML scxml = new BOXMLReader().read(url);
         Evaluator evaluator = new JexlEvaluator();
         EventDispatcher dispatcher = new MultiStateMachineDispatcher();

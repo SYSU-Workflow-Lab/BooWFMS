@@ -108,7 +108,7 @@ public class WorkItem extends BooPagedQuery {
     /**
      * 最后一次启动时间戳
      */
-    private Timestamp lastLaunchTime;
+    private Timestamp lastLaunchTimestamp;
 
     /**
      * TODO 执行时间间隔（ms）
@@ -260,12 +260,12 @@ public class WorkItem extends BooPagedQuery {
         this.timerExpiryId = timerExpiryId;
     }
 
-    public Timestamp getLastLaunchTime() {
-        return lastLaunchTime;
+    public Timestamp getLastLaunchTimestamp() {
+        return lastLaunchTimestamp;
     }
 
-    public void setLastLaunchTime(Timestamp lastLaunchTime) {
-        this.lastLaunchTime = lastLaunchTime;
+    public void setLastLaunchTimestamp(Timestamp lastLaunchTimestamp) {
+        this.lastLaunchTimestamp = lastLaunchTimestamp;
     }
 
     public Long getExecuteTime() {
@@ -310,7 +310,7 @@ public class WorkItem extends BooPagedQuery {
                 Objects.equals(finishAccountId, workItem.finishAccountId) &&
                 Objects.equals(timerTriggerId, workItem.timerTriggerId) &&
                 Objects.equals(timerExpiryId, workItem.timerExpiryId) &&
-                Objects.equals(lastLaunchTime, workItem.lastLaunchTime) &&
+                Objects.equals(lastLaunchTimestamp, workItem.lastLaunchTimestamp) &&
                 Objects.equals(executeTime, workItem.executeTime) &&
                 Objects.equals(callbackNodeId, workItem.callbackNodeId);
     }
@@ -320,6 +320,6 @@ public class WorkItem extends BooPagedQuery {
         return Objects.hash(workItemId, processInstanceId, resourceServiceId, processId, businessObjectId, taskId,
                 taskPolymorphismId, arguments, allocateTimestamp, launchTimestamp, finishTimestamp,
                 status, resourcingStatus, launchAccountId, finishAccountId, timerTriggerId, timerExpiryId,
-                lastLaunchTime, executeTime, callbackNodeId);
+                lastLaunchTimestamp, executeTime, callbackNodeId);
     }
 }

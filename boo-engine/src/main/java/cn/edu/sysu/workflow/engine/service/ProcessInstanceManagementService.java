@@ -1,6 +1,5 @@
 package cn.edu.sysu.workflow.engine.service;
 
-import cn.edu.sysu.workflow.engine.core.model.ModelException;
 import cn.edu.sysu.workflow.engine.core.model.SCXML;
 
 import java.util.Set;

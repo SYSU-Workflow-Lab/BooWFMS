@@ -3,7 +3,7 @@ package cn.edu.sysu.workflow.engine.dao.impl;
 import cn.edu.sysu.workflow.common.entity.exception.DAOException;
 import cn.edu.sysu.workflow.engine.dao.ServiceInfoDAO;
 import cn.edu.sysu.workflow.common.entity.ServiceInfo;
-import cn.edu.sysu.workflow.common.entity.jdbc.BooPreparedStatementSetter;
+import cn.edu.sysu.workflow.common.jdbc.BooPreparedStatementSetter;
 import cn.edu.sysu.workflow.common.util.JdbcUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

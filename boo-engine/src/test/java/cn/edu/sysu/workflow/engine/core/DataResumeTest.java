@@ -52,7 +52,7 @@ public class DataResumeTest {
     @Transactional
     public void test1() throws Exception {
         // 新建流程实例
-        URL url = SCXMLTestHelper.getResource("InitBOTestMain.xml");
+        URL url = BOXMLTestHelper.getResource("InitBOTestMain.xml");
         SCXML scxml = new BOXMLReader().read(url);
         Evaluator evaluator = new JexlEvaluator();
         EventDispatcher dispatcher = new MultiStateMachineDispatcher();

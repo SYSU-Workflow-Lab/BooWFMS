@@ -18,7 +18,7 @@ public class Callback implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * On which workitem status type.
+     * On which work item status type.
      */
     private String on = "";
 

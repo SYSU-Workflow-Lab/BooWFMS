@@ -37,12 +37,12 @@ public class LocationContext {
     public static final String URL_RS_FINISH = "/resource/finish";
 
     /**
-     * Service URL gateway for RS workitem actions.
+     * Service URL gateway for RS work item actions.
      */
     public static final String GATEWAY_RS_WORKITEM = "/resource/workitem/";
 
     /**
-     * Service URL gateway for RS workqueue actions.
+     * Service URL gateway for RS work item list actions.
      */
     public static final String GATEWAY_RS_QUEUE = "/resource/queue/";
 }

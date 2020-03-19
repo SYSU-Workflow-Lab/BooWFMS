@@ -6,14 +6,14 @@
         <data expr="1" id="baseData"></data>
     </datamodel>
     <operations>
-        <taskItem id="baseAdd" brole="waiter" name="addItemTask">
+        <task id="baseAdd" brole="waiter" name="addItemTask">
             <principle method="Allocate" distributor="ShortestQueue"></principle>
             <callback on="complete" event="submit"></callback>
-        </taskItem>
-        <taskItem id="baseOnly" brole="waiter" name="baseOnlyTask">
+        </task>
+        <task id="baseOnly" brole="waiter" name="baseOnlyTask">
             <principle method="Allocate" distributor="ShortestQueue"></principle>
             <callback on="complete" event="submit"></callback>
-        </taskItem>
+        </task>
     </operations>
     <final id="BaseFinal"></final>
 </businessclass>

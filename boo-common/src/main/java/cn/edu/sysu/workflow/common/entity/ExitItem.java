@@ -44,16 +44,6 @@ public class ExitItem extends BooPagedQuery {
     private Integer visibility;
 
     /**
-     * TODO 处理者名称
-     */
-    private String handlerAuthName;
-
-    /**
-     * TODO 时间戳
-     */
-    private Timestamp timestamp;
-
-    /**
      * TODO 原因
      */
     private String reason;
@@ -102,22 +92,6 @@ public class ExitItem extends BooPagedQuery {
         this.visibility = visibility;
     }
 
-    public String getHandlerAuthName() {
-        return handlerAuthName;
-    }
-
-    public void setHandlerAuthName(String handlerAuthName) {
-        this.handlerAuthName = handlerAuthName;
-    }
-
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public String getReason() {
         return reason;
     }
@@ -140,13 +114,11 @@ public class ExitItem extends BooPagedQuery {
                 Objects.equals(processInstanceId, exitItem.processInstanceId) &&
                 Objects.equals(status, exitItem.status) &&
                 Objects.equals(visibility, exitItem.visibility) &&
-                Objects.equals(handlerAuthName, exitItem.handlerAuthName) &&
-                Objects.equals(timestamp, exitItem.timestamp) &&
                 Objects.equals(reason, exitItem.reason);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(exitItemId, workItemId, processInstanceId, status, visibility, handlerAuthName, timestamp, reason);
+        return Objects.hash(exitItemId, workItemId, processInstanceId, status, visibility, reason);
     }
 }

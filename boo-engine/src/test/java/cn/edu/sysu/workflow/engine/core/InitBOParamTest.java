@@ -46,7 +46,7 @@ public class InitBOParamTest {
     @Transactional
     public void test1() throws Exception {
         String processInstanceId = "test-pi-" + IdUtil.nextId();
-        URL url = SCXMLTestHelper.getResource("InitBOTestMain.xml");
+        URL url = BOXMLTestHelper.getResource("InitBOTestMain.xml");
         SCXML scxml = new BOXMLReader().read(url);
         Evaluator evaluator = new JexlEvaluator();
         EventDispatcher dispatcher = new MultiStateMachineDispatcher();

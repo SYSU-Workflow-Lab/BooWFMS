@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.common.entity;
 
 import cn.edu.sysu.workflow.common.entity.base.BooPagedQuery;
+import cn.edu.sysu.workflow.common.enums.AgentReentrantType;
 import cn.edu.sysu.workflow.common.enums.ProcessParticipantType;
 
 import java.util.Objects;
@@ -29,18 +30,24 @@ public class ProcessParticipant extends BooPagedQuery {
     /**
      * 显示名称
      */
-    private String displayname;
+    private String displayName;
 
     /**
      * 类型
      * @see ProcessParticipantType
      */
-    private int type;
+    private Integer type;
 
     /**
      * URL位置，当类型为Agent时用
      */
     private String agentLocation;
+
+    /**
+     * 重入类型，当类型为Agent时用
+     * @see AgentReentrantType
+     */
+    private Integer reentrantType;
 
     /**
      * 备注信息
@@ -67,23 +74,21 @@ public class ProcessParticipant extends BooPagedQuery {
         this.accountId = accountId;
     }
 
-    public String getDisplayname() {
-        return displayname;
+    public String getDisplayName() {
+        return displayName;
     }
 
-    public void setDisplayname(String displayname) {
-        this.displayname = displayname;
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
-
-
 
     public String getAgentLocation() {
         return agentLocation;
@@ -91,6 +96,14 @@ public class ProcessParticipant extends BooPagedQuery {
 
     public void setAgentLocation(String agentLocation) {
         this.agentLocation = agentLocation;
+    }
+
+    public Integer getReentrantType() {
+        return reentrantType;
+    }
+
+    public void setReentrantType(Integer reentrantType) {
+        this.reentrantType = reentrantType;
     }
 
     public String getNote() {
@@ -110,16 +123,17 @@ public class ProcessParticipant extends BooPagedQuery {
             return false;
         }
         ProcessParticipant that = (ProcessParticipant) o;
-        return type == that.type &&
-                Objects.equals(processParticipantId, that.processParticipantId) &&
+        return Objects.equals(processParticipantId, that.processParticipantId) &&
                 Objects.equals(accountId, that.accountId) &&
-                Objects.equals(displayname, that.displayname) &&
+                Objects.equals(displayName, that.displayName) &&
+                Objects.equals(type, that.type) &&
                 Objects.equals(agentLocation, that.agentLocation) &&
+                Objects.equals(reentrantType, that.reentrantType) &&
                 Objects.equals(note, that.note);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(processParticipantId, accountId, displayname, type, agentLocation, note);
+        return Objects.hash(processParticipantId, accountId, displayName, type, agentLocation, reentrantType, note);
     }
 }

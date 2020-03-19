@@ -1,7 +1,7 @@
 package cn.edu.sysu.workflow.engine.dao.impl;
 
 import cn.edu.sysu.workflow.common.entity.exception.DAOException;
-import cn.edu.sysu.workflow.common.entity.jdbc.BooPreparedStatementSetter;
+import cn.edu.sysu.workflow.common.jdbc.BooPreparedStatementSetter;
 import cn.edu.sysu.workflow.common.util.JdbcUtil;
 import cn.edu.sysu.workflow.engine.dao.ProcessInstanceDAO;
 import cn.edu.sysu.workflow.common.entity.ProcessInstance;

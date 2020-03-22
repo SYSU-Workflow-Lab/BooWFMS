@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * This manager is responsible for controlling context concurrency
  * access for this ONE Resource Service. NOTICE that it has no idea
  * about this context is used by other RS instance or not. For the
- * consistency, we appoint: 1. Participants and their work queues
+ * consistency, we appoint: 1. Participants and their work work item lists
  * MUST NOT be locked since it is probably accessing by another RS.
  * 2. Work item can use lock, since we make sure that one work item
  * ONLY managed by ONE specific RS.

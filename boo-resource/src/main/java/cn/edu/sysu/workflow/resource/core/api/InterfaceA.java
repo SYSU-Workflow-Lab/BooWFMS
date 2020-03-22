@@ -54,7 +54,7 @@ public class InterfaceA {
      * @param arguments         arguments list in JSON string
      * @return response package
      */
-    public void engineSubmitTask(String processInstanceId, String boName, String nodeId, String polymorphismName, String arguments) throws Exception {
+    public void engineSubmitTask(String processInstanceId, String boName, String nodeId, String polymorphismName, String arguments) {
         try {
             TaskItemContext taskItemContext = taskItemContextService.getContext(processInstanceId, boName, polymorphismName);
             HashMap argMap = JsonUtil.jsonDeserialization(arguments, HashMap.class);

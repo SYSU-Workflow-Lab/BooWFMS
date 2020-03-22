@@ -21,7 +21,7 @@ public class BooResourceApplication {
     public static final String RESOURCE_ID = "resource-" + IdUtil.nextId();
 
     /**
-     * Prefix of admin queue.
+     * Prefix of admin work item list.
      */
     public static final String WORK_ITEM_LIST_ADMIN_PREFIX = "admin@";
 

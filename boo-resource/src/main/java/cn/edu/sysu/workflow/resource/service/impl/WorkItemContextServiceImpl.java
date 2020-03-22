@@ -98,7 +98,7 @@ public class WorkItemContextServiceImpl implements WorkItemContextService {
                 if (workItemListIdItem.length == 4) {
                     workerId = String.format("\"%s_%s\"", workItemListIdItem[2], workItemListIdItem[3]);
                 }
-                // for admin queue
+                // for admin work item list
                 else {
                     workerId = String.format("\"%s\"", workItemListIdItem[2]);
                 }
@@ -144,7 +144,7 @@ public class WorkItemContextServiceImpl implements WorkItemContextService {
         try {
             List<WorkItem> workItems = workItemDAO.findWorkItemsByProcessInstanceId(processInstanceId);
             for (WorkItem workItem : workItems) {
-                retList.add(this.getContext(workItem.getWorkItemId(), workItem.getProcessInstanceId()));
+                retList.add(this.getContext(workItem.getWorkItemId()));
             }
             return retList;
         } catch (Exception ex) {
@@ -158,7 +158,7 @@ public class WorkItemContextServiceImpl implements WorkItemContextService {
         try {
             List<WorkItem> workItems = workItemDAO.findWorkItemsByOrganization("@" + organization + "_");
             for (WorkItem workItem : workItems) {
-                retList.add(this.getContext(workItem.getWorkItemId(), workItem.getProcessInstanceId()));
+                retList.add(this.getContext(workItem.getWorkItemId()));
             }
             return retList;
         } catch (Exception ex) {
@@ -167,7 +167,7 @@ public class WorkItemContextServiceImpl implements WorkItemContextService {
     }
 
     @Override
-    public WorkItemContext getContext(String workItemId, String processInstanceId) {
+    public WorkItemContext getContext(String workItemId) {
         try {
             WorkItem workItem = workItemDAO.findOne(workItemId);
             if (workItem == null) {
@@ -185,7 +185,7 @@ public class WorkItemContextServiceImpl implements WorkItemContextService {
             workItemContext.setTaskItemContext(taskItemContextService.getContext(workItem.getProcessInstanceId(), boName, taskName));
             return workItemContext;
         } catch (Exception ex) {
-            log.error("[" + processInstanceId + "]Get work item context but exception occurred, " + ex);
+            log.error("[" + workItemId + "]Get work item context but exception occurred, " + ex);
             throw ex;
         }
     }

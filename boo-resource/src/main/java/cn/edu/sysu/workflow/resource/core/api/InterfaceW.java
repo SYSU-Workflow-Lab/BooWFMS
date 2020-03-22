@@ -6,6 +6,7 @@ import cn.edu.sysu.workflow.common.enums.InitializationType;
 import cn.edu.sysu.workflow.common.enums.WorkItemListType;
 import cn.edu.sysu.workflow.common.enums.WorkItemResourcingStatus;
 import cn.edu.sysu.workflow.common.util.AuthDomainHelper;
+import cn.edu.sysu.workflow.resource.core.ContextLockManager;
 import cn.edu.sysu.workflow.resource.core.context.WorkItemContext;
 import cn.edu.sysu.workflow.resource.dao.ProcessParticipantDAO;
 import cn.edu.sysu.workflow.resource.service.WorkItemContextService;
@@ -23,7 +24,7 @@ import java.util.*;
  * Date  : 2018/2/21
  * Usage : Implementation of Interface W of Resource Service.
  * Interface W is responsible for providing services for outside clients.
- * User sub-systems use this interface for manage work queues.
+ * User sub-systems use this interface for manage work work item lists.
  * Usually methods in the interface will return result immediately.
  */
 
@@ -57,26 +58,30 @@ public class InterfaceW {
      * @param workItemId
      * @param workerId
      * @param payload
-     * @param processInstanceId
      * @param tokenId
      * @return true for a successful work item accept
      */
-    public boolean acceptOffer(String workItemId, String workerId, String payload, String processInstanceId, String tokenId) {
-        WorkItemContext workItemContext = workItemContextService.getContext(workItemId, processInstanceId);
-        if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Offered)) {
-            log.error(String.format("[%s]Try to accept work item(%s) but not at Offered status", processInstanceId, workItemId));
-            return false;
-        }
-        ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
-        if (participant == null) {
-            if (interfaceO.senseParticipantDataChanged(processInstanceId)) {
-                interfaceX.handleFastFail(processInstanceId);
-            } else {
-                interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when AcceptOffer");
+    public boolean acceptOffer(String workItemId, String workerId, String payload, String tokenId) {
+        ContextLockManager.WriteLock(WorkItemContext.class, workItemId);
+        try {
+            WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
+            if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Offered)) {
+                log.error(String.format("Try to accept work item(%s) but not at Offered status", workItemId));
+                return false;
             }
-            return false;
+            ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
+            if (participant == null) {
+                if (interfaceO.senseParticipantDataChanged(workItemContext.getWorkItem().getProcessInstanceId())) {
+                    interfaceX.handleFastFail(workItemContext.getWorkItem().getProcessInstanceId());
+                } else {
+                    interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when AcceptOffer");
+                }
+                return false;
+            }
+            return interfaceB.acceptOfferedWorkItem(participant, workItemContext, payload, InitializationType.USER_INITIATED, tokenId);
+        } finally {
+            ContextLockManager.WriteUnLock(WorkItemContext.class, workItemId);
         }
-        return interfaceB.acceptOfferedWorkItem(participant, workItemContext, payload, InitializationType.USER_INITIATED, tokenId);
     }
 
     /**
@@ -85,25 +90,29 @@ public class InterfaceW {
      * @param workItemId
      * @param workerId
      * @param payload
-     * @param processInstanceId
      * @return true for a successful work item deallocate
      */
-    public boolean deallocate(String workItemId, String workerId, String payload, String processInstanceId) {
-        WorkItemContext workItemContext = workItemContextService.getContext(workItemId, processInstanceId);
-        if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Allocated)) {
-            log.error(String.format("[%s]Try to deallocate work item(%s) but not at Allocated status", processInstanceId, workItemId));
-            return false;
-        }
-        ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
-        if (participant == null) {
-            if (interfaceO.senseParticipantDataChanged(processInstanceId)) {
-                interfaceX.handleFastFail(processInstanceId);
-            } else {
-                interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Deallocate");
+    public boolean deallocate(String workItemId, String workerId, String payload) {
+        ContextLockManager.WriteLock(WorkItemContext.class, workItemId);
+        try {
+            WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
+            if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Allocated)) {
+                log.error(String.format("Try to deallocate work item(%s) but not at Allocated status", workItemId));
+                return false;
             }
-            return false;
+            ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
+            if (participant == null) {
+                if (interfaceO.senseParticipantDataChanged(workItemContext.getWorkItem().getProcessInstanceId())) {
+                    interfaceX.handleFastFail(workItemContext.getWorkItem().getProcessInstanceId());
+                } else {
+                    interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Deallocate");
+                }
+                return false;
+            }
+            return interfaceB.deallocateWorkItem(participant, workItemContext, payload);
+        } finally {
+            ContextLockManager.WriteUnLock(WorkItemContext.class, workItemId);
         }
-        return interfaceB.deallocateWorkItem(participant, workItemContext, payload);
     }
 
     /**
@@ -112,26 +121,30 @@ public class InterfaceW {
      * @param workItemId
      * @param workerId
      * @param payload
-     * @param processInstanceId
      * @param tokenId
      * @return true for a successful work item start
      */
-    public boolean start(String workItemId, String workerId, String payload, String processInstanceId, String tokenId) {
-        WorkItemContext workItemContext = workItemContextService.getContext(workItemId, processInstanceId);
-        if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Allocated)) {
-            log.error(String.format("[%s]Try to start work item(%s) but not at Allocated status", processInstanceId, workItemId));
-            return false;
-        }
-        ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
-        if (participant == null) {
-            if (interfaceO.senseParticipantDataChanged(processInstanceId)) {
-                interfaceX.handleFastFail(processInstanceId);
-            } else {
-                interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Start");
+    public boolean start(String workItemId, String workerId, String payload, String tokenId) {
+        ContextLockManager.WriteLock(WorkItemContext.class, workItemId);
+        try {
+            WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
+            if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Allocated)) {
+                log.error(String.format("Try to start work item(%s) but not at Allocated status", workItemId));
+                return false;
             }
-            return false;
+            ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
+            if (participant == null) {
+                if (interfaceO.senseParticipantDataChanged(workItemContext.getWorkItem().getProcessInstanceId())) {
+                    interfaceX.handleFastFail(workItemContext.getWorkItem().getProcessInstanceId());
+                } else {
+                    interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Start");
+                }
+                return false;
+            }
+            return interfaceB.startWorkItem(participant, workItemContext, payload, tokenId);
+        } finally {
+            ContextLockManager.WriteUnLock(WorkItemContext.class, workItemId);
         }
-        return interfaceB.startWorkItem(participant, workItemContext, payload, tokenId);
     }
 
     /**
@@ -140,25 +153,29 @@ public class InterfaceW {
      * @param workItemId
      * @param workerId
      * @param payload
-     * @param processInstanceId
      * @return true for a successful work item reallocate
      */
-    public boolean reallocate(String workItemId, String workerId, String payload, String processInstanceId) {
-        WorkItemContext workItemContext = workItemContextService.getContext(workItemId, processInstanceId);
-        if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Started)) {
-            log.error(String.format("[%s]Try to reallocate work item(%s) but not at Started status", processInstanceId, workItemId));
-            return false;
-        }
-        ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
-        if (participant == null) {
-            if (interfaceO.senseParticipantDataChanged(processInstanceId)) {
-                interfaceX.handleFastFail(processInstanceId);
-            } else {
-                interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Reallocate");
+    public boolean reallocate(String workItemId, String workerId, String payload) {
+        ContextLockManager.WriteLock(WorkItemContext.class, workItemId);
+        try {
+            WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
+            if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Started)) {
+                log.error(String.format("Try to reallocate work item(%s) but not at Started status", workItemId));
+                return false;
             }
-            return false;
+            ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
+            if (participant == null) {
+                if (interfaceO.senseParticipantDataChanged(workItemContext.getWorkItem().getProcessInstanceId())) {
+                    interfaceX.handleFastFail(workItemContext.getWorkItem().getProcessInstanceId());
+                } else {
+                    interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Reallocate");
+                }
+                return false;
+            }
+            return interfaceB.reallocateWorkItem(participant, workItemContext, payload);
+        } finally {
+            ContextLockManager.WriteUnLock(WorkItemContext.class, workItemId);
         }
-        return interfaceB.reallocateWorkItem(participant, workItemContext, payload);
     }
 
     /**
@@ -167,26 +184,30 @@ public class InterfaceW {
      * @param workItemId
      * @param workerId
      * @param payload
-     * @param processInstanceId
      * @param tokenId
      * @return true for a successful work item accept and start
      */
-    public boolean acceptAndStart(String workItemId, String workerId, String payload, String processInstanceId, String tokenId) {
-        WorkItemContext workItemContext = workItemContextService.getContext(workItemId, processInstanceId);
-        if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Offered)) {
-            log.error(String.format("[%s]Try to accept and start work item(%s) but not at Offered status", processInstanceId, workItemId));
-            return false;
-        }
-        ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
-        if (participant == null) {
-            if (interfaceO.senseParticipantDataChanged(processInstanceId)) {
-                interfaceX.handleFastFail(processInstanceId);
-            } else {
-                interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when AcceptAndStart");
+    public boolean acceptAndStart(String workItemId, String workerId, String payload, String tokenId) {
+        ContextLockManager.WriteLock(WorkItemContext.class, workItemId);
+        try {
+            WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
+            if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Offered)) {
+                log.error(String.format("Try to accept and start work item(%s) but not at Offered status", workItemId));
+                return false;
             }
-            return false;
+            ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
+            if (participant == null) {
+                if (interfaceO.senseParticipantDataChanged(workItemContext.getWorkItem().getProcessInstanceId())) {
+                    interfaceX.handleFastFail(workItemContext.getWorkItem().getProcessInstanceId());
+                } else {
+                    interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when AcceptAndStart");
+                }
+                return false;
+            }
+            return interfaceB.acceptOfferedWorkItem(participant, workItemContext, payload, InitializationType.SYSTEM_INITIATED, tokenId);
+        } finally {
+            ContextLockManager.WriteUnLock(WorkItemContext.class, workItemId);
         }
-        return interfaceB.acceptOfferedWorkItem(participant, workItemContext, payload, InitializationType.SYSTEM_INITIATED, tokenId);
     }
 
     /**
@@ -195,25 +216,29 @@ public class InterfaceW {
      * @param workItemId
      * @param workerId
      * @param payload
-     * @param processInstanceId
      * @return true for a successful work item skip
      */
-    public boolean skip(String workItemId, String workerId, String payload, String processInstanceId) {
-        WorkItemContext workItemContext = workItemContextService.getContext(workItemId, processInstanceId);
-        if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Allocated)) {
-            log.error(String.format("[%s]Try to skip work item(%s) but not at Allocated status", processInstanceId, workItemId));
-            return false;
-        }
-        ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
-        if (participant == null) {
-            if (interfaceO.senseParticipantDataChanged(processInstanceId)) {
-                interfaceX.handleFastFail(processInstanceId);
-            } else {
-                interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Skip");
+    public boolean skip(String workItemId, String workerId, String payload) {
+        ContextLockManager.WriteLock(WorkItemContext.class, workItemId);
+        try {
+            WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
+            if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Allocated)) {
+                log.error(String.format("Try to skip work item(%s) but not at Allocated status", workItemId));
+                return false;
             }
-            return false;
+            ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
+            if (participant == null) {
+                if (interfaceO.senseParticipantDataChanged(workItemContext.getWorkItem().getProcessInstanceId())) {
+                    interfaceX.handleFastFail(workItemContext.getWorkItem().getProcessInstanceId());
+                } else {
+                    interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Skip");
+                }
+                return false;
+            }
+            return interfaceB.skipWorkItem(participant, workItemContext, payload);
+        } finally {
+            ContextLockManager.WriteUnLock(WorkItemContext.class, workItemId);
         }
-        return interfaceB.skipWorkItem(participant, workItemContext, payload);
     }
 
     /**
@@ -222,25 +247,29 @@ public class InterfaceW {
      * @param workItemId
      * @param workerId
      * @param payload
-     * @param processInstanceId
      * @return true for a successful work item suspend
      */
-    public boolean suspend(String workItemId, String workerId, String payload, String processInstanceId) {
-        WorkItemContext workItemContext = workItemContextService.getContext(workItemId, processInstanceId);
-        if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Started)) {
-            log.error(String.format("[%s]Try to suspend work item(%s) but not at Started status", processInstanceId, workItemId));
-            return false;
-        }
-        ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
-        if (participant == null) {
-            if (interfaceO.senseParticipantDataChanged(processInstanceId)) {
-                interfaceX.handleFastFail(processInstanceId);
-            } else {
-                interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Suspend");
+    public boolean suspend(String workItemId, String workerId, String payload) {
+        ContextLockManager.WriteLock(WorkItemContext.class, workItemId);
+        try {
+            WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
+            if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Started)) {
+                log.error(String.format("Try to suspend work item(%s) but not at Started status", workItemId));
+                return false;
             }
-            return false;
+            ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
+            if (participant == null) {
+                if (interfaceO.senseParticipantDataChanged(workItemContext.getWorkItem().getProcessInstanceId())) {
+                    interfaceX.handleFastFail(workItemContext.getWorkItem().getProcessInstanceId());
+                } else {
+                    interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Suspend");
+                }
+                return false;
+            }
+            return interfaceB.suspendWorkItem(participant, workItemContext, payload);
+        } finally {
+            ContextLockManager.WriteUnLock(WorkItemContext.class, workItemId);
         }
-        return interfaceB.suspendWorkItem(participant, workItemContext, payload);
     }
 
     /**
@@ -249,25 +278,29 @@ public class InterfaceW {
      * @param workItemId
      * @param workerId
      * @param payload
-     * @param processInstanceId
      * @return true for a successful work item unsuspend
      */
-    public boolean unsuspend(String workItemId, String workerId, String payload, String processInstanceId) {
-        WorkItemContext workItemContext = workItemContextService.getContext(workItemId, processInstanceId);
-        if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Suspended)) {
-            log.error(String.format("[%s]Try to unsuspend work item(%s) but not at Suspended status", processInstanceId, workItemId));
-            return false;
-        }
-        ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
-        if (participant == null) {
-            if (interfaceO.senseParticipantDataChanged(processInstanceId)) {
-                interfaceX.handleFastFail(processInstanceId);
-            } else {
-                interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Unsuspend");
+    public boolean unsuspend(String workItemId, String workerId, String payload) {
+        ContextLockManager.WriteLock(WorkItemContext.class, workItemId);
+        try {
+            WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
+            if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Suspended)) {
+                log.error(String.format("Try to unsuspend work item(%s) but not at Suspended status", workItemId));
+                return false;
             }
-            return false;
+            ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
+            if (participant == null) {
+                if (interfaceO.senseParticipantDataChanged(workItemContext.getWorkItem().getProcessInstanceId())) {
+                    interfaceX.handleFastFail(workItemContext.getWorkItem().getProcessInstanceId());
+                } else {
+                    interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Unsuspend");
+                }
+                return false;
+            }
+            return interfaceB.unsuspendWorkItem(participant, workItemContext, payload);
+        } finally {
+            ContextLockManager.WriteUnLock(WorkItemContext.class, workItemId);
         }
-        return interfaceB.unsuspendWorkItem(participant, workItemContext, payload);
     }
 
     /**
@@ -276,29 +309,33 @@ public class InterfaceW {
      * @param workItemId
      * @param workerId
      * @param payload
-     * @param processInstanceId
      * @return true for a successful work item complete
      */
-    public boolean complete(String workItemId, String workerId, String payload, String processInstanceId) {
-        WorkItemContext workItemContext = workItemContextService.getContext(workItemId, processInstanceId);
-        if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Started)) {
-            log.error(String.format("[%s]Try to complete work item(%s) but not at Started status", processInstanceId, workItemId));
-            return false;
-        }
-        ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
-        if (participant == null) {
-            if (interfaceO.senseParticipantDataChanged(processInstanceId)) {
-                interfaceX.handleFastFail(processInstanceId);
-            } else {
-                interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Complete");
+    public boolean complete(String workItemId, String workerId, String payload) {
+        ContextLockManager.WriteLock(WorkItemContext.class, workItemId);
+        try {
+            WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
+            if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Started)) {
+                log.error(String.format("[%s]Try to complete work item(%s) but not at Started status", workItemId));
+                return false;
             }
-            return false;
+            ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);
+            if (participant == null) {
+                if (interfaceO.senseParticipantDataChanged(workItemContext.getWorkItem().getProcessInstanceId())) {
+                    interfaceX.handleFastFail(workItemContext.getWorkItem().getProcessInstanceId());
+                } else {
+                    interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Participant not exist when Complete");
+                }
+                return false;
+            }
+            return interfaceB.completeWorkItem(participant, workItemContext, payload);
+        } finally {
+            ContextLockManager.WriteUnLock(WorkItemContext.class, workItemId);
         }
-        return interfaceB.completeWorkItem(participant, workItemContext, payload);
     }
 
     /**
-     * Get all work items in a specific type of queue of a worker.
+     * Get all work items in a specific type of work item list of a worker.
      *
      * @param processInstanceId
      * @param workerId
@@ -326,14 +363,14 @@ public class InterfaceW {
     }
 
     /**
-     * Get all work items in a specific type of queue of a list of workers.
+     * Get all work items in a specific type of list of a list of workers.
      *
      * @param workerIds
      * @param processInstanceId
      * @param type
      * @return work item descriptors string in map (workerId, list of work item descriptor)
      */
-    public Map<String, Set<WorkItem>> getWorkItemListList(String[] workerIds, String processInstanceId, String type) {
+    public Map<String, Set<WorkItem>> getWorkItemLists(String[] workerIds, String processInstanceId, String type) {
         Map<String, Set<WorkItem>> retMap = new HashMap<>();
         for (String workerId : workerIds) {
             String domain = AuthDomainHelper.getDomainByProcessInstanceId(processInstanceId);
@@ -367,15 +404,15 @@ public class InterfaceW {
     }
 
     /**
-     * Get all work items belong to a domain in user-friendly package.
+     * Get all work items belong to a organization in user-friendly package.
      *
-     * @param domain
+     * @param organization
      * @return List of Map of work item data to return
      */
-    public List<Map<String, String>> getAllWorkItemsInUserFriendlyForDomain(String domain) {
-        List<WorkItemContext> workItemContextList = workItemContextService.getContextByOrganization(domain);
+    public List<Map<String, String>> getAllWorkItemsInUserFriendlyByOrganization(String organization) {
+        List<WorkItemContext> workItemContextList = workItemContextService.getContextByOrganization(organization);
         if (workItemContextList == null) {
-            log.error("Cannot get work item for Domain: " + domain);
+            log.error("Cannot get work item for Organization: " + organization);
             return null;
         }
         return workItemContextService.generateResponseWorkItems(workItemContextList, false);
@@ -387,7 +424,7 @@ public class InterfaceW {
      * @param workerId
      * @return List of Map of work item data to return
      */
-    public List<Map<String, String>> getAllWorkItemsInUserFriendlyForParticipant(String workerId) {
+    public List<Map<String, String>> getAllWorkItemsInUserFriendlyByParticipant(String workerId) {
         List<WorkItemContext> workItemContextList = workItemListService.getWorkListedWorkItems(workerId);
         return workItemContextService.generateResponseWorkItems(workItemContextList, false);
     }
@@ -399,7 +436,7 @@ public class InterfaceW {
      * @return List of Map of work item data to return
      */
     public Map<String, String> getWorkItemInFriendly(String workItemId) {
-        WorkItemContext workItemContext = workItemContextService.getContext(workItemId, "");
+        WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
         if (workItemContext == null) {
             log.error("Cannot get work item for workItemId: " + workItemId);
             return null;

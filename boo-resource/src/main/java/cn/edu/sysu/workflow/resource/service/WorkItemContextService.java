@@ -51,10 +51,9 @@ public interface WorkItemContextService {
      * Get an exist work item context.
      *
      * @param workItemId        work item global id
-     * @param processInstanceId process instance id
      * @return work item context
      */
-    WorkItemContext getContext(String workItemId, String processInstanceId);
+    WorkItemContext getContext(String workItemId);
 
     /**
      * Generate a work item context and save it to entity by a task context.

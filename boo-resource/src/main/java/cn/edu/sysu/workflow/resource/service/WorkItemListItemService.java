@@ -57,7 +57,7 @@ public interface WorkItemListItemService {
      * Check this work item list is empty.
      *
      * @param workItemList work item list to be checked
-     * @return true if queue empty
+     * @return true if work item list empty
      */
     boolean isEmpty(WorkItemList workItemList);
 
@@ -65,7 +65,7 @@ public interface WorkItemListItemService {
      * Count the work item list size.
      *
      * @param workItemList work item list to be counted
-     * @return number of work items in this queue
+     * @return number of work items in this work item list
      */
     int count(WorkItemList workItemList);
 

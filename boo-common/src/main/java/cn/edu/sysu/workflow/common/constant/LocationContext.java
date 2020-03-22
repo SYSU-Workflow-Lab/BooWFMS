@@ -44,5 +44,5 @@ public class LocationContext {
     /**
      * Service URL gateway for RS work item list actions.
      */
-    public static final String GATEWAY_RS_QUEUE = "/resource/queue/";
+    public static final String GATEWAY_RS_QUEUE = "/resource/list/";
 }

@@ -1,7 +1,7 @@
 package cn.edu.sysu.workflow.common.enums;
 
 /**
- * Enum of work queue container type.
+ * Enum of work item list container type.
  *
  * @author Rinkako, Skye
  * Created on 2019/12/25

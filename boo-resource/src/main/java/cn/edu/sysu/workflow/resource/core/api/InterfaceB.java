@@ -90,7 +90,7 @@ public class InterfaceB {
     public void performEngineSubmitTask(TaskItemContext taskItemContext, String nodeId, HashMap argMap, String processInstanceId) throws Exception {
         TaskItemContext taskContext = taskItemContext;
 
-        // use runtime record to get the admin auth name for admin queue identifier
+        // use runtime record to get the admin auth name for admin work item list identifier
         ProcessInstance runtimeRecord = processInstanceDAO.findOne(processInstanceId);
         String domain = AuthDomainHelper.getDomainByProcessInstanceId(processInstanceId);
 
@@ -111,8 +111,8 @@ public class InterfaceB {
             Set<ProcessParticipant> validParticipants =
                     interfaceO.getParticipantByBRole(processInstanceId, taskContext.getBrole());
             if (validParticipants.isEmpty()) {
-                log.warn("[" + processInstanceId + "]A task cannot be allocated to any valid resources, so it will be put into admin unoffered queue.");
-                // move work item to admin unoffered queue
+                log.warn("[" + processInstanceId + "]A task cannot be allocated to any valid resources, so it will be put into admin unoffered work item list.");
+                // move work item to admin unoffered work item list
                 workItemListService.addToWorkItemList(workItemContext, BooResourceApplication.WORK_ITEM_LIST_ADMIN_PREFIX + domain, WorkItemListType.UNOFFERED);
                 return;
             }
@@ -125,7 +125,7 @@ public class InterfaceB {
                     allocateInteraction.bindingAllocator(principle, processInstanceId);
                     // do allocate to select a participant for handle this work item
                     ProcessParticipant chosenOne = allocateInteraction.performAllocation(validParticipants, workItemContext);
-                    // put work item to the chosen participant allocated queue
+                    // put work item to the chosen participant allocated work item list
                     workItemListService.addToWorkItemList(workItemContext, chosenOne.getAccountId(), WorkItemListType.ALLOCATED);
                     // change work item status
                     workItemContext.getWorkItem().setAllocateTimestamp(TimestampUtil.getCurrentTimestamp());
@@ -147,7 +147,7 @@ public class InterfaceB {
                     offerInteraction.bindingFilter(principle, processInstanceId);
                     // do filter to select a set of participants for this work item
                     Set<ProcessParticipant> chosenSet = offerInteraction.performOffer(validParticipants, workItemContext);
-                    // put work item to chosen participants offered queue
+                    // put work item to chosen participants offered work item list
                     AgentNotifyPlugin offerAnp = new AgentNotifyPlugin();
                     HashMap<String, String> offerNotifyMap = new HashMap<>(workItemContextService.generateResponseWorkItem(workItemContext));
                     for (ProcessParticipant oneInSet : chosenSet) {
@@ -208,7 +208,7 @@ public class InterfaceB {
      * @return true for a successful work item accept
      */
     public boolean acceptOfferedWorkItem(ProcessParticipant participant, WorkItemContext workItemContext, String payload, InitializationType initType, String tokenId) {
-        // remove from all queue
+        // remove from all work item list
         workItemListItemService.removeByWorkItemId(workItemContext);
         // if internal call, means accept and start
         if (initType == InitializationType.SYSTEM_INITIATED) {
@@ -220,7 +220,7 @@ public class InterfaceB {
                 return false;
             }
         }
-        // otherwise work item should be put to allocated queue
+        // otherwise work item should be put to allocated work item list
         else {
             workItemListService.moveFromOfferedToAllocated(workItemContext, participant.getAccountId());
             this.workItemChanged(workItemContext, WorkItemStatus.Fired, WorkItemResourcingStatus.Allocated, payload);
@@ -272,7 +272,7 @@ public class InterfaceB {
             }
             // start by admin
             if (workItemContext.getWorkItem().getResourcingStatus().equals(WorkItemResourcingStatus.Unoffered.name())) {
-                // get admin queue for this auth user
+                // get admin work item list for this auth user
                 String adminQueuePostfix = tokenId.split("_")[1];
                 workItemListService.removeFromWorkItemList(workItemContext, BooResourceApplication.WORK_ITEM_LIST_ADMIN_PREFIX + adminQueuePostfix, WorkItemListType.UNOFFERED);
             }

@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 02/01/2020 18:56:03
+ Date: 22/03/2020 12:10:12
 */
 
 SET NAMES utf8mb4;
@@ -81,6 +81,23 @@ CREATE TABLE `boo_business_process`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for boo_exit_item
+-- ----------------------------
+DROP TABLE IF EXISTS `boo_exit_item`;
+CREATE TABLE `boo_exit_item`  (
+  `exit_item_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `work_item_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '对应工作项ID',
+  `process_instance_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '流程实例ID',
+  `status` int(11) NOT NULL COMMENT '状态',
+  `visibility` int(11) NOT NULL COMMENT '可见性，0-domain,1-WFMSadmin',
+  `reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '原因',
+  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
+  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
+  PRIMARY KEY (`exit_item_id`) USING BTREE,
+  INDEX `work_item_id`(`work_item_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for boo_process_instance
 -- ----------------------------
 DROP TABLE IF EXISTS `boo_process_instance`;
@@ -103,6 +120,24 @@ CREATE TABLE `boo_process_instance`  (
   `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
   `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
   PRIMARY KEY (`process_instance_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for boo_process_participant
+-- ----------------------------
+DROP TABLE IF EXISTS `boo_process_participant`;
+CREATE TABLE `boo_process_participant`  (
+  `process_participant_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程参与者ID',
+  `account_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户ID',
+  `display_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '显示名称',
+  `type` int(11) NULL DEFAULT NULL COMMENT '类型',
+  `agent_location` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT 'URL位置，当类型为Agent时用',
+  `reentrant_type` int(11) NULL DEFAULT NULL COMMENT '重入类型，当类型为Agent时用',
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '备注信息',
+  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
+  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
+  PRIMARY KEY (`process_participant_id`) USING BTREE,
+  INDEX `account_id`(`account_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -141,6 +176,64 @@ CREATE TABLE `boo_task_item`  (
   `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
   `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
   PRIMARY KEY (`task_item_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for boo_work_item
+-- ----------------------------
+DROP TABLE IF EXISTS `boo_work_item`;
+CREATE TABLE `boo_work_item`  (
+  `work_item_id` varchar(255) CHARACTER SET sjis COLLATE sjis_japanese_ci NOT NULL COMMENT '工作项ID',
+  `process_instance_id` varchar(255) CHARACTER SET sjis COLLATE sjis_japanese_ci NOT NULL COMMENT '流程实例ID',
+  `resource_service_id` varchar(255) CHARACTER SET sjis COLLATE sjis_japanese_ci NOT NULL COMMENT '资源服务ID',
+  `process_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务流程ID',
+  `business_object_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务对象ID',
+  `task_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '来源任务ID',
+  `task_polymorphism_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '来源任务的模型ID',
+  `arguments` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '相关参数',
+  `allocate_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '分配时间戳',
+  `launch_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '开始时间戳',
+  `finish_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '完成时间戳',
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '工作项状态',
+  `resourcing_status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '工作项资源调度生命周期状态',
+  `launch_account_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '工作项启动者ID',
+  `finish_account_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '工作项完成者ID',
+  `timer_trigger_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '启动时间触发器标识符',
+  `timer_expiry_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '中止时间触发器标识符',
+  `last_launch_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后一次启动时间戳',
+  `execute_time` bigint(20) NULL DEFAULT NULL COMMENT '执行时间间隔（ms）',
+  `callback_node_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回调事件发送目的地业务对象的标识符',
+  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
+  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
+  PRIMARY KEY (`work_item_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for boo_work_item_list
+-- ----------------------------
+DROP TABLE IF EXISTS `boo_work_item_list`;
+CREATE TABLE `boo_work_item_list`  (
+  `work_item_list_id` varchar(255) CHARACTER SET sjis COLLATE sjis_japanese_ci NOT NULL COMMENT '工作项列表ID',
+  `owner_account_id` varchar(255) CHARACTER SET sjis COLLATE sjis_japanese_ci NULL DEFAULT NULL COMMENT '拥有者ID',
+  `type` int(11) NOT NULL COMMENT '类型',
+  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
+  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
+  PRIMARY KEY (`work_item_list_id`) USING BTREE,
+  INDEX `list_item`(`owner_account_id`, `type`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for boo_work_item_list_item
+-- ----------------------------
+DROP TABLE IF EXISTS `boo_work_item_list_item`;
+CREATE TABLE `boo_work_item_list_item`  (
+  `work_item_list_item_id` varchar(255) CHARACTER SET sjis COLLATE sjis_japanese_ci NOT NULL COMMENT '工作项列表项ID',
+  `work_item_list_id` varchar(255) CHARACTER SET sjis COLLATE sjis_japanese_ci NOT NULL COMMENT '所属工作项列表ID',
+  `work_item_id` varchar(255) CHARACTER SET sjis COLLATE sjis_japanese_ci NOT NULL COMMENT '对应工作项ID',
+  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
+  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
+  PRIMARY KEY (`work_item_list_item_id`) USING BTREE,
+  INDEX `list_item`(`work_item_list_id`, `work_item_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

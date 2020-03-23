@@ -7,7 +7,7 @@ import java.util.HashMap;
 /**
  * Author: Rinkako
  * Date  : 2018/2/4
- * Usage : Task context is an encapsulation of RenRSTaskEntity in a
+ * Usage : Task context is an encapsulation of TaskItem in a
  * convenient way for resourcing service.
  */
 public class TaskItemContext implements Serializable {

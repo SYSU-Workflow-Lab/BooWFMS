@@ -15,3 +15,4 @@
 - 原始项目资源服务中ContextLockManager是否可以有替换方案
 - Redis分布式数据缓存
 - ElasticSearch日志管理
+- Jenkins使用CI/CD

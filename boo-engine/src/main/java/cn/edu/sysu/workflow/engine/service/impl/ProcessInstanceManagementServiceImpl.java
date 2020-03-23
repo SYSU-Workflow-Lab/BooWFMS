@@ -74,7 +74,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
             processInstanceDAO.update(processInstance);
             BusinessProcess businessProcess = businessProcessDAO.findOne(processId);
             if (businessProcess == null) {
-                throw new RuntimeException("RenProcessEntity:" + processId + " is NULL!");
+                throw new RuntimeException("BusinessProcess:" + processId + " is NULL!");
             }
             String mainBusinessObjectName = businessProcess.getMainBusinessObjectName();
             List<BusinessObject> boList = businessObjectDAO.findBusinessObjectsByProcessId(processId);
@@ -111,7 +111,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
             for (String boId : boIdItems) {
                 BusinessObject businessObject = businessObjectDAO.findOne(boId);
                 if (businessObject == null) {
-                    throw new NullPointerException("RenBoEntity is not found");
+                    throw new NullPointerException("BusinessObject is not found");
                 }
                 SCXML scxml = this.parseStringToSCXML(businessObject.getContent());
                 if (scxml == null) {

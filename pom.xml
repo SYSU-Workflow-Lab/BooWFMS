@@ -23,6 +23,7 @@
         <module>boo-access</module>
         <module>boo-common</module>
         <module>boo-engine</module>
+        <module>boo-engine-feign</module>
         <module>boo-resource</module>
     </modules>
 

@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>boo-engine</artifactId>
-    <description>a workflow engine based on state machine.</description>
+    <artifactId>boo-business-process-data</artifactId>
+    <description>a module for processing business process data.</description>
 
     <dependencies>
         <!--Web Starter-->
@@ -54,21 +54,6 @@
         <dependency>
             <groupId>org.jolokia</groupId>
             <artifactId>jolokia-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-jxpath</groupId>
-            <artifactId>commons-jxpath</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-jexl</artifactId>
         </dependency>
 
     </dependencies>

@@ -40,7 +40,7 @@ public class EngineController {
     private SteadyStepService steadyStepService;
 
     /**
-     * launch a process by the processInstanceId
+     * launch a process instance by the processInstanceId
      *
      * @param processInstanceId process instance id
      * @return booReturnForm
@@ -61,7 +61,7 @@ public class EngineController {
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();
-        booReturnForm.setMessage("process launch successful");
+        booReturnForm.setMessage("process instance launch successful");
         return booReturnForm;
     }
 

@@ -1,6 +1,6 @@
-package cn.edu.sysu.workflow.booenginefeign.dag;
+package cn.edu.sysu.workflow.enginefeign.dag;
 
-import cn.edu.sysu.workflow.booenginefeign.BooEngineFeignApplication;
+import cn.edu.sysu.workflow.enginefeign.BooEngineFeignApplication;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

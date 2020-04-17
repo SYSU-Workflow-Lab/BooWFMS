@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 系统定时任务服务
+ * {@link ApplicationPerformanceMonitorService}
  *
  * @author Skye
  * Created on 2019/12/26

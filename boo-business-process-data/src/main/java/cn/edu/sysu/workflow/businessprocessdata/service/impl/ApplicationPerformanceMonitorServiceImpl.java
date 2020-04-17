@@ -1,9 +1,9 @@
-package cn.edu.sysu.workflow.engine.service.impl;
+package cn.edu.sysu.workflow.businessprocessdata.service.impl;
 
+import cn.edu.sysu.workflow.businessprocessdata.BooBusinessProcessDataApplication;
+import cn.edu.sysu.workflow.businessprocessdata.dao.ServiceInfoDAO;
+import cn.edu.sysu.workflow.businessprocessdata.service.ApplicationPerformanceMonitorService;
 import cn.edu.sysu.workflow.common.entity.ServiceInfo;
-import cn.edu.sysu.workflow.engine.BooEngineApplication;
-import cn.edu.sysu.workflow.engine.dao.ServiceInfoDAO;
-import cn.edu.sysu.workflow.engine.service.ApplicationPerformanceMonitorService;
 import com.sun.management.OperatingSystemMXBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +45,7 @@ public class ApplicationPerformanceMonitorServiceImpl implements ApplicationPerf
         try {
             String url = "http://" + InetAddress.getLocalHost().getHostAddress() + ":" + environment.getProperty("server.port");
             ServiceInfo serviceInfo = new ServiceInfo();
-            serviceInfo.setServiceInfoId(BooEngineApplication.ENGINE_ID);
+            serviceInfo.setServiceInfoId(BooBusinessProcessDataApplication.BUSINESS_PROCESS_DATA_ID);
             serviceInfo.setUrl(url);
             serviceInfoDAO.save(serviceInfo);
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class ApplicationPerformanceMonitorServiceImpl implements ApplicationPerf
     @PreDestroy
     public void preDestroy() {
         try {
-            serviceInfoDAO.deleteByServiceInfoId(BooEngineApplication.ENGINE_ID);
+            serviceInfoDAO.deleteByServiceInfoId(BooBusinessProcessDataApplication.BUSINESS_PROCESS_DATA_ID);
         } catch (Exception e) {
             log.error("When deleting service info, exception occurred, " + e.toString());
         }
@@ -91,7 +91,7 @@ public class ApplicationPerformanceMonitorServiceImpl implements ApplicationPerf
             sb.append("当前Tomcat并发数：").append(tomcatValue);
 
             ServiceInfo serviceInfo = new ServiceInfo();
-            serviceInfo.setServiceInfoId(BooEngineApplication.ENGINE_ID);
+            serviceInfo.setServiceInfoId(BooBusinessProcessDataApplication.BUSINESS_PROCESS_DATA_ID);
             serviceInfo.setCpuOccupancyRate(cpuValue);
             serviceInfo.setMemoryOccupancyRate(memoryResult);
             serviceInfo.setTomcatConcurrency(tomcatResult);

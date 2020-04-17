@@ -25,6 +25,7 @@
         <module>boo-engine</module>
         <module>boo-engine-feign</module>
         <module>boo-resource</module>
+        <module>boo-business-process-data</module>
     </modules>
 
     <dependencyManagement>

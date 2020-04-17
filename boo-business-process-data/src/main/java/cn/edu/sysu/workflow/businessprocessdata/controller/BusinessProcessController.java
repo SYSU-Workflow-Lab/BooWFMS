@@ -28,22 +28,17 @@ public class BusinessProcessController {
     /**
      * Create a new process for a user.
      *
-     * @param token  auth token
      * @param creatorId  creator id
      * @param name   process unique name
      * @param mainbo main bo name
      * @return response package
      */
     @RequestMapping(value = "/createProcess", produces = {"application/json"})
-    public BooReturnForm createProcess(@RequestParam(value = "token", required = false) String token,
-                                       @RequestParam(value = "creatorId", required = false) String creatorId,
+    public BooReturnForm createProcess(@RequestParam(value = "creatorId", required = false) String creatorId,
                                        @RequestParam(value = "name", required = false) String name,
                                        @RequestParam(value = "mainbo", required = false) String mainbo) {
         // miss params
         List<String> missingParams = new ArrayList<>();
-        if (StringUtils.isEmpty(token)) {
-            missingParams.add("token");
-        }
         if (StringUtils.isEmpty(creatorId)) {
             missingParams.add("creatorId");
         }

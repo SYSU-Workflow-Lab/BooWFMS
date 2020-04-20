@@ -1,4 +1,4 @@
-package cn.edu.sysu.workflow.engine.dao;
+package cn.edu.sysu.workflow.businessprocessdata.dao;
 
 import cn.edu.sysu.workflow.common.entity.ProcessInstance;
 

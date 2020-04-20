@@ -1,7 +1,6 @@
 package cn.edu.sysu.workflow.businessprocessdata.service;
 
 import cn.edu.sysu.workflow.common.entity.BusinessObject;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.AbstractMap;
 import java.util.List;
@@ -31,4 +30,12 @@ public interface BusinessObjectService {
      * @return a list of BO in the specific process
      */
     List<BusinessObject> findProcessBOList(String businessProcessId);
+
+    /**
+     * find a BO context by its id.
+     *
+     * @param boId BO unique id
+     * @return BusinessObject instance
+     */
+    BusinessObject findOne(String boId);
 }

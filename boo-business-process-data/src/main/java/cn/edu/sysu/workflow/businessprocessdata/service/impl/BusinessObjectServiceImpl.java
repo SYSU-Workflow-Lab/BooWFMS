@@ -78,4 +78,14 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
         }
     }
 
+    @Override
+    public BusinessObject findOne(String boId) {
+        try {
+            return businessObjectDAO.findOne(boId);
+        } catch (Exception ex) {
+            log.error("Get BO context but exception occurred, " + ex);
+            throw new ServiceFailureException("Get BO context but exception occurred", ex);
+        }
+    }
+
 }

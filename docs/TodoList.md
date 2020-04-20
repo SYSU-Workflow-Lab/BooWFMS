@@ -5,8 +5,8 @@
 - workqueue命名纠正，-> workItemList
 - RenXXX命名纠正
 - SpringContextUtil用法纠正
-- 取消missingParams
 - ServiceFailureException使用推广
+- AuthDomainHelper用法纠正
 
 ## Future Work
 - 原始项目core包存在方法名和属性名开头大写的情况，需要纠正

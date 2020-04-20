@@ -1,7 +1,6 @@
 package cn.edu.sysu.workflow.businessprocessdata.controller;
 
 import cn.edu.sysu.workflow.common.entity.base.BooReturnForm;
-import cn.edu.sysu.workflow.common.entity.exception.MissingParametersException;
 import cn.edu.sysu.workflow.common.entity.exception.ServiceFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -17,15 +16,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(MissingParametersException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    public BooReturnForm missingParameters(MissingParametersException e) {
-        BooReturnForm booReturnForm = new BooReturnForm();
-        booReturnForm.setMessage(e.toString());
-        return booReturnForm;
-    }
 
     @ExceptionHandler(ServiceFailureException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

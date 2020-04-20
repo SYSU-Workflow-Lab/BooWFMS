@@ -87,10 +87,10 @@ public class BusinessProcessController {
      * @param pid process global id
      * @return response package
      */
-    @RequestMapping(value = "/findBusinessProcessByBusinessProcessId")
-    public BooReturnForm findBusinessProcessByBusinessProcessId(@RequestParam(value = "pid") String pid) {
+    @RequestMapping(value = "/findOne")
+    public BooReturnForm findOne(@RequestParam(value = "pid") String pid) {
         // logic
-        BusinessProcess data = businessProcessService.findBusinessProcessByBusinessProcessId(pid);
+        BusinessProcess data = businessProcessService.findOne(pid);
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();

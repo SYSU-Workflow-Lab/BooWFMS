@@ -1,10 +1,10 @@
-package cn.edu.sysu.workflow.engine.dao.impl;
+package cn.edu.sysu.workflow.businessprocessdata.dao.impl;
 
+import cn.edu.sysu.workflow.businessprocessdata.dao.ProcessInstanceDAO;
+import cn.edu.sysu.workflow.common.entity.ProcessInstance;
 import cn.edu.sysu.workflow.common.entity.exception.DAOException;
 import cn.edu.sysu.workflow.common.jdbc.BooPreparedStatementSetter;
 import cn.edu.sysu.workflow.common.util.JdbcUtil;
-import cn.edu.sysu.workflow.engine.dao.ProcessInstanceDAO;
-import cn.edu.sysu.workflow.common.entity.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

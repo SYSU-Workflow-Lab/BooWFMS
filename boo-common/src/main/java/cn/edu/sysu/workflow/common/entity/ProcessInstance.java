@@ -33,9 +33,9 @@ public class ProcessInstance extends BooPagedQuery {
     private String launchAccountId;
 
     /**
-     * 提交运行方式
+     * 提交运行平台
      */
-    private String launchMethod;
+    private String launchPlatform;
 
     /**
      * 提交运行类型
@@ -121,12 +121,12 @@ public class ProcessInstance extends BooPagedQuery {
         this.launchAccountId = launchAccountId;
     }
 
-    public String getLaunchMethod() {
-        return launchMethod;
+    public String getLaunchPlatform() {
+        return launchPlatform;
     }
 
-    public void setLaunchMethod(String launchMethod) {
-        this.launchMethod = launchMethod;
+    public void setLaunchPlatform(String launchPlatform) {
+        this.launchPlatform = launchPlatform;
     }
 
     public Integer getLaunchType() {
@@ -229,7 +229,7 @@ public class ProcessInstance extends BooPagedQuery {
         return Objects.equals(processInstanceId, that.processInstanceId) &&
                 Objects.equals(processId, that.processId) &&
                 Objects.equals(launchAccountId, that.launchAccountId) &&
-                Objects.equals(launchMethod, that.launchMethod) &&
+                Objects.equals(launchPlatform, that.launchPlatform) &&
                 Objects.equals(launchType, that.launchType) &&
                 Objects.equals(engineId, that.engineId) &&
                 Objects.equals(resourceServiceId, that.resourceServiceId) &&
@@ -245,6 +245,6 @@ public class ProcessInstance extends BooPagedQuery {
 
     @Override
     public int hashCode() {
-        return Objects.hash(processInstanceId, processId, launchAccountId, launchMethod, launchType, engineId, resourceServiceId, resourceBinding, resourceBindingType, failureType, participantCache, launchTimestamp, finishTimestamp, resultType, tag);
+        return Objects.hash(processInstanceId, processId, launchAccountId, launchPlatform, launchType, engineId, resourceServiceId, resourceBinding, resourceBindingType, failureType, participantCache, launchTimestamp, finishTimestamp, resultType, tag);
     }
 }

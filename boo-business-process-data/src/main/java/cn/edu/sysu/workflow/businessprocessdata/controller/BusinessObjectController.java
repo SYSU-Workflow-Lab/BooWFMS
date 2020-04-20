@@ -32,7 +32,7 @@ public class BusinessObjectController {
      * @param content BO content
      * @return response package
      */
-    @RequestMapping(value = "/uploadBO")
+    @RequestMapping(value = "/upload")
     public BooReturnForm uploadBusinessObject(@RequestParam(value = "pid") String pid,
                                               @RequestParam(value = "name") String name,
                                               @RequestParam(value = "content") String content) {
@@ -60,6 +60,24 @@ public class BusinessObjectController {
         // return
         BooReturnForm booReturnForm = new BooReturnForm();
         booReturnForm.setMessage("find process business objects successful");
+        booReturnForm.setData(data);
+        return booReturnForm;
+    }
+
+    /**
+     * Get a BO context by its id.
+     *
+     * @param boId bo unique id (required)
+     * @return response package
+     */
+    @RequestMapping(value = "/findOne")
+    public BooReturnForm findOne(@RequestParam(value = "boId") String boId) {
+        // logic
+        BusinessObject data = businessObjectService.findOne(boId);
+
+        // return
+        BooReturnForm booReturnForm = new BooReturnForm();
+        booReturnForm.setMessage("find process business object successful");
         booReturnForm.setData(data);
         return booReturnForm;
     }

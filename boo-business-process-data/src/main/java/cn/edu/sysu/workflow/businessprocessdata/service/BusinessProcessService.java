@@ -1,10 +1,7 @@
 package cn.edu.sysu.workflow.businessprocessdata.service;
 
 import cn.edu.sysu.workflow.common.entity.BusinessProcess;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +28,7 @@ public interface BusinessProcessService {
      * @param businessProcessId
      * @return
      */
-    BusinessProcess findBusinessProcessByBusinessProcessId(String businessProcessId);
+    BusinessProcess findOne(String businessProcessId);
 
     /**
      * 根据创建者ID查找业务流程列表

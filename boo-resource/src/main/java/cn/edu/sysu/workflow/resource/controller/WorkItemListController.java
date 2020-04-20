@@ -2,7 +2,6 @@ package cn.edu.sysu.workflow.resource.controller;
 
 import cn.edu.sysu.workflow.common.entity.WorkItem;
 import cn.edu.sysu.workflow.common.entity.base.BooReturnForm;
-import cn.edu.sysu.workflow.common.entity.exception.MissingParametersException;
 import cn.edu.sysu.workflow.resource.core.api.InterfaceW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

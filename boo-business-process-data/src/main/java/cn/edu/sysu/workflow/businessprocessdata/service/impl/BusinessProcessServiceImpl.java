@@ -52,7 +52,7 @@ public class BusinessProcessServiceImpl implements BusinessProcessService {
     }
 
     @Override
-    public BusinessProcess findBusinessProcessByBusinessProcessId(String businessProcessId) {
+    public BusinessProcess findOne(String businessProcessId) {
         try {
             return businessProcessDAO.findOne(businessProcessId);
         } catch (Exception ex) {

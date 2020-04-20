@@ -2,6 +2,8 @@ package cn.edu.sysu.workflow.businessprocessdata.dao;
 
 import cn.edu.sysu.workflow.common.entity.BusinessProcess;
 
+import java.util.List;
+
 /**
  * 业务流程数据库操作
  *
@@ -53,5 +55,30 @@ public interface BusinessProcessDAO {
      * @return
      */
     BusinessProcess findOne(String businessProcessId);
+
+    /**
+     * 根据创建者ID查找业务流程列表
+     *
+     * @param creatorId
+     * @return
+     */
+    List<BusinessProcess> findBusinessProcessesByCreatorId(String creatorId);
+
+    /**
+     * 根据组织名查找业务流程列表
+     *
+     * @param organization
+     * @return
+     */
+    List<BusinessProcess> findBusinessProcessesByOrganization(String organization);
+
+    /**
+     * 根据创建者ID和业务流程名称检查是否存在业务流程
+     *
+     * @param creatorId
+     * @param processName
+     * @return
+     */
+    Boolean checkBusinessProcessByCreatorIdAndProcessName(String creatorId, String processName);
 
 }

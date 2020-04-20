@@ -61,7 +61,7 @@ public class BinStepDAOTest {
     }
 
     /**
-     * Test {@link cn.edu.sysu.workflow.engine.dao.BinStepDAO#findBinStepsByProcessInstanceId(String)}
+     * Test {@link BinStepDAO#findBinStepsByProcessInstanceId(String)}
      */
     @Test
     @Transactional
@@ -78,7 +78,7 @@ public class BinStepDAOTest {
     }
 
     /**
-     * Test {@link cn.edu.sysu.workflow.engine.dao.BinStepDAO#deleteByProcessInstanceId(String)}
+     * Test {@link BinStepDAO#deleteByProcessInstanceId(String)}
      */
     @Test
     @Transactional

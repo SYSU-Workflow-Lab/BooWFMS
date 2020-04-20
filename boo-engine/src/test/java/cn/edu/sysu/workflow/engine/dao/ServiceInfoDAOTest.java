@@ -70,7 +70,7 @@ public class ServiceInfoDAOTest {
     }
 
     /**
-     * Test {@link cn.edu.sysu.workflow.engine.dao.ServiceInfoDAO#findResourceServiceUrlByProcessInstanceId(String)}
+     * Test {@link ServiceInfoDAO#findResourceServiceUrlByProcessInstanceId(String)}
      */
     @Test
     @Transactional

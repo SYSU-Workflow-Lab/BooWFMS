@@ -51,7 +51,7 @@ public class InteractionServiceImpl implements InteractionService {
         } catch (Exception e) {
             log.error(String.format("[%s]Dispatch callback(BO:%s | ON:%s | EVT:%s | P:%s ), but exception occurred, %s",
                     processInstanceId, bo, on, event, payload, e));
-            throw new ServiceFailureException(e);
+            throw new ServiceFailureException("Dispatch callback but exception occurred", e);
         }
     }
 
@@ -79,7 +79,7 @@ public class InteractionServiceImpl implements InteractionService {
         } catch (Exception e) {
             log.warn(String.format("[%s]Dispatch callback(Notifiable:%s | ON:%s | EVT:%s | P:%s ), but exception occurred, %s",
                     processInstanceId, notifiableId, on, event, payload, e));
-            throw new ServiceFailureException(e);
+            throw new ServiceFailureException("Dispatch callback but exception occurred", e);
         }
     }
 }

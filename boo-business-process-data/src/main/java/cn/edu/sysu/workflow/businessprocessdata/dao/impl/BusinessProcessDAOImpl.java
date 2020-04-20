@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
 
 /**
  * {@link BusinessProcessDAO}
@@ -178,6 +179,86 @@ public class BusinessProcessDAOImpl implements BusinessProcessDAO {
             return null;
         } catch (Exception e) {
             log.error("[" + businessProcessId + "]Error on querying business process by businessProcessId.", e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public List<BusinessProcess> findBusinessProcessesByCreatorId(String creatorId) {
+        String sql = "SELECT business_process_id, business_process_name, main_business_object_name, creator_id, " +
+                "launch_count, success_count, average_cost, status, last_launch_timestamp " +
+                "FROM boo_business_process " +
+                "WHERE creator_id = ? AND status = 1";
+        try {
+            return jdbcTemplate.query(sql, new Object[]{creatorId}, new RowMapper<BusinessProcess>() {
+                @Override
+                public BusinessProcess mapRow(ResultSet resultSet, int i) throws SQLException {
+                    BusinessProcess businessProcess = new BusinessProcess();
+                    businessProcess.setBusinessProcessId(resultSet.getString("business_process_id"));
+                    businessProcess.setBusinessProcessName(resultSet.getString("business_process_name"));
+                    businessProcess.setMainBusinessObjectName(resultSet.getString("main_business_object_name"));
+                    businessProcess.setCreatorId(resultSet.getString("creator_id"));
+                    businessProcess.setLaunchCount(resultSet.getInt("launch_count"));
+                    businessProcess.setSuccessCount(resultSet.getInt("success_count"));
+                    businessProcess.setAverageCost(resultSet.getLong("average_cost"));
+                    businessProcess.setStatus(resultSet.getInt("status"));
+                    businessProcess.setLastLaunchTimestamp(resultSet.getTimestamp("last_launch_timestamp"));
+                    return businessProcess;
+                }
+            });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        } catch (Exception e) {
+            log.error("[" + creatorId + "]Error on querying business process by creatorId.", e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public List<BusinessProcess> findBusinessProcessesByOrganization(String organization) {
+        String sql = "SELECT business_process_id, business_process_name, main_business_object_name, creator_id, " +
+                "launch_count, success_count, average_cost, status, last_launch_timestamp " +
+                "FROM boo_business_process " +
+                "WHERE locate(?, creator_id) > 0 AND status = 1";
+        try {
+            return jdbcTemplate.query(sql, new Object[]{organization}, new RowMapper<BusinessProcess>() {
+                @Override
+                public BusinessProcess mapRow(ResultSet resultSet, int i) throws SQLException {
+                    BusinessProcess businessProcess = new BusinessProcess();
+                    businessProcess.setBusinessProcessId(resultSet.getString("business_process_id"));
+                    businessProcess.setBusinessProcessName(resultSet.getString("business_process_name"));
+                    businessProcess.setMainBusinessObjectName(resultSet.getString("main_business_object_name"));
+                    businessProcess.setCreatorId(resultSet.getString("creator_id"));
+                    businessProcess.setLaunchCount(resultSet.getInt("launch_count"));
+                    businessProcess.setSuccessCount(resultSet.getInt("success_count"));
+                    businessProcess.setAverageCost(resultSet.getLong("average_cost"));
+                    businessProcess.setStatus(resultSet.getInt("status"));
+                    businessProcess.setLastLaunchTimestamp(resultSet.getTimestamp("last_launch_timestamp"));
+                    return businessProcess;
+                }
+            });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        } catch (Exception e) {
+            log.error("[" + organization + "]Error on querying business process by organization.", e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public Boolean checkBusinessProcessByCreatorIdAndProcessName(String creatorId, String processName) {
+        String sql = "SELECT EXISTS(SELECT * " +
+                "FROM boo_business_process " +
+                "WHERE creator_id = ? AND business_process_name = ?)";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{creatorId, processName}, new RowMapper<Boolean>() {
+                @Override
+                public Boolean mapRow(ResultSet resultSet, int i) throws SQLException {
+                    return resultSet.getBoolean(1);
+                }
+            });
+        } catch (Exception e) {
+            log.error("[" + creatorId + "::" + processName + "]Error on checking business process by creatorId and processName.", e);
             throw new DAOException(e);
         }
     }

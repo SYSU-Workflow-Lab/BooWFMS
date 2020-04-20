@@ -60,8 +60,8 @@ public class InterfaceA {
             HashMap argMap = JsonUtil.jsonDeserialization(arguments, HashMap.class);
             interfaceB.performEngineSubmitTask(taskItemContext, nodeId, argMap, processInstanceId);
         } catch (Exception ex) {
-            log.error("[" + processInstanceId + "Exception in EngineSubmitTask, " + ex);
-            throw new ServiceFailureException(ex);
+            log.error("[" + processInstanceId + "]Exception in EngineSubmitTask, " + ex);
+            throw new ServiceFailureException("Exception in EngineSubmitTask", ex);
         }
     }
 

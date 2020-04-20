@@ -3,6 +3,8 @@ package cn.edu.sysu.workflow.businessprocessdata.service.impl;
 import cn.edu.sysu.workflow.businessprocessdata.dao.BusinessProcessDAO;
 import cn.edu.sysu.workflow.businessprocessdata.service.BusinessProcessService;
 import cn.edu.sysu.workflow.common.entity.BusinessProcess;
+import cn.edu.sysu.workflow.common.entity.exception.ServiceFailureException;
+import cn.edu.sysu.workflow.common.util.AuthDomainHelper;
 import cn.edu.sysu.workflow.common.util.IdUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * {@link BusinessProcessService}
@@ -41,8 +46,45 @@ public class BusinessProcessServiceImpl implements BusinessProcessService {
             return businessProcess.getBusinessProcessId();
         } catch (Exception ex) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error("Create process but exception occurred, service rollback, " + ex);
-            return "";
+            log.error("Create business process but exception occurred, service rollback, " + ex);
+            throw new ServiceFailureException("Create business process but exception occurred, service rollback", ex);
+        }
+    }
+
+    @Override
+    public BusinessProcess findBusinessProcessByBusinessProcessId(String businessProcessId) {
+        try {
+            return businessProcessDAO.findOne(businessProcessId);
+        } catch (Exception ex) {
+            log.error("Get Processes of pid but exception occurred, service rollback, " + ex);
+            throw new ServiceFailureException("Get Processes of pid but exception occurred", ex);
+        }
+    }
+
+    @Override
+    public List<BusinessProcess> findBusinessProcessesByCreatorId(String creatorId) {
+        try {
+            return businessProcessDAO.findBusinessProcessesByCreatorId(creatorId);
+        } catch (Exception ex) {
+            log.error("Get business processes of creator but exception occurred, " + ex);
+            throw new ServiceFailureException("Get business processes of creator but exception occurred", ex);
+        }
+    }
+
+    @Override
+    public List<BusinessProcess> findBusinessProcessesByOrganization(String organization) {
+        try {
+            List<BusinessProcess> qRet = businessProcessDAO.findBusinessProcessesByOrganization("@" + organization);
+            List<BusinessProcess> pureRet = new ArrayList<>();
+            for (BusinessProcess cp : qRet) {
+                if (AuthDomainHelper.getDomainByAuthName(cp.getCreatorId()).equals(organization)) {
+                    pureRet.add(cp);
+                }
+            }
+            return pureRet;
+        } catch (Exception ex) {
+            log.error("Get Processes of domain but exception occurred" + ex);
+            throw new ServiceFailureException("Get Processes of domain but exception occurred", ex);
         }
     }
 

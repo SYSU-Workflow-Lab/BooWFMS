@@ -52,7 +52,7 @@ public class ProcessParticipantDAOTest {
     }
 
     /**
-     * Test {@link cn.edu.sysu.workflow.resource.dao.ProcessParticipantDAO#findByAccountId(String)}
+     * Test {@link ProcessParticipantDAO#findByAccountId(String)}
      */
     @Test
     @Transactional

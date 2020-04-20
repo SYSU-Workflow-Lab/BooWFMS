@@ -98,7 +98,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             }
             log.error("[" + processInstanceId +"]When read bo by processInstanceId, exception occurred, " + e.toString() + ", service rollback");
-            throw new ServiceFailureException(e);
+            throw new ServiceFailureException("When read bo by processInstanceId, exception occurred", e);
         }
     }
 
@@ -143,7 +143,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
         } catch (Exception e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             log.error("[" + boIdList +"]" + String.format("When serialize BOList(%s), exception occurred, %s, service rollback", boIdList, e));
-            throw new ServiceFailureException(e);
+            throw new ServiceFailureException("When serialize BOList, exception occurred", e);
         }
     }
 
@@ -181,7 +181,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
             executor.go();
         } catch (Exception e) {
             log.error("[" + processInstanceId +"]When ExecuteBO, exception occurred, " + e.toString());
-            throw new ServiceFailureException(e);
+            throw new ServiceFailureException("When ExecuteBO, exception occurred", e);
         }
     }
 

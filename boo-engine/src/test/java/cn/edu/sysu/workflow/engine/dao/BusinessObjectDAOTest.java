@@ -60,7 +60,7 @@ public class BusinessObjectDAOTest {
     }
 
     /**
-     * Test {@link cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO#findBusinessObjectsByProcessId(String)}
+     * Test {@link BusinessObjectDAO#findBusinessObjectsByProcessId(String)}
      */
     @Test
     @Transactional

@@ -177,7 +177,7 @@ public class ServiceInfoDAOImpl implements ServiceInfoDAO {
         String sql = "SELECT si.service_info_id, si.url, si.is_active, si.business, si.cpu_occupancy_rate," +
                 "si.memory_occupancy_rate, si.tomcat_concurrency, si.work_item_count, si.last_update_timestamp " +
                 "FROM boo_service_info si " +
-                "WHERE locate(si.service_info_id, 'engine-feign-') > 0";
+                "WHERE locate('engine-feign-', si.service_info_id) > 0";
         try {
             return jdbcTemplate.queryForObject(sql, new RowMapper<ServiceInfo>() {
                 @Override

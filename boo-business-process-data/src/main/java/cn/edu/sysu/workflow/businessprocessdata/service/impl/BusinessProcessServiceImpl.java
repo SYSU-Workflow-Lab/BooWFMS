@@ -83,8 +83,18 @@ public class BusinessProcessServiceImpl implements BusinessProcessService {
             }
             return pureRet;
         } catch (Exception ex) {
-            log.error("Get Processes of domain but exception occurred" + ex);
+            log.error("Get Processes of domain but exception occurred, " + ex);
             throw new ServiceFailureException("Get Processes of domain but exception occurred", ex);
+        }
+    }
+
+    @Override
+    public boolean containsBusinessProcess(String creatorId, String processName) {
+        try {
+            return businessProcessDAO.checkBusinessProcessByCreatorIdAndProcessName(creatorId, processName);
+        } catch (Exception ex) {
+            log.error("Get BO in Process but exception occurred, " + ex);
+            throw new ServiceFailureException("\"Get BO in Process but exception occurred", ex);
         }
     }
 

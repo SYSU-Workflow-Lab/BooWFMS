@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * 业务流程数据服务
+ *
  * @author Skye
  * Created on 2020/4/17
  */
@@ -17,9 +18,9 @@ public interface BusinessProcessService {
     /**
      * Create a new process.
      *
-     * @param creatorId       creator id
-     * @param processName process unique name for a specific creator id
-     * @param mainBusinessObjectName  process entry point BO name
+     * @param creatorId              creator id
+     * @param processName            process unique name for a specific creator id
+     * @param mainBusinessObjectName process entry point BO name
      * @return process pid
      */
     String createProcess(String creatorId, String processName, String mainBusinessObjectName);
@@ -47,4 +48,13 @@ public interface BusinessProcessService {
      * @return a list of process
      */
     List<BusinessProcess> findBusinessProcessesByOrganization(String organization);
+
+    /**
+     * Check if a process name is already existing in a creator process list.
+     *
+     * @param creatorId   creator id
+     * @param processName process name
+     * @return boolean for process name existence
+     */
+    boolean containsBusinessProcess(String creatorId, String processName);
 }

@@ -1,6 +1,10 @@
 package cn.edu.sysu.workflow.businessprocessdata.service;
 
+import cn.edu.sysu.workflow.common.entity.BusinessObject;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.AbstractMap;
+import java.util.List;
 
 /**
  * 业务对象数据服务
@@ -20,4 +24,11 @@ public interface BusinessObjectService {
      */
     AbstractMap.SimpleEntry<String, String> uploadBusinessObject(String businessProcessId, String businessObjectName, String content);
 
+    /**
+     * Get the BOs in a process.
+     *
+     * @param businessProcessId business process id
+     * @return a list of BO in the specific process
+     */
+    List<BusinessObject> findProcessBOList(String businessProcessId);
 }

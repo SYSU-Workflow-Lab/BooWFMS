@@ -84,7 +84,7 @@ public class BusinessProcessController {
     /**
      * Get process list of a specific domain.
      *
-     * @param pid   process global id
+     * @param pid process global id
      * @return response package
      */
     @RequestMapping(value = "/findBusinessProcessByBusinessProcessId")
@@ -95,6 +95,27 @@ public class BusinessProcessController {
         // return
         BooReturnForm booReturnForm = new BooReturnForm();
         booReturnForm.setMessage("find business process by pid successful");
+        booReturnForm.setData(data);
+        return booReturnForm;
+    }
+
+    /**
+     * Check if a user already have a process named this.
+     *
+     * @param creator     creator id
+     * @param processName process unique name to be checked
+     * @return response package
+     */
+    @RequestMapping(value = "/containsBusinessProcess")
+    public BooReturnForm containsBusinessProcess(@RequestParam(value = "creator") String creator,
+                                                 @RequestParam(value = "processName") String processName) {
+
+        // logic
+        boolean data = businessProcessService.containsBusinessProcess(creator, processName);
+
+        // return
+        BooReturnForm booReturnForm = new BooReturnForm();
+        booReturnForm.setMessage("check business process by creatorId and processName successful");
         booReturnForm.setData(data);
         return booReturnForm;
     }

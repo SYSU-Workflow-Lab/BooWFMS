@@ -160,12 +160,12 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
     }
 
     @Override
-    public List<BusinessObject> findBusinessObjectsByProcessId(String processId) {
+    public List<BusinessObject> findBusinessObjectsByProcessId(String businessProcessId) {
         String sql = "SELECT business_object_id, business_object_name, process_id, status, content, serialization, business_roles " +
                 "FROM boo_business_object " +
                 "WHERE process_id = ?";
         try {
-            return jdbcTemplate.query(sql, new Object[]{processId}, new RowMapper<BusinessObject>() {
+            return jdbcTemplate.query(sql, new Object[]{businessProcessId}, new RowMapper<BusinessObject>() {
                 @Override
                 public BusinessObject mapRow(ResultSet resultSet, int i) throws SQLException {
                     BusinessObject businessObject = new BusinessObject();
@@ -182,7 +182,7 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
         } catch (EmptyResultDataAccessException e) {
             return null;
         } catch (Exception e) {
-            log.error("[" + processId + "]Error on querying business object list by processId.", e);
+            log.error("[" + businessProcessId + "]Error on querying business object list by processId.", e);
             throw new DAOException(e);
         }
     }

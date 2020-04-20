@@ -1,16 +1,14 @@
 package cn.edu.sysu.workflow.businessprocessdata.controller;
 
 import cn.edu.sysu.workflow.businessprocessdata.service.BusinessObjectService;
+import cn.edu.sysu.workflow.common.entity.BusinessObject;
 import cn.edu.sysu.workflow.common.entity.base.BooReturnForm;
-import cn.edu.sysu.workflow.common.entity.exception.MissingParametersException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +42,24 @@ public class BusinessObjectController {
         // return
         BooReturnForm booReturnForm = new BooReturnForm();
         booReturnForm.setMessage("upload business object successful");
+        booReturnForm.setData(data);
+        return booReturnForm;
+    }
+
+    /**
+     * Get BO name list of a specific process.
+     *
+     * @param pid process id
+     * @return response package
+     */
+    @RequestMapping(value = "/findProcessBOList")
+    public BooReturnForm findProcessBOList(@RequestParam(value = "pid") String pid) {
+        // logic
+        List<BusinessObject> data = businessObjectService.findProcessBOList(pid);
+
+        // return
+        BooReturnForm booReturnForm = new BooReturnForm();
+        booReturnForm.setMessage("find process business objects successful");
         booReturnForm.setData(data);
         return booReturnForm;
     }

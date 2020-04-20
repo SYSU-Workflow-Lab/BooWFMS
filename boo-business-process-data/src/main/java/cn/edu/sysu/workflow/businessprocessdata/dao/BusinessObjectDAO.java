@@ -55,9 +55,9 @@ public interface BusinessObjectDAO {
     /**
      * 根据流程Id查找业务对象列表
      *
-     * @param processId
+     * @param businessProcessId
      * @return
      */
-    List<BusinessObject> findBusinessObjectsByProcessId(String processId);
+    List<BusinessObject> findBusinessObjectsByProcessId(String businessProcessId);
 
 }

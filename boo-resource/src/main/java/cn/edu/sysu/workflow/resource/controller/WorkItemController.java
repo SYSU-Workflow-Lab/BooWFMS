@@ -41,23 +41,11 @@ public class WorkItemController {
      * @param tokenId    auth user token id
      * @return response package in JSON
      */
-    @RequestMapping(value = "/start", produces = {"application/json"})
-    public BooReturnForm startWorkItem(@RequestParam(value = "workerId", required = false) String workerId,
-                                       @RequestParam(value = "workItemId", required = false) String workItemId,
-                                       @RequestParam(value = "payload", required = false) String payload,
-                                       @RequestParam(value = "tokenId", required = false) String tokenId) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (workerId == null) {
-            missingParams.add("workerId");
-        }
-        if (workItemId == null) {
-            missingParams.add("workItemId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/start")
+    public BooReturnForm startWorkItem(@RequestParam(value = "workerId") String workerId,
+                                       @RequestParam(value = "workItemId") String workItemId,
+                                       @RequestParam(value = "payload") String payload,
+                                       @RequestParam(value = "tokenId") String tokenId) {
         // logic
         if (interfaceW.start(workItemId, workerId, payload, tokenId)) {
             // return
@@ -81,23 +69,11 @@ public class WorkItemController {
      * @param tokenId    auth user token id
      * @return response package in JSON
      */
-    @RequestMapping(value = "/accept", produces = {"application/json"})
-    public BooReturnForm acceptWorkItem(@RequestParam(value = "workerId", required = false) String workerId,
-                                        @RequestParam(value = "workItemId", required = false) String workItemId,
-                                        @RequestParam(value = "payload", required = false) String payload,
-                                        @RequestParam(value = "tokenId", required = false) String tokenId) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (workerId == null) {
-            missingParams.add("workerId");
-        }
-        if (workItemId == null) {
-            missingParams.add("workItemId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/accept")
+    public BooReturnForm acceptWorkItem(@RequestParam(value = "workerId") String workerId,
+                                        @RequestParam(value = "workItemId") String workItemId,
+                                        @RequestParam(value = "payload") String payload,
+                                        @RequestParam(value = "tokenId") String tokenId) {
         // logic
         if (interfaceW.acceptOffer(workItemId, workerId, payload, tokenId)) {
             // return
@@ -121,23 +97,11 @@ public class WorkItemController {
      * @param tokenId    auth user token id
      * @return response package in JSON
      */
-    @RequestMapping(value = "/acceptStart", produces = {"application/json"})
-    public BooReturnForm acceptAndStartWorkItem(@RequestParam(value = "workerId", required = false) String workerId,
-                                                @RequestParam(value = "workItemId", required = false) String workItemId,
-                                                @RequestParam(value = "payload", required = false) String payload,
-                                                @RequestParam(value = "tokenId", required = false) String tokenId) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (workerId == null) {
-            missingParams.add("workerId");
-        }
-        if (workItemId == null) {
-            missingParams.add("workItemId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/acceptStart")
+    public BooReturnForm acceptAndStartWorkItem(@RequestParam(value = "workerId") String workerId,
+                                                @RequestParam(value = "workItemId") String workItemId,
+                                                @RequestParam(value = "payload") String payload,
+                                                @RequestParam(value = "tokenId") String tokenId) {
         // logic
         if (interfaceW.acceptAndStart(workItemId, workerId, payload, tokenId)) {
             // return
@@ -160,22 +124,10 @@ public class WorkItemController {
      * @param payload    payload in JSON encoded string
      * @return response package in JSON
      */
-    @RequestMapping(value = "/complete", produces = {"application/json"})
-    public BooReturnForm completeWorkItem(@RequestParam(value = "workerId", required = false) String workerId,
-                                        @RequestParam(value = "workItemId", required = false) String workItemId,
-                                        @RequestParam(value = "payload", required = false) String payload) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (workerId == null) {
-            missingParams.add("workerId");
-        }
-        if (workItemId == null) {
-            missingParams.add("workItemId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/complete")
+    public BooReturnForm completeWorkItem(@RequestParam(value = "workerId") String workerId,
+                                          @RequestParam(value = "workItemId") String workItemId,
+                                          @RequestParam(value = "payload") String payload) {
         // logic
         if (interfaceW.complete(workItemId, workerId, payload)) {
             // return
@@ -198,22 +150,10 @@ public class WorkItemController {
      * @param payload    payload in JSON encoded string
      * @return response package in JSON
      */
-    @RequestMapping(value = "/suspend", produces = {"application/json"})
-    public BooReturnForm suspendWorkItem(@RequestParam(value = "workerId", required = false) String workerId,
-                                       @RequestParam(value = "workItemId", required = false) String workItemId,
-                                       @RequestParam(value = "payload", required = false) String payload) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (workerId == null) {
-            missingParams.add("workerId");
-        }
-        if (workItemId == null) {
-            missingParams.add("workItemId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/suspend")
+    public BooReturnForm suspendWorkItem(@RequestParam(value = "workerId") String workerId,
+                                         @RequestParam(value = "workItemId") String workItemId,
+                                         @RequestParam(value = "payload") String payload) {
         // logic
         if (interfaceW.suspend(workItemId, workerId, payload)) {
             // return
@@ -236,22 +176,10 @@ public class WorkItemController {
      * @param payload    payload in JSON encoded string
      * @return response package in JSON
      */
-    @RequestMapping(value = "/unsuspend", produces = {"application/json"})
-    public BooReturnForm unsuspendWorkItem(@RequestParam(value = "workerId", required = false) String workerId,
-                                         @RequestParam(value = "workItemId", required = false) String workItemId,
-                                         @RequestParam(value = "payload", required = false) String payload) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (workerId == null) {
-            missingParams.add("workerId");
-        }
-        if (workItemId == null) {
-            missingParams.add("workItemId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/unsuspend")
+    public BooReturnForm unsuspendWorkItem(@RequestParam(value = "workerId") String workerId,
+                                           @RequestParam(value = "workItemId") String workItemId,
+                                           @RequestParam(value = "payload") String payload) {
         // logic
         if (interfaceW.unsuspend(workItemId, workerId, payload)) {
             // return
@@ -274,22 +202,10 @@ public class WorkItemController {
      * @param payload    payload in JSON encoded string
      * @return response package in JSON
      */
-    @RequestMapping(value = "/skip", produces = {"application/json"})
-    public BooReturnForm skipWorkItem(@RequestParam(value = "workerId", required = false) String workerId,
-                                    @RequestParam(value = "workItemId", required = false) String workItemId,
-                                    @RequestParam(value = "payload", required = false) String payload) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (workerId == null) {
-            missingParams.add("workerId");
-        }
-        if (workItemId == null) {
-            missingParams.add("workItemId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/skip")
+    public BooReturnForm skipWorkItem(@RequestParam(value = "workerId") String workerId,
+                                      @RequestParam(value = "workItemId") String workItemId,
+                                      @RequestParam(value = "payload") String payload) {
         // logic
         if (interfaceW.skip(workItemId, workerId, payload)) {
             // return
@@ -312,22 +228,10 @@ public class WorkItemController {
      * @param payload    payload in JSON encoded string
      * @return response package in JSON
      */
-    @RequestMapping(value = "/reallocate", produces = {"application/json"})
-    public BooReturnForm reallocateWorkItem(@RequestParam(value = "workerId", required = false) String workerId,
-                                          @RequestParam(value = "workItemId", required = false) String workItemId,
-                                          @RequestParam(value = "payload", required = false) String payload) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (workerId == null) {
-            missingParams.add("workerId");
-        }
-        if (workItemId == null) {
-            missingParams.add("workItemId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/reallocate")
+    public BooReturnForm reallocateWorkItem(@RequestParam(value = "workerId") String workerId,
+                                            @RequestParam(value = "workItemId") String workItemId,
+                                            @RequestParam(value = "payload") String payload) {
         // logic
         if (interfaceW.reallocate(workItemId, workerId, payload)) {
             // return
@@ -350,22 +254,10 @@ public class WorkItemController {
      * @param payload    payload in JSON encoded string
      * @return response package in JSON
      */
-    @RequestMapping(value = "/deallocate", produces = {"application/json"})
-    public BooReturnForm deallocateWorkItem(@RequestParam(value = "workerId", required = false) String workerId,
-                                          @RequestParam(value = "workItemId", required = false) String workItemId,
-                                          @RequestParam(value = "payload", required = false) String payload) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (workerId == null) {
-            missingParams.add("workerId");
-        }
-        if (workItemId == null) {
-            missingParams.add("workItemId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/deallocate")
+    public BooReturnForm deallocateWorkItem(@RequestParam(value = "workerId") String workerId,
+                                            @RequestParam(value = "workItemId") String workItemId,
+                                            @RequestParam(value = "payload") String payload) {
         // logic
         if (interfaceW.deallocate(workItemId, workerId, payload)) {
             // return
@@ -386,17 +278,8 @@ public class WorkItemController {
      * @param processInstanceId process instance id
      * @return response package in JSON
      */
-    @RequestMapping(value = "/getAll", produces = {"application/json"})
-    public BooReturnForm getAll(@RequestParam(value = "processInstanceId", required = false) String processInstanceId) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (processInstanceId == null) {
-            missingParams.add("processInstanceId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/getAll")
+    public BooReturnForm getAll(@RequestParam(value = "processInstanceId") String processInstanceId) {
         // logic
         List<Map<String, String>> data = interfaceW.getAllActiveWorkItemsInUserFriendly(processInstanceId);
 
@@ -413,17 +296,8 @@ public class WorkItemController {
      * @param organization organization name
      * @return response package in JSON
      */
-    @RequestMapping(value = "/getAllByDomain", produces = {"application/json"})
-    public BooReturnForm getAllByOrganization(@RequestParam(value = "organization", required = false) String organization) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (organization == null) {
-            missingParams.add("organization");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/getAllByDomain")
+    public BooReturnForm getAllByOrganization(@RequestParam(value = "organization") String organization) {
         // logic
         List<Map<String, String>> data = interfaceW.getAllWorkItemsInUserFriendlyByOrganization(organization);
 
@@ -440,17 +314,8 @@ public class WorkItemController {
      * @param workerId participant worker global id
      * @return response package in JSON
      */
-    @RequestMapping(value = "/getAllByParticipant", produces = {"application/json"})
-    public BooReturnForm getAllForParticipant(@RequestParam(value = "workerId", required = false) String workerId) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (workerId == null) {
-            missingParams.add("workerId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/getAllByParticipant")
+    public BooReturnForm getAllForParticipant(@RequestParam(value = "workerId") String workerId) {
         // logic
         List<Map<String, String>> data = interfaceW.getAllWorkItemsInUserFriendlyByParticipant(workerId);
 
@@ -467,17 +332,8 @@ public class WorkItemController {
      * @param workItemId work item id
      * @return response package in JSON
      */
-    @RequestMapping(value = "/get", produces = {"application/json"})
-    public BooReturnForm getByWorkItemId(@RequestParam(value = "workItemId", required = false) String workItemId) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (workItemId == null) {
-            missingParams.add("workerId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/get")
+    public BooReturnForm getByWorkItemId(@RequestParam(value = "workItemId") String workItemId) {
         // logic
         Map<String, String> data = interfaceW.getWorkItemInFriendly(workItemId);
 

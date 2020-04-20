@@ -29,40 +29,19 @@ public class EngineController {
     /**
      * Submit a task resourcing request from BOEngine.
      *
-     * @param processInstanceId  process instance id (required)
-     * @param businessObjectName bo name (required)
-     * @param nodeId             id of instance tree node which produce this task (required)
-     * @param polymorphismName   task polymorphism name (required)
+     * @param processInstanceId  process instance id
+     * @param businessObjectName bo name
+     * @param nodeId             id of instance tree node which produce this task
+     * @param polymorphismName   task polymorphism name
      * @param args               argument
      * @return response package
      */
-    @PostMapping(value = "/submitTask", produces = {"application/json", "application/xml"})
-    public BooReturnForm submitTask(@RequestParam(value = "processInstanceId", required = false) String processInstanceId,
-                                    @RequestParam(value = "businessObjectName", required = false) String businessObjectName,
-                                    @RequestParam(value = "nodeId", required = false) String nodeId,
-                                    @RequestParam(value = "polymorphismName", required = false) String polymorphismName,
-                                    @RequestParam(value = "args", required = false) String args) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (StringUtils.isEmpty(processInstanceId)) {
-            missingParams.add("processInstanceId");
-        }
-        if (StringUtils.isEmpty(businessObjectName)) {
-            missingParams.add("businessObjectName");
-        }
-        if (StringUtils.isEmpty(nodeId)) {
-            missingParams.add("nodeId");
-        }
-        if (StringUtils.isEmpty(polymorphismName)) {
-            missingParams.add("polymorphismName");
-        }
-        if (StringUtils.isEmpty(args)) {
-            missingParams.add("args");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @PostMapping(value = "/submitTask")
+    public BooReturnForm submitTask(@RequestParam(value = "processInstanceId") String processInstanceId,
+                                    @RequestParam(value = "businessObjectName") String businessObjectName,
+                                    @RequestParam(value = "nodeId") String nodeId,
+                                    @RequestParam(value = "polymorphismName") String polymorphismName,
+                                    @RequestParam(value = "args") String args) {
         // logic
         interfaceA.engineSubmitTask(processInstanceId, businessObjectName, nodeId, polymorphismName, args);
 
@@ -75,23 +54,13 @@ public class EngineController {
     /**
      * Signal that a process instance has already finished.
      *
-     * @param processInstanceId process instance id (required)
+     * @param processInstanceId process instance id
      * @param successFlag       success flag, 0 unknown, 1 success, -1 failed, default by 1
      * @return response package
      */
-    @PostMapping(value = "/finProcessInstance", produces = {"application/json"})
-    @ResponseBody
-    public BooReturnForm finProcessInstance(@RequestParam(value = "processInstanceId", required = false) String processInstanceId,
-                                            @RequestParam(value = "successFlag", required = false) String successFlag) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (StringUtils.isEmpty(processInstanceId)) {
-            missingParams.add("processInstanceId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @PostMapping(value = "/finProcessInstance")
+    public BooReturnForm finProcessInstance(@RequestParam(value = "processInstanceId") String processInstanceId,
+                                            @RequestParam(value = "successFlag") String successFlag) {
         // logic
         interfaceA.engineFinishProcess(processInstanceId, successFlag);
 

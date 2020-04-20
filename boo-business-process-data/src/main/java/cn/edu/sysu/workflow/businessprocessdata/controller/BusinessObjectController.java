@@ -29,30 +29,15 @@ public class BusinessObjectController {
     /**
      * Upload BO content for a process.
      *
-     * @param pid     belong to process pid (required)
-     * @param name    BO name (required)
-     * @param content BO content (required)
+     * @param pid     belong to process pid
+     * @param name    BO name
+     * @param content BO content
      * @return response package
      */
-    @RequestMapping(value = "/uploadBO", produces = {"application/json"})
-    public BooReturnForm uploadBusinessObject(@RequestParam(value = "pid", required = false) String pid,
-                                              @RequestParam(value = "name", required = false) String name,
-                                              @RequestParam(value = "content", required = false) String content) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (StringUtils.isEmpty(pid)) {
-            missingParams.add("pid");
-        }
-        if (StringUtils.isEmpty(name)) {
-            missingParams.add("name");
-        }
-        if (StringUtils.isEmpty(content)) {
-            missingParams.add("content");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/uploadBO")
+    public BooReturnForm uploadBusinessObject(@RequestParam(value = "pid") String pid,
+                                              @RequestParam(value = "name") String name,
+                                              @RequestParam(value = "content") String content) {
         // logic
         AbstractMap.SimpleEntry<String, String> data = businessObjectService.uploadBusinessObject(pid, name, content);
 

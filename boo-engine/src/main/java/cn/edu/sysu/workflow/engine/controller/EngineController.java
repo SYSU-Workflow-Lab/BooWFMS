@@ -45,17 +45,8 @@ public class EngineController {
      * @param processInstanceId process instance id
      * @return booReturnForm
      */
-    @RequestMapping(value = "/launchProcess", produces = {"application/json"})
-    public BooReturnForm launchProcess(@RequestParam(value = "processInstanceId", required = false) String processInstanceId) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (StringUtils.isEmpty(processInstanceId)) {
-            missingParams.add("processInstanceId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/launchProcess")
+    public BooReturnForm launchProcess(@RequestParam(value = "processInstanceId") String processInstanceId) {
         // logic
         processInstanceManagementService.launchProcess(processInstanceId);
 
@@ -71,17 +62,8 @@ public class EngineController {
      * @param boIdList BOs to be serialized, separated by `,`
      * @return booReturnForm
      */
-    @RequestMapping(value = "/serializeBO", produces = {"application/json"})
-    public BooReturnForm serializeBO(@RequestParam(value = "boIdList", required = false) String boIdList) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (StringUtils.isEmpty(boIdList)) {
-            missingParams.add("boIdList");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/serializeBO")
+    public BooReturnForm serializeBO(@RequestParam(value = "boIdList") String boIdList) {
         // logic
         Set<String> data = processInstanceManagementService.serializeBO(boIdList);
 
@@ -98,17 +80,8 @@ public class EngineController {
      * @param processInstanceId process instance id
      * @return booReturnForm
      */
-    @RequestMapping(value = "/getSpanTree", produces = {"application/json"})
-    public BooReturnForm getSpanTreeByProcessInstanceId(@RequestParam(value = "processInstanceId", required = false) String processInstanceId) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (StringUtils.isEmpty(processInstanceId)) {
-            missingParams.add("processInstanceId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/getSpanTree")
+    public BooReturnForm getSpanTreeByProcessInstanceId(@RequestParam(value = "processInstanceId") String processInstanceId) {
         // logic
         String data = processInstanceManagementService.getSpanTreeDescriptor(processInstanceId);
 
@@ -125,17 +98,8 @@ public class EngineController {
      * @param processInstanceId process process id
      * @return booReturnForm
      */
-    @RequestMapping(value = "/resume", produces = {"application/json"})
-    public BooReturnForm resume(@RequestParam(value = "processInstanceId", required = false) String processInstanceId) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (StringUtils.isEmpty(processInstanceId)) {
-            missingParams.add("processInstanceId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/resume")
+    public BooReturnForm resume(@RequestParam(value = "processInstanceId") String processInstanceId) {
         // logic
         boolean data = steadyStepService.resumeSteady(processInstanceId);
 
@@ -152,17 +116,8 @@ public class EngineController {
      * @param processInstanceIdList process instance id in JSON list
      * @return booReturnForm
      */
-    @RequestMapping(value = "/resumeMany", produces = {"application/json"})
-    public BooReturnForm resumeMany(@RequestParam(value = "processInstanceIdList", required = false) String processInstanceIdList) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (StringUtils.isEmpty(processInstanceIdList)) {
-            missingParams.add("processInstanceId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/resumeMany")
+    public BooReturnForm resumeMany(@RequestParam(value = "processInstanceIdList") String processInstanceIdList) {
         // logic
         HashMap<String, List<String>> data = new HashMap<>();
         data.put("failed", steadyStepService.resumeSteadyMany(processInstanceIdList));
@@ -177,44 +132,20 @@ public class EngineController {
     /**
      * Receive callback event.
      *
-     * @param processInstanceId process instance id (required)
-     * @param bo                from which BO (required)
-     * @param on                which callback scene (required)
-     * @param event             event send to engine (required)
+     * @param processInstanceId process instance id
+     * @param bo                from which BO
+     * @param on                which callback scene
+     * @param event             event send to engine
      * @param payload           event send to engine
      * @return response package
      */
-    @RequestMapping(value = "/callback", produces = {"application/json"})
-    public BooReturnForm callback(@RequestParam(value = "processInstanceId", required = false) String processInstanceId,
-                                  @RequestParam(value = "bo", required = false) String bo,
-                                  @RequestParam(value = "on", required = false) String on,
-                                  @RequestParam(value = "id", required = false) String id,
-                                  @RequestParam(value = "event", required = false) String event,
-                                  @RequestParam(value = "payload", required = false) String payload) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (StringUtils.isEmpty(processInstanceId)) {
-            missingParams.add("processInstanceId");
-        }
-        if (StringUtils.isEmpty(on)) {
-            missingParams.add("on");
-        }
-        if (StringUtils.isEmpty(event)) {
-            missingParams.add("event");
-        }
-        if (StringUtils.isEmpty(bo)) {
-            missingParams.add("bo");
-        }
-        if (StringUtils.isEmpty(processInstanceId)) {
-            missingParams.add("processInstanceId");
-        }
-        if (StringUtils.isEmpty(processInstanceId)) {
-            missingParams.add("processInstanceId");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/callback")
+    public BooReturnForm callback(@RequestParam(value = "processInstanceId") String processInstanceId,
+                                  @RequestParam(value = "bo") String bo,
+                                  @RequestParam(value = "on") String on,
+                                  @RequestParam(value = "id") String id,
+                                  @RequestParam(value = "event") String event,
+                                  @RequestParam(value = "payload") String payload) {
         // logic
         if (bo != null) {
             interactionService.dispatchCallbackByProcessInstanceId(processInstanceId, bo, on, event, payload);

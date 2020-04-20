@@ -31,25 +31,10 @@ public class WorkItemListController {
      * @param type              work item list type name
      * @return response package
      */
-    @RequestMapping(value = "/get", produces = {"application/json"})
-    public BooReturnForm getWorkItemList(@RequestParam(value = "processInstanceId", required = false) String processInstanceId,
-                                         @RequestParam(value = "workerId", required = false) String workerId,
-                                         @RequestParam(value = "type", required = false) String type) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (processInstanceId == null) {
-            missingParams.add("processInstanceId");
-        }
-        if (workerId == null) {
-            missingParams.add("workerId");
-        }
-        if (type == null) {
-            missingParams.add("type");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/get")
+    public BooReturnForm getWorkItemList(@RequestParam(value = "processInstanceId") String processInstanceId,
+                                         @RequestParam(value = "workerId") String workerId,
+                                         @RequestParam(value = "type") String type) {
         // logic
         Set<WorkItem> data = interfaceW.getWorkItemList(processInstanceId, workerId, type);
 
@@ -68,25 +53,10 @@ public class WorkItemListController {
      * @param type              work item list type name
      * @return response package
      */
-    @RequestMapping(value = "/getlist", produces = {"application/json"})
-    public BooReturnForm getWorkItemLists(@RequestParam(value = "processInstanceId", required = false) String processInstanceId,
-                                          @RequestParam(value = "workerIdList", required = false) String workerIdList,
-                                          @RequestParam(value = "type", required = false) String type) {
-        // miss params
-        List<String> missingParams = new ArrayList<>();
-        if (processInstanceId == null) {
-            missingParams.add("processInstanceId");
-        }
-        if (workerIdList == null) {
-            missingParams.add("workerIdList");
-        }
-        if (type == null) {
-            missingParams.add("type");
-        }
-        if (missingParams.size() > 0) {
-            throw new MissingParametersException(missingParams);
-        }
-
+    @RequestMapping(value = "/getlist")
+    public BooReturnForm getWorkItemLists(@RequestParam(value = "processInstanceId") String processInstanceId,
+                                          @RequestParam(value = "workerIdList") String workerIdList,
+                                          @RequestParam(value = "type") String type) {
         // logic
         Map<String, Set<WorkItem>> data = interfaceW.getWorkItemLists(workerIdList.split(","), processInstanceId, type);
 

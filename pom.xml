@@ -31,6 +31,14 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Finchley.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>cn.edu.sysu.workflow</groupId>
                 <artifactId>boo-common</artifactId>
                 <version>${project.version}</version>

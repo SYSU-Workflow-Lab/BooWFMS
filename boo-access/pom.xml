@@ -13,6 +13,12 @@
     <description>a route and auth module.</description>
 
     <dependencies>
+        <!--Zuul-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+        </dependency>
+
         <!--Web Starter-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

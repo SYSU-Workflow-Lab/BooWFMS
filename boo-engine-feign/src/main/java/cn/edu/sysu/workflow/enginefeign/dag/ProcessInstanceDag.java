@@ -8,15 +8,17 @@ import java.util.Iterator;
  */
 public class ProcessInstanceDag implements Iterable<ProcessInstanceDagItem> {
 
-    private class ProcessInstanceDagNode {
+    private static class ProcessInstanceDagNode {
         ProcessInstanceDagItem processInstanceDagItem;
         ProcessInstanceDagNode next;
     }
 
+    private String processInstanceId;
     private ProcessInstanceDagNode head;
     private int size;
 
-    public ProcessInstanceDag() {
+    public ProcessInstanceDag(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
         this.head = new ProcessInstanceDagNode();
         this.size = 0;
     }
@@ -52,6 +54,14 @@ public class ProcessInstanceDag implements Iterable<ProcessInstanceDagItem> {
             temp = temp.next;
         }
         return temp.processInstanceDagItem;
+    }
+
+    public String getProcessInstanceId() {
+        return processInstanceId;
+    }
+
+    public void setProcessInstanceId(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
     }
 
     public boolean isEmpty() {

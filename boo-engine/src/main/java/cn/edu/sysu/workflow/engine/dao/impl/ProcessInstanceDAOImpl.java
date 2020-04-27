@@ -224,7 +224,7 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
                     processInstance.setProcessInstanceId(resultSet.getString("process_instance_id"));
                     processInstance.setProcessId(resultSet.getString("process_id"));
                     processInstance.setLaunchAccountId(resultSet.getString("launch_account_id"));
-                    processInstance.setLaunchPlatform(resultSet.getString("launch_method"));
+                    processInstance.setLaunchPlatform(resultSet.getString("launch_platform"));
                     processInstance.setLaunchType(resultSet.getInt("launch_type"));
                     processInstance.setEngineId(resultSet.getString("engine_id"));
                     processInstance.setResourceServiceId(resultSet.getString("resource_service_id"));

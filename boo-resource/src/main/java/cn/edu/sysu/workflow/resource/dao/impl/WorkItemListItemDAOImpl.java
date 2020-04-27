@@ -17,6 +17,7 @@ import org.springframework.util.StringUtils;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -126,6 +127,8 @@ public class WorkItemListItemDAOImpl implements WorkItemListItemDAO {
                 workItemListItem.setWorkItemId(resultSet.getString("work_item_id"));
                 return workItemListItem;
             });
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
         } catch (Exception e) {
             log.error("[" + workItemListId + "]Error on querying work item list item list by workItemListId.", e);
             throw new DAOException(e);
@@ -145,6 +148,8 @@ public class WorkItemListItemDAOImpl implements WorkItemListItemDAO {
                 workItemListItem.setWorkItemId(resultSet.getString("work_item_id"));
                 return workItemListItem;
             });
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
         } catch (Exception e) {
             log.error("[" + workItemId + "]Error on querying work item list item list by workItemId.", e);
             throw new DAOException(e);

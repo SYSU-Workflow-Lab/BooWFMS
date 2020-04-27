@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -180,7 +181,7 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
                 }
             });
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            return new ArrayList<>();
         } catch (Exception e) {
             log.error("[" + processId + "]Error on querying business object list by processId.", e);
             throw new DAOException(e);

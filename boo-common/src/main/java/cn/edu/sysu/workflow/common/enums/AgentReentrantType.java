@@ -8,6 +8,6 @@ import java.io.Serializable;
  * Usage : Enum of agent reentrant type.
  */
 public enum AgentReentrantType implements Serializable {
-    Reentrant,
-    NotReentrant
+    NotReentrant,
+    Reentrant
 }

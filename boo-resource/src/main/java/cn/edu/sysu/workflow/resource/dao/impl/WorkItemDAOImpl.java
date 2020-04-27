@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -366,6 +367,8 @@ public class WorkItemDAOImpl implements WorkItemDAO {
                     return workItem;
                 }
             });
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
         } catch (Exception e) {
             log.error("[" + processInstanceId + "]Error on querying work items by processInstanceId.", e);
             throw new DAOException(e);
@@ -409,6 +412,8 @@ public class WorkItemDAOImpl implements WorkItemDAO {
                     return workItem;
                 }
             });
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
         } catch (Exception e) {
             log.error("[" + organization + "]Error on querying work items by organization.", e);
             throw new DAOException(e);

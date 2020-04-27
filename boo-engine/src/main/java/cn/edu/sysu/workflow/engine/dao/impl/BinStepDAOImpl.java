@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -156,6 +157,8 @@ public class BinStepDAOImpl implements BinStepDAO {
                     return binStep;
                 }
             });
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
         } catch (Exception e) {
             log.error("[" + processInstanceId + "]Error on querying bin step list by processInstanceId.", e);
             throw new DAOException(e);

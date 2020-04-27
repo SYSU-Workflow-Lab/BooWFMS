@@ -44,9 +44,9 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
         if (!StringUtils.isEmpty(processInstance.getLaunchAccountId())) {
             sql += ", launch_account_id = ?";
         }
-        // launchMethod
-        if (!StringUtils.isEmpty(processInstance.getLaunchMethod())) {
-            sql += ", launch_method = ?";
+        // launchPlatform
+        if (!StringUtils.isEmpty(processInstance.getLaunchPlatform())) {
+            sql += ", launch_platform = ?";
         }
         // launchType
         if (null != processInstance.getLaunchType()) {
@@ -106,9 +106,9 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
                     if (!StringUtils.isEmpty(processInstance.getLaunchAccountId())) {
                         JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getLaunchAccountId(), Types.VARCHAR);
                     }
-                    // launchMethod
-                    if (!StringUtils.isEmpty(processInstance.getLaunchMethod())) {
-                        JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getLaunchMethod(), Types.VARCHAR);
+                    // launchPlatform
+                    if (!StringUtils.isEmpty(processInstance.getLaunchPlatform())) {
+                        JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getLaunchPlatform(), Types.VARCHAR);
                     }
                     // launchType
                     if (null != processInstance.getLaunchType()) {
@@ -166,7 +166,7 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
 
     @Override
     public ProcessInstance findOne(String processInstanceId) {
-        String sql = "SELECT process_instance_id, process_id, launch_account_id, launch_method, launch_type, engine_id, " +
+        String sql = "SELECT process_instance_id, process_id, launch_account_id, launch_platform, launch_type, engine_id, " +
                 "resource_service_id, resource_binding, resource_binding_type, failure_type, participant_cache, launch_timestamp, " +
                 "finish_timestamp, result_type, tag " +
                 "FROM boo_process_instance " +
@@ -179,7 +179,7 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
                     processInstance.setProcessInstanceId(resultSet.getString("process_instance_id"));
                     processInstance.setProcessId(resultSet.getString("process_id"));
                     processInstance.setLaunchAccountId(resultSet.getString("launch_account_id"));
-                    processInstance.setLaunchMethod(resultSet.getString("launch_method"));
+                    processInstance.setLaunchPlatform(resultSet.getString("launch_platform"));
                     processInstance.setLaunchType(resultSet.getInt("launch_type"));
                     processInstance.setEngineId(resultSet.getString("engine_id"));
                     processInstance.setResourceServiceId(resultSet.getString("resource_service_id"));

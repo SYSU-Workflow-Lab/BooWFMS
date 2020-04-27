@@ -37,7 +37,7 @@ public class ProcessInstanceDAOTest {
         this.processInstance.setProcessInstanceId("test-pi-" + IdUtil.nextId());
         this.processInstance.setProcessId("processId");
         this.processInstance.setLaunchAccountId("launchAccountId");
-        this.processInstance.setLaunchMethod("launchMethod");
+        this.processInstance.setLaunchPlatform("launchPlatform");
         this.processInstance.setLaunchType(0);
         this.processInstance.setEngineId("engineId");
         this.processInstance.setResourceServiceId("resourceServiceId");

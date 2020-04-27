@@ -10,15 +10,15 @@ import java.util.Objects;
  * @author Rinkako, Skye
  * Created on 2019/12/24
  */
-public class RoleMap extends BooPagedQuery {
+public class BusinessRoleMap extends BooPagedQuery {
 
     private static final long serialVersionUID = -2698669379061568634L;
-    public static final String PREFIX = "rm-";
+    public static final String PREFIX = "brm-";
 
     /**
      * 数据库主键
      */
-    private String roleMapId;
+    private String businessRoleMapId;
 
     /**
      * 流程实例ID
@@ -36,30 +36,25 @@ public class RoleMap extends BooPagedQuery {
     private String organizationId;
 
     /**
-     * TODO 映射用户账户ID
+     * 映射用户账户ID
      */
-    private String mappedId;
+    private String mappedAccountId;
 
     /**
-     * 数据版本
+     * 所属组织数据版本
      */
     private String dataVersion;
 
-    /**
-     * TODO
-     */
-    private Integer isArchived;
-
-    public RoleMap() {
+    public BusinessRoleMap() {
         super();
     }
 
-    public String getRoleMapId() {
-        return roleMapId;
+    public String getBusinessRoleMapId() {
+        return businessRoleMapId;
     }
 
-    public void setRoleMapId(String roleMapId) {
-        this.roleMapId = roleMapId;
+    public void setBusinessRoleMapId(String businessRoleMapId) {
+        this.businessRoleMapId = businessRoleMapId;
     }
 
     public String getProcessInstanceId() {
@@ -86,12 +81,12 @@ public class RoleMap extends BooPagedQuery {
         this.organizationId = organizationId;
     }
 
-    public String getMappedId() {
-        return mappedId;
+    public String getMappedAccountId() {
+        return mappedAccountId;
     }
 
-    public void setMappedId(String mappedId) {
-        this.mappedId = mappedId;
+    public void setMappedAccountId(String mappedAccountId) {
+        this.mappedAccountId = mappedAccountId;
     }
 
     public String getDataVersion() {
@@ -102,14 +97,6 @@ public class RoleMap extends BooPagedQuery {
         this.dataVersion = dataVersion;
     }
 
-    public Integer getIsArchived() {
-        return isArchived;
-    }
-
-    public void setIsArchived(Integer isArchived) {
-        this.isArchived = isArchived;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -118,18 +105,17 @@ public class RoleMap extends BooPagedQuery {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RoleMap roleMap = (RoleMap) o;
-        return Objects.equals(roleMapId, roleMap.roleMapId) &&
-                Objects.equals(processInstanceId, roleMap.processInstanceId) &&
-                Objects.equals(businessRoleName, roleMap.businessRoleName) &&
-                Objects.equals(organizationId, roleMap.organizationId) &&
-                Objects.equals(mappedId, roleMap.mappedId) &&
-                Objects.equals(dataVersion, roleMap.dataVersion) &&
-                Objects.equals(isArchived, roleMap.isArchived);
+        BusinessRoleMap businessRoleMap = (BusinessRoleMap) o;
+        return Objects.equals(businessRoleMapId, businessRoleMap.businessRoleMapId) &&
+                Objects.equals(processInstanceId, businessRoleMap.processInstanceId) &&
+                Objects.equals(businessRoleName, businessRoleMap.businessRoleName) &&
+                Objects.equals(organizationId, businessRoleMap.organizationId) &&
+                Objects.equals(mappedAccountId, businessRoleMap.mappedAccountId) &&
+                Objects.equals(dataVersion, businessRoleMap.dataVersion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roleMapId, processInstanceId, businessRoleName, organizationId, mappedId, dataVersion, isArchived);
+        return Objects.hash(businessRoleMapId, processInstanceId, businessRoleName, organizationId, mappedAccountId, dataVersion);
     }
 }

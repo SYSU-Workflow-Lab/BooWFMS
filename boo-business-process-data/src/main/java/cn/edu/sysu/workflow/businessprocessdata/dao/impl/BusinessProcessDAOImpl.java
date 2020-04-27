@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -207,7 +208,7 @@ public class BusinessProcessDAOImpl implements BusinessProcessDAO {
                 }
             });
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            return new ArrayList<>();
         } catch (Exception e) {
             log.error("[" + creatorId + "]Error on querying business process by creatorId.", e);
             throw new DAOException(e);
@@ -238,7 +239,7 @@ public class BusinessProcessDAOImpl implements BusinessProcessDAO {
                 }
             });
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            return new ArrayList<>();
         } catch (Exception e) {
             log.error("[" + organization + "]Error on querying business process by organization.", e);
             throw new DAOException(e);

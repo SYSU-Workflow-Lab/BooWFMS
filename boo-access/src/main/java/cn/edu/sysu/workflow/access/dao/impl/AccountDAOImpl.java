@@ -48,7 +48,7 @@ public class AccountDAOImpl implements AccountDAO {
                     // password
                     JdbcUtil.preparedStatementSetter(ps, index(), account.getPassword(), Types.BLOB);
                     // salt
-                    JdbcUtil.preparedStatementSetter(ps, index(), account.getSalt(), Types.BLOB);
+                    JdbcUtil.preparedStatementSetter(ps, index(), account.getSalt(), Types.VARCHAR);
                     // organizationName
                     JdbcUtil.preparedStatementSetter(ps, index(), account.getOrganizationName(), Types.VARCHAR);
                     // status
@@ -84,6 +84,24 @@ public class AccountDAOImpl implements AccountDAO {
             return null;
         } catch (Exception e) {
             log.error("[" + accountId + "]Error on querying account by accountId.", e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public Boolean checkAccountByUsernameAndOrganizationName(String username, String organizationName) {
+        String sql = "SELECT EXISTS(SELECT * " +
+                "FROM boo_account " +
+                "WHERE username = ? AND organization_name = ?)";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{username, organizationName}, new RowMapper<Boolean>() {
+                @Override
+                public Boolean mapRow(ResultSet resultSet, int i) throws SQLException {
+                    return resultSet.getBoolean(1);
+                }
+            });
+        } catch (Exception e) {
+            log.error("[" + username + "::" + organizationName + "]Error on checking account by username and organizationName.", e);
             throw new DAOException(e);
         }
     }

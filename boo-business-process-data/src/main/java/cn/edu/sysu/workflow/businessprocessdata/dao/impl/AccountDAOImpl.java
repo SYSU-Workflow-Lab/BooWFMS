@@ -48,7 +48,7 @@ public class AccountDAOImpl implements AccountDAO {
                     // password
                     JdbcUtil.preparedStatementSetter(ps, index(), account.getPassword(), Types.BLOB);
                     // salt
-                    JdbcUtil.preparedStatementSetter(ps, index(), account.getSalt(), Types.BLOB);
+                    JdbcUtil.preparedStatementSetter(ps, index(), account.getSalt(), Types.VARCHAR);
                     // organizationName
                     JdbcUtil.preparedStatementSetter(ps, index(), account.getOrganizationName(), Types.VARCHAR);
                     // status

@@ -34,4 +34,13 @@ public interface AccountDAO {
      */
     Account findSimpleOne(String accountId);
 
+    /**
+     * 根据用户名和组织名查询账户是否存在
+     *
+     * @param username
+     * @param organizationName
+     * @return
+     */
+    Boolean checkAccountByUsernameAndOrganizationName(String username, String organizationName);
+
 }

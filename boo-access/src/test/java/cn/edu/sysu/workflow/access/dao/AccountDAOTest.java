@@ -50,8 +50,34 @@ public class AccountDAOTest {
         // save
         Assert.assertEquals(1, accountDAO.save(account));
         // findOne
+
+    }
+
+    /**
+     * Test {@link AccountDAO#findSimpleOne(String)}
+     */
+    @Test
+    @Transactional
+    public void test2() {
+        // save
+        Assert.assertEquals(1, accountDAO.save(account));
+
+        // findSimpleOne
         Assert.assertEquals("username", accountDAO.findSimpleOne(account.getAccountId()).getUsername());
         Assert.assertNull(accountDAO.findSimpleOne(account.getAccountId()).getPassword());
+    }
+
+    /**
+     * Test {@link AccountDAO#checkAccountByUsernameAndOrganizationName(String, String)}
+     */
+    @Test
+    @Transactional
+    public void test3() {
+        // save
+        Assert.assertEquals(1, accountDAO.save(account));
+
+        // checkAccountByUsernameAndOrganizationName
+        Assert.assertTrue(accountDAO.checkAccountByUsernameAndOrganizationName("username", "organizationName"));
     }
 
 }

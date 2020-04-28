@@ -1,6 +1,6 @@
-package cn.edu.sysu.workflow.businessprocessdata.dao.impl;
+package cn.edu.sysu.workflow.access.dao.impl;
 
-import cn.edu.sysu.workflow.businessprocessdata.dao.AccountDAO;
+import cn.edu.sysu.workflow.access.dao.AccountDAO;
 import cn.edu.sysu.workflow.common.entity.access.Account;
 import cn.edu.sysu.workflow.common.entity.exception.DAOException;
 import cn.edu.sysu.workflow.common.jdbc.BooPreparedStatementSetter;

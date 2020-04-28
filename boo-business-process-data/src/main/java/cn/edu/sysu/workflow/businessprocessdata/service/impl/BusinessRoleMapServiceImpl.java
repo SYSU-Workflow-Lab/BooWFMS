@@ -92,7 +92,7 @@ public class BusinessRoleMapServiceImpl implements BusinessRoleMapService {
                     processParticipant = new ProcessParticipant();
                     processParticipant.setAccountId(mappedAccountId);
                     if (mappedAccountId.startsWith("Human_")) {
-                        Account account = accountDAO.findOne(mappedAccountId);
+                        Account account = accountDAO.findSimpleOne(mappedAccountId);
                         processParticipant.setDisplayName(account.getUsername());
                         processParticipant.setType(ProcessParticipantType.Human.ordinal());
                     } else {

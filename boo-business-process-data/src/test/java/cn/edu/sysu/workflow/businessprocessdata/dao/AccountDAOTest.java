@@ -35,6 +35,7 @@ public class AccountDAOTest {
         this.account.setAccountId("test-account-" + IdUtil.nextId());
         this.account.setUsername("username");
         this.account.setPassword("password");
+        this.account.setSalt("salt");
         this.account.setOrganizationId("organizationId");
         this.account.setStatus(1);
     }
@@ -48,8 +49,8 @@ public class AccountDAOTest {
         // save
         Assert.assertEquals(1, accountDAO.save(account));
         // findOne
-        Assert.assertEquals("username", accountDAO.findOne(account.getAccountId()).getUsername());
-        Assert.assertNull(accountDAO.findOne(account.getAccountId()).getPassword());
+        Assert.assertEquals("username", accountDAO.findSimpleOne(account.getAccountId()).getUsername());
+        Assert.assertNull(accountDAO.findSimpleOne(account.getAccountId()).getPassword());
     }
 
 }

@@ -27,9 +27,14 @@ public class Account extends BooPagedQuery {
     private String username;
 
     /**
-     * 账户密码
+     * 账户密码(加盐做摘要）
      */
     private String password;
+
+    /**
+     * 盐值
+     */
+    private String salt;
 
     /**
      * 组织ID
@@ -74,6 +79,14 @@ public class Account extends BooPagedQuery {
         this.password = password;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     public String getOrganizationId() {
         return organizationId;
     }
@@ -110,6 +123,7 @@ public class Account extends BooPagedQuery {
         return Objects.equals(accountId, account.accountId) &&
                 Objects.equals(username, account.username) &&
                 Objects.equals(password, account.password) &&
+                Objects.equals(salt, account.salt) &&
                 Objects.equals(organizationId, account.organizationId) &&
                 Objects.equals(status, account.status) &&
                 Objects.equals(lastLoginTimestamp, account.lastLoginTimestamp);
@@ -117,6 +131,6 @@ public class Account extends BooPagedQuery {
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, username, password, organizationId, status, lastLoginTimestamp);
+        return Objects.hash(accountId, username, password, salt, organizationId, status, lastLoginTimestamp);
     }
 }

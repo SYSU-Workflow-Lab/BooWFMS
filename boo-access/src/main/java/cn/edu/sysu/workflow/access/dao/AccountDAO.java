@@ -1,4 +1,4 @@
-package cn.edu.sysu.workflow.businessprocessdata.dao;
+package cn.edu.sysu.workflow.access.dao;
 
 import cn.edu.sysu.workflow.common.entity.access.Account;
 

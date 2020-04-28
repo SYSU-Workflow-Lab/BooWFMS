@@ -1,6 +1,6 @@
-package cn.edu.sysu.workflow.businessprocessdata.dao;
+package cn.edu.sysu.workflow.access.dao;
 
-import cn.edu.sysu.workflow.businessprocessdata.BooBusinessProcessDataApplication;
+import cn.edu.sysu.workflow.access.BooAccessApplication;
 import cn.edu.sysu.workflow.common.entity.access.Account;
 import cn.edu.sysu.workflow.common.util.IdUtil;
 import org.junit.Assert;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Created on 2020/4/27
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = BooBusinessProcessDataApplication.class)
+@SpringBootTest(classes = BooAccessApplication.class)
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class AccountDAOTest {
 

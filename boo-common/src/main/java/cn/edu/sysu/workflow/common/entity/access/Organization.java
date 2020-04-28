@@ -36,8 +36,6 @@ public class Organization extends BooPagedQuery {
      */
     private String parentOrganizationId;
 
-    // TODO 第三方组织架构系统
-
     public Organization() {
         super();
     }

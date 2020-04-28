@@ -34,9 +34,9 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public int save(Account account) {
-        String sql = "INSERT INTO boo_account (account_id, username, password, salt, organization_id, status, " +
+        String sql = "INSERT INTO boo_account (account_id, username, password, salt, organization_name, status, level, " +
                 "create_timestamp, last_update_timestamp) " +
-                "VALUE (?, ?, ?, ?, ?, ?, NOW(), NOW())";
+                "VALUE (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
         try {
             return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
                 @Override
@@ -44,15 +44,17 @@ public class AccountDAOImpl implements AccountDAO {
                     // accountId
                     JdbcUtil.preparedStatementSetter(ps, index(), account.getAccountId(), Types.VARCHAR);
                     // username
-                    JdbcUtil.preparedStatementSetter(ps, index(), account.getUsername(), Types.BLOB);
+                    JdbcUtil.preparedStatementSetter(ps, index(), account.getUsername(), Types.VARCHAR);
                     // password
                     JdbcUtil.preparedStatementSetter(ps, index(), account.getPassword(), Types.BLOB);
                     // salt
                     JdbcUtil.preparedStatementSetter(ps, index(), account.getSalt(), Types.BLOB);
-                    // organizationId
-                    JdbcUtil.preparedStatementSetter(ps, index(), account.getOrganizationId(), Types.VARCHAR);
+                    // organizationName
+                    JdbcUtil.preparedStatementSetter(ps, index(), account.getOrganizationName(), Types.VARCHAR);
                     // status
                     JdbcUtil.preparedStatementSetter(ps, index(), account.getStatus(), Types.INTEGER);
+                    // level
+                    JdbcUtil.preparedStatementSetter(ps, index(), account.getLevel(), Types.INTEGER);
                 }
             });
         } catch (Exception e) {
@@ -63,7 +65,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public Account findSimpleOne(String accountId) {
-        String sql = "SELECT account_id, username, organization_id, status " +
+        String sql = "SELECT account_id, username, organization_name, status, level " +
                 "FROM boo_account WHERE account_id = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{accountId}, new RowMapper<Account>() {
@@ -72,8 +74,9 @@ public class AccountDAOImpl implements AccountDAO {
                     Account account = new Account();
                     account.setAccountId(resultSet.getString("account_id"));
                     account.setUsername(resultSet.getString("username"));
-                    account.setOrganizationId(resultSet.getString("organization_id"));
+                    account.setOrganizationName(resultSet.getString("organization_name"));
                     account.setStatus(resultSet.getInt("status"));
+                    account.setLevel(resultSet.getInt("level"));
                     return account;
                 }
             });

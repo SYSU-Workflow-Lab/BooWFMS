@@ -18,8 +18,9 @@ public interface AccountDAO {
      *                <li>username</li>
      *                <li>password</li>
      *                <li>salt</li>
-     *                <li>organizationId</li>
+     *                <li>organizationName</li>
      *                <li>status</li>
+     *                <li>level</li>
      *                <li>lastLoginTimestamp</li>
      *                </ul>
      * @return 新增的数据量

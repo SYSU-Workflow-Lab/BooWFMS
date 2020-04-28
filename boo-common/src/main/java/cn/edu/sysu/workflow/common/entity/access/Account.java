@@ -37,14 +37,20 @@ public class Account extends BooPagedQuery {
     private String salt;
 
     /**
-     * 组织ID
+     * 组织名称
      */
-    private String organizationId;
+    private String organizationName;
 
     /**
      * 账户状态（0-停用，1-正常）
      */
     private Integer status;
+
+    /**
+     * 账户级别
+     * {@link cn.edu.sysu.workflow.common.enums.AccountLevel}
+     */
+    private Integer level;
 
     /**
      * 最后登录时间
@@ -87,12 +93,12 @@ public class Account extends BooPagedQuery {
         this.salt = salt;
     }
 
-    public String getOrganizationId() {
-        return organizationId;
+    public String getOrganizationName() {
+        return organizationName;
     }
 
-    public void setOrganizationId(String organizationId) {
-        this.organizationId = organizationId;
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
     }
 
     public Integer getStatus() {
@@ -101,6 +107,14 @@ public class Account extends BooPagedQuery {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public Timestamp getLastLoginTimestamp() {
@@ -124,13 +138,14 @@ public class Account extends BooPagedQuery {
                 Objects.equals(username, account.username) &&
                 Objects.equals(password, account.password) &&
                 Objects.equals(salt, account.salt) &&
-                Objects.equals(organizationId, account.organizationId) &&
+                Objects.equals(organizationName, account.organizationName) &&
                 Objects.equals(status, account.status) &&
+                Objects.equals(level, account.level) &&
                 Objects.equals(lastLoginTimestamp, account.lastLoginTimestamp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, username, password, salt, organizationId, status, lastLoginTimestamp);
+        return Objects.hash(accountId, username, password, salt, organizationName, status, level, lastLoginTimestamp);
     }
 }

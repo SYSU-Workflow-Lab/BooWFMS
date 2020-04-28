@@ -8,6 +8,10 @@ package cn.edu.sysu.workflow.common.entity.exception;
  */
 public class ServiceFailureException extends RuntimeException {
 
+    public ServiceFailureException(String message) {
+        super(message);
+    }
+
     public ServiceFailureException(String message, Throwable cause) {
         super(message, cause);
     }

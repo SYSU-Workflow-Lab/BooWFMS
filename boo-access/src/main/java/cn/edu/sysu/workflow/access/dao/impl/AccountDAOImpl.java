@@ -8,6 +8,7 @@ import cn.edu.sysu.workflow.common.util.JdbcUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -57,6 +58,9 @@ public class AccountDAOImpl implements AccountDAO {
                     JdbcUtil.preparedStatementSetter(ps, index(), account.getLevel(), Types.INTEGER);
                 }
             });
+        } catch (DuplicateKeyException e) {
+            log.error("[" + account.getAccountId() + "]Error on creating account because of Duplicate entry.", e);
+            return 0;
         } catch (Exception e) {
             log.error("[" + account.getAccountId() + "]Error on creating account.", e);
             throw new DAOException(e);
@@ -89,19 +93,56 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
-    public Boolean checkAccountByUsernameAndOrganizationName(String username, String organizationName) {
+    public String findSaltByUsername(String username) {
+        String sql = "SELECT salt " +
+                "FROM boo_account WHERE username = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{username}, new RowMapper<String>() {
+                @Override
+                public String mapRow(ResultSet resultSet, int i) throws SQLException {
+                    return resultSet.getString("salt");
+                }
+            });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        } catch (Exception e) {
+            log.error("[" + username + "]Error on querying salt by username.", e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public Boolean checkAccountByUsernameAndPassword(String username, String password) {
         String sql = "SELECT EXISTS(SELECT * " +
                 "FROM boo_account " +
-                "WHERE username = ? AND organization_name = ?)";
+                "WHERE username = ? AND password = ?)";
         try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{username, organizationName}, new RowMapper<Boolean>() {
+            return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, new RowMapper<Boolean>() {
                 @Override
                 public Boolean mapRow(ResultSet resultSet, int i) throws SQLException {
                     return resultSet.getBoolean(1);
                 }
             });
         } catch (Exception e) {
-            log.error("[" + username + "::" + organizationName + "]Error on checking account by username and organizationName.", e);
+            log.error("[" + username + "::" + password + "]Error on checking account by username and password.", e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public Boolean checkAccountByUsername(String username) {
+        String sql = "SELECT EXISTS(SELECT * " +
+                "FROM boo_account " +
+                "WHERE username = ?)";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{username}, new RowMapper<Boolean>() {
+                @Override
+                public Boolean mapRow(ResultSet resultSet, int i) throws SQLException {
+                    return resultSet.getBoolean(1);
+                }
+            });
+        } catch (Exception e) {
+            log.error("[" + username + "]Error on checking account by username.", e);
             throw new DAOException(e);
         }
     }

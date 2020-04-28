@@ -49,6 +49,15 @@ public class AccountDAOTest {
     public void test1() {
         // save
         Assert.assertEquals(1, accountDAO.save(account));
+        Account account2 = new Account();
+        account2.setAccountId("test-account-" + IdUtil.nextId());
+        account2.setUsername("username");
+        account2.setPassword("password");
+        account2.setSalt("salt");
+        account2.setOrganizationName("organizationName");
+        account2.setStatus(1);
+        account2.setLevel(2);
+        Assert.assertEquals(0, accountDAO.save(account2));
         // findOne
 
     }
@@ -68,7 +77,7 @@ public class AccountDAOTest {
     }
 
     /**
-     * Test {@link AccountDAO#checkAccountByUsernameAndOrganizationName(String, String)}
+     * Test {@link AccountDAO#findSaltByUsername(String)}
      */
     @Test
     @Transactional
@@ -76,8 +85,35 @@ public class AccountDAOTest {
         // save
         Assert.assertEquals(1, accountDAO.save(account));
 
-        // checkAccountByUsernameAndOrganizationName
-        Assert.assertTrue(accountDAO.checkAccountByUsernameAndOrganizationName("username", "organizationName"));
+        // findSaltByUsername
+        Assert.assertEquals("salt", accountDAO.findSaltByUsername(account.getUsername()));
+    }
+
+    /**
+     * Test {@link AccountDAO#checkAccountByUsernameAndPassword(String, String)}
+     */
+    @Test
+    @Transactional
+    public void test4() {
+        // save
+        Assert.assertEquals(1, accountDAO.save(account));
+
+        // findSaltByUsername
+        Assert.assertTrue(accountDAO.checkAccountByUsernameAndPassword(account.getUsername(), account.getPassword()));
+        Assert.assertFalse(accountDAO.checkAccountByUsernameAndPassword(account.getUsername(), "111"));
+    }
+
+    /**
+     * Test {@link AccountDAO#checkAccountByUsername(String)}
+     */
+    @Test
+    @Transactional
+    public void test9() {
+        // save
+        Assert.assertEquals(1, accountDAO.save(account));
+
+        // checkAccountByUsername
+        Assert.assertTrue(accountDAO.checkAccountByUsername("username"));
     }
 
 }

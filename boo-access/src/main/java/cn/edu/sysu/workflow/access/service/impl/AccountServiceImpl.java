@@ -31,15 +31,15 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean register(String username, String password, String level, String organization) {
+    public void register(String username, String password, String level, String organization) {
         // check exist
-        if (this.checkAccountByUsernameAndOrganizationName(username,organization)) {
-            return false;
+        if (this.checkAccountByUsername(username)) {
+            throw new ServiceFailureException("User exists!");
         }
 
         // 检查密码是否为空
         if (StringUtils.isEmpty(password)) {
-            return false;
+            throw new ServiceFailureException("Password is empty!");
         }
 
         try {
@@ -56,16 +56,31 @@ public class AccountServiceImpl implements AccountService {
             account.setPassword(finalPassword);
 
             accountDAO.save(account);
-            return true;
         } catch (Exception e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error(String.format("create account but exception occurred (%s@%s), service rollback, %s", username, organization, e));
-            throw new ServiceFailureException(String.format("create account but exception occurred (%s@%s), service rollback", username, organization), e);
+            log.error(String.format("create account but exception occurred (%s), service rollback, %s", username, e));
+            throw new ServiceFailureException(String.format("create account but exception occurred (%s), service rollback", username), e);
         }
     }
 
     @Override
-    public boolean checkAccountByUsernameAndOrganizationName(String username, String organizationName) {
-        return accountDAO.checkAccountByUsernameAndOrganizationName(username, organizationName);
+    public boolean login(String username, String password) {
+        // check exist
+        if (!this.checkAccountByUsername(username)) {
+            throw new ServiceFailureException("User doesn't exist!");
+        }
+        try {
+            String salt = accountDAO.findSaltByUsername(username);
+            String finalPassword = EncryptUtil.encryptSHA256(EncryptUtil.encryptSHA256(password) + salt);
+            return accountDAO.checkAccountByUsernameAndPassword(username, finalPassword);
+        } catch (Exception e) {
+            log.error(String.format("login but exception occurred (%s), service rollback, %s", username, e));
+            throw new ServiceFailureException(String.format("create account but exception occurred (%s), service rollback", username), e);
+        }
+    }
+
+    @Override
+    public boolean checkAccountByUsername(String username) {
+        return accountDAO.checkAccountByUsername(username);
     }
 }

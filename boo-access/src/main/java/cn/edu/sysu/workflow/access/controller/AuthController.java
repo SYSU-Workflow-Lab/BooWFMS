@@ -31,17 +31,30 @@ public class AuthController {
                                     @RequestParam(value = "level") String level,
                                     @RequestParam(value = "organization") String organization) {
         // logic
-        boolean data = accountService.register(username, password, level, organization);
+        accountService.register(username, password, level, organization);
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();
-        if (data) {
-            booReturnForm.setMessage("register account successfully");
-        } else {
-            booReturnForm.setMessage("register account failed");
-        }
+        booReturnForm.setMessage("register account successfully");
         return booReturnForm;
     }
+
+    /**
+     * Request for an auth token by an authorization username and password.
+     *
+     * @param username user unique name
+     * @param password password
+     * @return response package
+     */
+    @PostMapping(value = "/account/login")
+    public BooReturnForm Connect(@RequestParam(value = "username") String username,
+                               @RequestParam(value = "password") String password) {
+        BooReturnForm booReturnForm = new BooReturnForm();
+
+        return booReturnForm;
+    }
+
+
 
 
 }

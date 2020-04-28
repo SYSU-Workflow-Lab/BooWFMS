@@ -29,23 +29,20 @@ public class AccountServiceTest {
 
     private Account account;
 
-    @Before
-    public void setUp() {
-        this.account = new Account();
-        this.account.setAccountId("test-account-" + IdUtil.nextId());
-        this.account.setUsername("username");
-        this.account.setPassword("password");
-        this.account.setOrganizationName("organizationName");
-        this.account.setStatus(1);
-        this.account.setLevel(2);
-    }
-
     /**
      * Test {@link AccountService#register(String, String, String, String)} )}
      */
     @Test
     public void test1() {
-        Assert.assertTrue(accountService.register("username", "password", "NORMAL", "organizationName"));
+        accountService.register("username", "password", "NORMAL", "organizationName");
+    }
+
+    /**
+     * Test {@link AccountService#login(String, String)}
+     */
+    @Test
+    public void test2() {
+        Assert.assertTrue(accountService.login("username", "password"));
     }
 
 }

@@ -17,15 +17,23 @@ public interface AccountService {
      * @param organization
      * @return
      */
-    boolean register(String username, String password, String level, String organization);
+    void register(String username, String password, String level, String organization);
 
     /**
-     * 根据用户名和组织名查询是否存在账户
+     * 登录
      *
      * @param username
-     * @param organizationName
+     * @param password
      * @return
      */
-    boolean checkAccountByUsernameAndOrganizationName(String username, String organizationName);
+    boolean login(String username, String password);
+
+    /**
+     * 根据用户名查询是否存在账户
+     *
+     * @param username
+     * @return
+     */
+    boolean checkAccountByUsername(String username);
 
 }

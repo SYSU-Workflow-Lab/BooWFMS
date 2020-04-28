@@ -35,12 +35,28 @@ public interface AccountDAO {
     Account findSimpleOne(String accountId);
 
     /**
-     * 根据用户名和组织名查询账户是否存在
+     * 根据用户名查询盐值
      *
      * @param username
-     * @param organizationName
      * @return
      */
-    Boolean checkAccountByUsernameAndOrganizationName(String username, String organizationName);
+    String findSaltByUsername(String username);
+
+    /**
+     * 根据账户名和密码查询是否存在（用于登录）
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    Boolean checkAccountByUsernameAndPassword(String username, String password);
+
+    /**
+     * 根据用户名查询账户是否存在
+     *
+     * @param username
+     * @return
+     */
+    Boolean checkAccountByUsername(String username);
 
 }

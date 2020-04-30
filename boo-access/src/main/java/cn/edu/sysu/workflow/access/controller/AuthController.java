@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 /**
+ * 登录登出权限控制
+ *
  * @author Skye
  * Created on 2020/4/28
  */
@@ -20,40 +22,20 @@ public class AuthController {
     private AccountService accountService;
 
     /**
-     * Add a new authorization user.
-     *
-     * @param username     user unique name
-     * @param password     user password
-     * @param level        user level
-     * @param organization organization name
-     * @return response package
-     */
-    @PostMapping(value = "/account/register")
-    public BooReturnForm addAccount(@RequestParam(value = "username") String username,
-                                    @RequestParam(value = "password") String password,
-                                    @RequestParam(value = "level") String level,
-                                    @RequestParam(value = "organization") String organization) {
-        // logic
-        accountService.register(username, password, level, organization);
-
-        // return
-        BooReturnForm booReturnForm = new BooReturnForm();
-        booReturnForm.setMessage("Register account successfully");
-        return booReturnForm;
-    }
-
-    /**
-     * Request for an auth token by an authorization username and password.
+     * Login and set accountId to session.
      *
      * @param username user unique name
      * @param password password
      * @return response package
      */
-    @PostMapping(value = "/account/login")
+    @PostMapping(value = "/login")
     public BooReturnForm login(@RequestParam(value = "username") String username,
                                @RequestParam(value = "password") String password,
                                HttpSession httpSession) {
+        // logic
         String accountId = accountService.login(username, password);
+
+        // return
         BooReturnForm booReturnForm = new BooReturnForm();
         if (!StringUtils.isEmpty(accountId)) {
             booReturnForm.setMessage("Login successfully!");
@@ -64,16 +46,28 @@ public class AuthController {
         return booReturnForm;
     }
 
-    @RequestMapping(value = "/account/logout")
+    /**
+     * Logout and remove accountId from session.
+     *
+     * @return response package
+     */
+    @RequestMapping(value = "/logout")
     public BooReturnForm logout(HttpSession httpSession) {
+        // logic
         httpSession.removeAttribute("accountId");
 
+        // return
         BooReturnForm booReturnForm = new BooReturnForm();
         booReturnForm.setMessage("Logout successfully!");
         return booReturnForm;
     }
 
-    @GetMapping(value = "/account/echo")
+    /**
+     * Echo the accountId of session
+     *
+     * @return response package
+     */
+    @GetMapping(value = "/echo")
     public BooReturnForm echo(HttpSession httpSession) {
         BooReturnForm booReturnForm = new BooReturnForm();
         booReturnForm.setMessage((String) httpSession.getAttribute("accountId"));

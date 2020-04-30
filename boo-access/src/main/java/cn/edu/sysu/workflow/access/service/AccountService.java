@@ -9,15 +9,15 @@ package cn.edu.sysu.workflow.access.service;
 public interface AccountService {
 
     /**
-     * 返回是否成功注册账户
+     * 注册账户
      *
      * @param username
      * @param password
-     * @param level
      * @param organization
+     * @param level
      * @return
      */
-    void register(String username, String password, String level, String organization);
+    void register(String username, String password, String organization, String level);
 
     /**
      * 登录
@@ -27,6 +27,23 @@ public interface AccountService {
      * @return
      */
     String login(String username, String password);
+
+    /**
+     * 更新账户信息
+     *
+     * @param username
+     * @param organization
+     * @param status
+     * @param level
+     */
+    void update(String username, String organization, Integer status, String level);
+
+    /**
+     * 删除账户
+     *
+     * @param username
+     */
+    void delete(String username);
 
     /**
      * 根据用户名查询是否存在账户

@@ -34,7 +34,7 @@ public class AccountServiceTest {
      */
     @Test
     public void test1() {
-        accountService.register("username", "password", "NORMAL", "organizationName");
+        accountService.register("username", "password", "organizationName", "NORMAL");
     }
 
     /**
@@ -43,6 +43,14 @@ public class AccountServiceTest {
     @Test
     public void test2() {
         Assert.assertNotNull(accountService.login("username", "password"));
+    }
+
+    /**
+     * Test {@link AccountService#delete(String)}
+     */
+    @Test
+    public void test3() {
+        accountService.delete("username");
     }
 
 }

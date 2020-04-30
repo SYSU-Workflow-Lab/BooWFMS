@@ -59,6 +59,11 @@ public class AccountDAOTest {
         // findSimpleOne
         Assert.assertEquals(3, accountDAO.findSimpleOne(account.getAccountId()).getLevel().intValue());
 
+        // delete
+        accountDAO.deleteByUsername("username");
+        // findSimpleOne
+        Assert.assertNull(accountDAO.findSimpleOne(account.getAccountId()));
+
     }
 
     /**

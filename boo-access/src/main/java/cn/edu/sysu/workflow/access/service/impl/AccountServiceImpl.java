@@ -31,7 +31,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void register(String username, String password, String level, String organization) {
+    public void register(String username, String password, String organization, String level) {
         // check exist
         if (this.checkAccountByUsername(username)) {
             throw new ServiceFailureException("User exists!");
@@ -80,6 +80,42 @@ public class AccountServiceImpl implements AccountService {
         } catch (Exception e) {
             log.error(String.format("login but exception occurred (%s), service rollback, %s", username, e));
             throw new ServiceFailureException(String.format("create account but exception occurred (%s), service rollback", username), e);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void update(String username, String organization, Integer status, String level) {
+        // check exist
+        if (!this.checkAccountByUsername(username)) {
+            throw new ServiceFailureException("User doesn't exist!");
+        }
+        try {
+            Account account = new Account();
+            account.setUsername(username);
+            account.setOrganizationName(organization);
+            account.setStatus(status);
+            account.setLevel(AccountLevel.valueOf(level).ordinal());
+            accountDAO.update(account);
+        } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            log.error(String.format("update account but exception occurred (%s), service rollback, %s", username, e));
+            throw new ServiceFailureException(String.format("update account account but exception occurred (%s), service rollback", username), e);
+        }
+    }
+
+    @Override
+    public void delete(String username) {
+        // check exist
+        if (!this.checkAccountByUsername(username)) {
+            throw new ServiceFailureException("User doesn't exist!");
+        }
+        try {
+            accountDAO.deleteByUsername(username);
+        } catch (Exception e) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            log.error(String.format("delete account but exception occurred (%s), service rollback, %s", username, e));
+            throw new ServiceFailureException(String.format("delete account account but exception occurred (%s), service rollback", username), e);
         }
     }
 

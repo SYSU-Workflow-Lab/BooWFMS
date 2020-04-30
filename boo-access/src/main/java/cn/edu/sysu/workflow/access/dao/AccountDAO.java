@@ -27,7 +27,7 @@ public interface AccountDAO {
     int save(Account account);
 
     /**
-     * 修改账户，不允许更新账户Id
+     * 修改账户，不允许更新账户Id和账户名称
      *
      * @param account <ul>
      *                <li>username</li>
@@ -40,6 +40,13 @@ public interface AccountDAO {
      * @return 修改的数据量
      */
     int update(Account account);
+
+    /**
+     * 根据账户名删除账户
+     * @param username
+     * @return
+     */
+    int deleteByUsername(String username);
 
     /**
      * 登录成功时更新最后登录时间

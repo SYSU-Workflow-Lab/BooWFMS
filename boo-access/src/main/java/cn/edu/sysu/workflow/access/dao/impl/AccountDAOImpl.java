@@ -71,10 +71,6 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     public int update(Account account) {
         String sql = "UPDATE boo_account SET last_update_timestamp = NOW()";
-        // username
-        if (!StringUtils.isEmpty(account.getUsername())) {
-            sql += ", username = ?";
-        }
         // password
         if (!StringUtils.isEmpty(account.getPassword())) {
             sql += ", password = ?";
@@ -95,16 +91,12 @@ public class AccountDAOImpl implements AccountDAO {
         if (null != account.getLevel()) {
             sql += ", level = ?";
         }
-        // businessObjectId
-        sql += " WHERE account_id = ?";
+        // username
+        sql += " WHERE username = ?";
         try {
             return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
                 @Override
                 public void customSetValues(PreparedStatement ps) throws SQLException {
-                    // username
-                    if (!StringUtils.isEmpty(account.getUsername())) {
-                        JdbcUtil.preparedStatementSetter(ps, index(), account.getUsername(), Types.VARCHAR);
-                    }
                     // password
                     if (!StringUtils.isEmpty(account.getPassword())) {
                         JdbcUtil.preparedStatementSetter(ps, index(), account.getPassword(), Types.VARCHAR);
@@ -125,12 +117,23 @@ public class AccountDAOImpl implements AccountDAO {
                     if (null != account.getLevel()) {
                         JdbcUtil.preparedStatementSetter(ps, index(), account.getLevel(), Types.INTEGER);
                     }
-                    // businessObjectId
-                    JdbcUtil.preparedStatementSetter(ps, index(), account.getAccountId(), Types.VARCHAR);
+                    // username
+                    JdbcUtil.preparedStatementSetter(ps, index(), account.getUsername(), Types.VARCHAR);
                 }
             });
         } catch (Exception e) {
             log.error("[" + account.getAccountId() + "]Error on updating account by accountId.", e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public int deleteByUsername(String username) {
+        String sql = "DELETE FROM boo_account WHERE username = ?";
+        try {
+            return jdbcTemplate.update(sql, username);
+        } catch (Exception e) {
+            log.error("[" + username + "]Error on deleting account by username.", e);
             throw new DAOException(e);
         }
     }

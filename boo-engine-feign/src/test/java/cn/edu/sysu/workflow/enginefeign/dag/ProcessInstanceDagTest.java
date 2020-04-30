@@ -22,7 +22,7 @@ public class ProcessInstanceDagTest {
 
     @Test
     public void test1() {
-        ProcessInstanceDag processInstanceDag = new ProcessInstanceDag();
+        ProcessInstanceDag processInstanceDag = new ProcessInstanceDag("processInstanceId");
         ProcessInstanceDagItem processInstanceDagItem1 = new ProcessInstanceDagItem();
         processInstanceDagItem1.setTaskItemId("1");
 

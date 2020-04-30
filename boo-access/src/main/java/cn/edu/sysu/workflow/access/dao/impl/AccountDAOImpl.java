@@ -13,6 +13,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,6 +69,91 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
+    public int update(Account account) {
+        String sql = "UPDATE boo_account SET last_update_timestamp = NOW()";
+        // username
+        if (!StringUtils.isEmpty(account.getUsername())) {
+            sql += ", username = ?";
+        }
+        // password
+        if (!StringUtils.isEmpty(account.getPassword())) {
+            sql += ", password = ?";
+        }
+        // salt
+        if (!StringUtils.isEmpty(account.getSalt())) {
+            sql += ", salt = ?";
+        }
+        // organizationName
+        if (!StringUtils.isEmpty(account.getOrganizationName())) {
+            sql += ", organization_name = ?";
+        }
+        // status
+        if (null != account.getStatus()) {
+            sql += ", status = ?";
+        }
+        // level
+        if (null != account.getLevel()) {
+            sql += ", level = ?";
+        }
+        // businessObjectId
+        sql += " WHERE account_id = ?";
+        try {
+            return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
+                @Override
+                public void customSetValues(PreparedStatement ps) throws SQLException {
+                    // username
+                    if (!StringUtils.isEmpty(account.getUsername())) {
+                        JdbcUtil.preparedStatementSetter(ps, index(), account.getUsername(), Types.VARCHAR);
+                    }
+                    // password
+                    if (!StringUtils.isEmpty(account.getPassword())) {
+                        JdbcUtil.preparedStatementSetter(ps, index(), account.getPassword(), Types.VARCHAR);
+                    }
+                    // salt
+                    if (!StringUtils.isEmpty(account.getSalt())) {
+                        JdbcUtil.preparedStatementSetter(ps, index(), account.getSalt(), Types.VARCHAR);
+                    }
+                    // organizationName
+                    if (!StringUtils.isEmpty(account.getOrganizationName())) {
+                        JdbcUtil.preparedStatementSetter(ps, index(), account.getOrganizationName(), Types.VARCHAR);
+                    }
+                    // status
+                    if (null != account.getStatus()) {
+                        JdbcUtil.preparedStatementSetter(ps, index(), account.getStatus(), Types.INTEGER);
+                    }
+                    // level
+                    if (null != account.getLevel()) {
+                        JdbcUtil.preparedStatementSetter(ps, index(), account.getLevel(), Types.INTEGER);
+                    }
+                    // businessObjectId
+                    JdbcUtil.preparedStatementSetter(ps, index(), account.getAccountId(), Types.VARCHAR);
+                }
+            });
+        } catch (Exception e) {
+            log.error("[" + account.getAccountId() + "]Error on updating account by accountId.", e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public int updateLastLoginTimestampByAccountId(String accountId) {
+        String sql = "UPDATE boo_account SET last_login_timestamp = NOW(), " +
+                " last_update_timestamp = NOW() WHERE account_id = ?";
+        try {
+            return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
+                @Override
+                public void customSetValues(PreparedStatement ps) throws SQLException {
+                    // accountId
+                    JdbcUtil.preparedStatementSetter(ps, index(), accountId, Types.VARCHAR);
+                }
+            });
+        } catch (Exception e) {
+            log.error("[" + accountId + "]Error on updating last login timestamp by accountId.", e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
     public Account findSimpleOne(String accountId) {
         String sql = "SELECT account_id, username, organization_name, status, level " +
                 "FROM boo_account WHERE account_id = ?";
@@ -112,17 +198,19 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
-    public Boolean checkAccountByUsernameAndPassword(String username, String password) {
-        String sql = "SELECT EXISTS(SELECT * " +
+    public String findAccountIdByUsernameAndPassword(String username, String password) {
+        String sql = "SELECT account_id " +
                 "FROM boo_account " +
-                "WHERE username = ? AND password = ?)";
+                "WHERE username = ? AND password = ?";
         try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, new RowMapper<Boolean>() {
+            return jdbcTemplate.queryForObject(sql, new Object[]{username, password}, new RowMapper<String>() {
                 @Override
-                public Boolean mapRow(ResultSet resultSet, int i) throws SQLException {
-                    return resultSet.getBoolean(1);
+                public String mapRow(ResultSet resultSet, int i) throws SQLException {
+                    return resultSet.getString("account_id");
                 }
             });
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         } catch (Exception e) {
             log.error("[" + username + "::" + password + "]Error on checking account by username and password.", e);
             throw new DAOException(e);

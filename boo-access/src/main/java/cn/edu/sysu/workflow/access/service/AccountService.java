@@ -26,7 +26,7 @@ public interface AccountService {
      * @param password
      * @return
      */
-    boolean login(String username, String password);
+    String login(String username, String password);
 
     /**
      * 根据用户名查询是否存在账户

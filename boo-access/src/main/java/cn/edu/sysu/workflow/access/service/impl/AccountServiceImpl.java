@@ -64,7 +64,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean login(String username, String password) {
+    public String login(String username, String password) {
         // check exist
         if (!this.checkAccountByUsername(username)) {
             throw new ServiceFailureException("User doesn't exist!");
@@ -72,7 +72,11 @@ public class AccountServiceImpl implements AccountService {
         try {
             String salt = accountDAO.findSaltByUsername(username);
             String finalPassword = EncryptUtil.encryptSHA256(EncryptUtil.encryptSHA256(password) + salt);
-            return accountDAO.checkAccountByUsernameAndPassword(username, finalPassword);
+            String accountId = accountDAO.findAccountIdByUsernameAndPassword(username, finalPassword);
+            if (!StringUtils.isEmpty(accountId)) {
+                accountDAO.updateLastLoginTimestampByAccountId(accountId);
+            }
+            return accountId;
         } catch (Exception e) {
             log.error(String.format("login but exception occurred (%s), service rollback, %s", username, e));
             throw new ServiceFailureException(String.format("create account but exception occurred (%s), service rollback", username), e);

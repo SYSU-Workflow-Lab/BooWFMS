@@ -49,31 +49,16 @@ public class AccountDAOTest {
     public void test1() {
         // save
         Assert.assertEquals(1, accountDAO.save(account));
-        Account account2 = new Account();
-        account2.setAccountId("test-account-" + IdUtil.nextId());
-        account2.setUsername("username");
-        account2.setPassword("password");
-        account2.setSalt("salt");
-        account2.setOrganizationName("organizationName");
-        account2.setStatus(1);
-        account2.setLevel(2);
-        Assert.assertEquals(0, accountDAO.save(account2));
-        // findOne
-
-    }
-
-    /**
-     * Test {@link AccountDAO#findSimpleOne(String)}
-     */
-    @Test
-    @Transactional
-    public void test2() {
-        // save
-        Assert.assertEquals(1, accountDAO.save(account));
-
         // findSimpleOne
         Assert.assertEquals("username", accountDAO.findSimpleOne(account.getAccountId()).getUsername());
         Assert.assertNull(accountDAO.findSimpleOne(account.getAccountId()).getPassword());
+
+        // update
+        account.setLevel(3);
+        Assert.assertEquals(1, accountDAO.update(account));
+        // findSimpleOne
+        Assert.assertEquals(3, accountDAO.findSimpleOne(account.getAccountId()).getLevel().intValue());
+
     }
 
     /**
@@ -81,7 +66,7 @@ public class AccountDAOTest {
      */
     @Test
     @Transactional
-    public void test3() {
+    public void test2() {
         // save
         Assert.assertEquals(1, accountDAO.save(account));
 
@@ -90,17 +75,17 @@ public class AccountDAOTest {
     }
 
     /**
-     * Test {@link AccountDAO#checkAccountByUsernameAndPassword(String, String)}
+     * Test {@link AccountDAO#findAccountIdByUsernameAndPassword(String, String)}
      */
     @Test
     @Transactional
-    public void test4() {
+    public void test3() {
         // save
         Assert.assertEquals(1, accountDAO.save(account));
 
         // findSaltByUsername
-        Assert.assertTrue(accountDAO.checkAccountByUsernameAndPassword(account.getUsername(), account.getPassword()));
-        Assert.assertFalse(accountDAO.checkAccountByUsernameAndPassword(account.getUsername(), "111"));
+        Assert.assertEquals(account.getAccountId(), accountDAO.findAccountIdByUsernameAndPassword(account.getUsername(), account.getPassword()));
+        Assert.assertNull(accountDAO.findAccountIdByUsernameAndPassword(account.getUsername(), "111"));
     }
 
     /**
@@ -108,7 +93,7 @@ public class AccountDAOTest {
      */
     @Test
     @Transactional
-    public void test9() {
+    public void test4() {
         // save
         Assert.assertEquals(1, accountDAO.save(account));
 

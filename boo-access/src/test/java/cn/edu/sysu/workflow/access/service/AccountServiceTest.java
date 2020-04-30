@@ -42,7 +42,7 @@ public class AccountServiceTest {
      */
     @Test
     public void test2() {
-        Assert.assertTrue(accountService.login("username", "password"));
+        Assert.assertNotNull(accountService.login("username", "password"));
     }
 
 }

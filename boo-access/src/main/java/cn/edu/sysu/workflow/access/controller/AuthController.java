@@ -3,7 +3,10 @@ package cn.edu.sysu.workflow.access.controller;
 import cn.edu.sysu.workflow.access.service.AccountService;
 import cn.edu.sysu.workflow.common.entity.base.BooReturnForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author Skye
@@ -35,7 +38,7 @@ public class AuthController {
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();
-        booReturnForm.setMessage("register account successfully");
+        booReturnForm.setMessage("Register account successfully");
         return booReturnForm;
     }
 
@@ -47,14 +50,34 @@ public class AuthController {
      * @return response package
      */
     @PostMapping(value = "/account/login")
-    public BooReturnForm Connect(@RequestParam(value = "username") String username,
-                               @RequestParam(value = "password") String password) {
+    public BooReturnForm login(@RequestParam(value = "username") String username,
+                               @RequestParam(value = "password") String password,
+                               HttpSession httpSession) {
+        String accountId = accountService.login(username, password);
         BooReturnForm booReturnForm = new BooReturnForm();
-
+        if (!StringUtils.isEmpty(accountId)) {
+            booReturnForm.setMessage("Login successfully!");
+            httpSession.setAttribute("accountId", accountId);
+        } else {
+            booReturnForm.setMessage("Login in failed");
+        }
         return booReturnForm;
     }
 
+    @RequestMapping(value = "/account/logout")
+    public BooReturnForm logout(HttpSession httpSession) {
+        httpSession.removeAttribute("accountId");
 
+        BooReturnForm booReturnForm = new BooReturnForm();
+        booReturnForm.setMessage("Logout successfully!");
+        return booReturnForm;
+    }
 
+    @GetMapping(value = "/account/echo")
+    public BooReturnForm echo(HttpSession httpSession) {
+        BooReturnForm booReturnForm = new BooReturnForm();
+        booReturnForm.setMessage((String) httpSession.getAttribute("accountId"));
+        return booReturnForm;
+    }
 
 }

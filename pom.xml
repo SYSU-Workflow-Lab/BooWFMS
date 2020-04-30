@@ -38,6 +38,13 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/org.springframework.session/spring-session-data-redis -->
+            <dependency>
+                <groupId>org.springframework.session</groupId>
+                <artifactId>spring-session-data-redis</artifactId>
+                <version>2.1.11.RELEASE</version>
+            </dependency>
+
             <dependency>
                 <groupId>cn.edu.sysu.workflow</groupId>
                 <artifactId>boo-common</artifactId>

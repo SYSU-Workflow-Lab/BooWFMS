@@ -50,6 +50,7 @@ public class BusinessObjectServiceImpl implements BusinessObjectService {
             businessObject.setProcessId(businessProcessId);
             businessObject.setBusinessObjectName(businessObjectName);
             businessObject.setContent(content);
+            businessObject.setStatus(0);
             businessObjectDAO.save(businessObject);
             cmtFlag = true;
             // send to engine for get business role

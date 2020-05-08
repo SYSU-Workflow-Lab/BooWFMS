@@ -11,11 +11,50 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 22/03/2020 12:10:12
+ Date: 08/05/2020 14:49:09
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for boo_account
+-- ----------------------------
+DROP TABLE IF EXISTS `boo_account`;
+CREATE TABLE `boo_account`  (
+  `account_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户ID',
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户名',
+  `password` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户密码',
+  `salt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '盐值',
+  `organization_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '所属组织名称',
+  `status` int(11) NOT NULL COMMENT '账户状态（0-停用，1-正常）',
+  `level` int(11) NOT NULL COMMENT '账户级别',
+  `last_login_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后登录时间',
+  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
+  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
+  PRIMARY KEY (`account_id`) USING BTREE,
+  UNIQUE INDEX `username`(`username`) USING BTREE,
+  UNIQUE INDEX `name_org`(`username`, `organization_name`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of boo_account
+-- ----------------------------
+INSERT INTO `boo_account` VALUES ('account-1', 'admin@admin', '921de9d99bcd43f7648ab376f9e4d88acfbc7ffa8d7ab270e6480c0592d89a84', 'bf6b8251', 'admin', 1, 0, NULL, '2020-05-08 14:48:09', '2020-05-08 14:48:09');
+
+-- ----------------------------
+-- Table structure for boo_agent
+-- ----------------------------
+DROP TABLE IF EXISTS `boo_agent`;
+CREATE TABLE `boo_agent`  (
+  `agent_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'agent ID',
+  `display_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '显示名称',
+  `location` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '账户密码',
+  `reentrant_type` int(11) NULL DEFAULT NULL COMMENT '是否可重入（0-否，1-是）',
+  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
+  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
+  PRIMARY KEY (`agent_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for boo_archived_tree
@@ -81,6 +120,22 @@ CREATE TABLE `boo_business_process`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for boo_business_role_map
+-- ----------------------------
+DROP TABLE IF EXISTS `boo_business_role_map`;
+CREATE TABLE `boo_business_role_map`  (
+  `business_role_map_id` varchar(255) CHARACTER SET sjis COLLATE sjis_japanese_ci NOT NULL COMMENT '数据库主键',
+  `process_instance_id` varchar(255) CHARACTER SET sjis COLLATE sjis_japanese_ci NOT NULL COMMENT '流程实例ID',
+  `business_role_name` text CHARACTER SET sjis COLLATE sjis_japanese_ci NOT NULL COMMENT '业务角色名称',
+  `organization_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '所属组织ID',
+  `mapped_account_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '映射用户账户ID',
+  `data_version` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据版本',
+  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
+  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
+  PRIMARY KEY (`business_role_map_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for boo_exit_item
 -- ----------------------------
 DROP TABLE IF EXISTS `boo_exit_item`;
@@ -98,6 +153,21 @@ CREATE TABLE `boo_exit_item`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for boo_organization
+-- ----------------------------
+DROP TABLE IF EXISTS `boo_organization`;
+CREATE TABLE `boo_organization`  (
+  `organization_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '组织ID',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '组织名称',
+  `status` int(11) NOT NULL COMMENT '组织状态（0-停用，1-正常）',
+  `parent_organization_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '父组织ID',
+  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
+  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
+  PRIMARY KEY (`organization_id`) USING BTREE,
+  UNIQUE INDEX `name`(`name`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for boo_process_instance
 -- ----------------------------
 DROP TABLE IF EXISTS `boo_process_instance`;
@@ -105,7 +175,7 @@ CREATE TABLE `boo_process_instance`  (
   `process_instance_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程实例ID',
   `process_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '所属流程ID',
   `launch_account_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '提交运行账户ID',
-  `launch_method` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '提交运行方式',
+  `launch_platform` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '提交运行平台',
   `launch_type` int(11) NULL DEFAULT NULL COMMENT '提交运行类型',
   `engine_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '运行引擎ID',
   `resource_service_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '资源服务ID',

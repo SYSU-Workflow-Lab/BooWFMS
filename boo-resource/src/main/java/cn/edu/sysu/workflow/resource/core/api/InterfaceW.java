@@ -343,7 +343,6 @@ public class InterfaceW {
      * @return work item descriptors string in list
      */
     public Set<WorkItem> getWorkItemList(String processInstanceId, String workerId, String queueTypeName) {
-        String domain = AuthDomainHelper.getDomainByProcessInstanceId(processInstanceId);
         WorkItemListType wqType;
         try {
             wqType = WorkItemListType.valueOf(queueTypeName.toUpperCase());
@@ -354,10 +353,7 @@ public class InterfaceW {
         List<WorkItemContext> queueSet = workItemListService.getWorkItemListItems(workerId, wqType);
         Set<WorkItem> retSet = new HashSet<>();
         for (WorkItemContext workItemContext : queueSet) {
-            String authDomain = AuthDomainHelper.getDomainByProcessInstanceId(processInstanceId);
-            if (authDomain.equals(domain)) {
-                retSet.add(workItemContext.getWorkItem());
-            }
+            retSet.add(workItemContext.getWorkItem());
         }
         return retSet;
     }
@@ -366,22 +362,17 @@ public class InterfaceW {
      * Get all work items in a specific type of list of a list of workers.
      *
      * @param workerIds
-     * @param processInstanceId
      * @param type
      * @return work item descriptors string in map (workerId, list of work item descriptor)
      */
-    public Map<String, Set<WorkItem>> getWorkItemLists(String[] workerIds, String processInstanceId, String type) {
+    public Map<String, Set<WorkItem>> getWorkItemLists(String[] workerIds, String type) {
         Map<String, Set<WorkItem>> retMap = new HashMap<>();
         for (String workerId : workerIds) {
-            String domain = AuthDomainHelper.getDomainByProcessInstanceId(processInstanceId);
             WorkItemListType wqType = WorkItemListType.valueOf(type.toUpperCase());
             List<WorkItemContext> queueSet = workItemListService.getWorkItemListItems(workerId, wqType);
             Set<WorkItem> retSet = new HashSet<>();
             for (WorkItemContext workItemContext : queueSet) {
-                String authDomain = AuthDomainHelper.getDomainByProcessInstanceId(processInstanceId);
-                if (authDomain.equals(domain)) {
-                    retSet.add(workItemContext.getWorkItem());
-                }
+                retSet.add(workItemContext.getWorkItem());
             }
             retMap.put(workerId, retSet);
         }

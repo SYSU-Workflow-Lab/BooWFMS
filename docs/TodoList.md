@@ -1,10 +1,6 @@
 # Todo List
 
 ## To Be finished By Skye
-- rtid命名纠正，-> processInstanceId
-- workqueue命名纠正，-> workItemList
-- RenXXX命名纠正
-- SpringContextUtil用法纠正
 - DAOException、ServiceFailureException使用推广
 - AuthDomainHelper用法纠正
 
@@ -16,6 +12,7 @@
 - 数据库查询分页查询优化
 - 资源服务可以被设计成无状态服务集群，可以以此为研究生毕业设计（？）
 - 原始项目资源服务中ContextLockManager是否可以有替换方案
+- 登录后生成Token替换现有的accountId
 - Redis分布式数据缓存
 - ElasticSearch日志管理
 - Jenkins使用CI/CD

@@ -29,9 +29,10 @@ public interface ProcessInstanceService {
     /**
      * Start a process instance.
      *
-     * @param processInstanceId process instance id.
+     * @param processInstanceId
+     * @param accountId
      */
-    void launchProcessInstance(String processInstanceId);
+    void launchProcessInstance(String processInstanceId, String accountId);
 
     /**
      * Check a process instance finish status.

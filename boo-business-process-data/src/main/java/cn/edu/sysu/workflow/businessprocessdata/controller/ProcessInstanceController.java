@@ -59,9 +59,10 @@ public class ProcessInstanceController {
      * @return response package
      */
     @RequestMapping(value = "/launch")
-    public BooReturnForm launch(@RequestParam(value = "processInstanceId") String processInstanceId) {
+    public BooReturnForm launch(@RequestParam(value = "processInstanceId") String processInstanceId,
+                                @RequestParam(value = "accountId") String accountId) {
         // logic
-        processInstanceService.launchProcessInstance(processInstanceId);
+        processInstanceService.launchProcessInstance(processInstanceId, accountId);
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();

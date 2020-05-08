@@ -90,7 +90,6 @@ public class InterfaceX {
      * @param workItemContext failed work item
      */
     public void notifyException(WorkItemContext workItemContext) {
-        String launcher = AuthDomainHelper.getAuthNameByProcessInstanceId(workItemContext.getWorkItem().getProcessInstanceId());
         // todo here do notification.
     }
 }

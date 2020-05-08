@@ -1,5 +1,6 @@
 package cn.edu.sysu.workflow.businessprocessdata.service.impl;
 
+import cn.edu.sysu.workflow.businessprocessdata.dao.AccountDAO;
 import cn.edu.sysu.workflow.businessprocessdata.dao.BusinessProcessDAO;
 import cn.edu.sysu.workflow.businessprocessdata.dao.ProcessInstanceDAO;
 import cn.edu.sysu.workflow.businessprocessdata.dao.ServiceInfoDAO;
@@ -43,6 +44,9 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
     private ServiceInfoDAO serviceInfoDAO;
 
     @Autowired
+    private AccountDAO accountDAO;
+
+    @Autowired
     private RestTemplate restTemplate;
 
     @Override
@@ -69,12 +73,11 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void launchProcessInstance(String processInstanceId) {
+    public void launchProcessInstance(String processInstanceId, String accountId) {
         try {
             ProcessInstance processInstance = processInstanceDAO.findOne(processInstanceId);
             processInstance.setLaunchTimestamp(TimestampUtil.getCurrentTimestamp());
-            String launcher = AuthDomainHelper.getAuthNameByProcessInstanceId(processInstanceId);
-            processInstance.setLaunchAccountId(launcher);
+            processInstance.setLaunchAccountId(accountId);
             processInstanceDAO.update(processInstance);
             BusinessProcess businessProcess = businessProcessDAO.findOne(processInstance.getProcessId());
             // TODO 可能出现重复写错误，需要加锁

@@ -47,17 +47,15 @@ public class WorkItemListController {
     /**
      * Get a specific work item list of a list of workers.
      *
-     * @param processInstanceId process instance id
      * @param workerIdList      worker global id list, split by `,`
      * @param type              work item list type name
      * @return response package
      */
     @RequestMapping(value = "/getlist")
-    public BooReturnForm getWorkItemLists(@RequestParam(value = "processInstanceId") String processInstanceId,
-                                          @RequestParam(value = "workerIdList") String workerIdList,
+    public BooReturnForm getWorkItemLists(@RequestParam(value = "workerIdList") String workerIdList,
                                           @RequestParam(value = "type") String type) {
         // logic
-        Map<String, Set<WorkItem>> data = interfaceW.getWorkItemLists(workerIdList.split(","), processInstanceId, type);
+        Map<String, Set<WorkItem>> data = interfaceW.getWorkItemLists(workerIdList.split(","), type);
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();

@@ -14,6 +14,7 @@ import cn.edu.sysu.workflow.resource.core.plugin.AgentNotifyPlugin;
 import cn.edu.sysu.workflow.resource.core.plugin.AsyncPluginRunner;
 import cn.edu.sysu.workflow.resource.core.principle.Principle;
 import cn.edu.sysu.workflow.resource.core.principle.PrincipleParser;
+import cn.edu.sysu.workflow.resource.dao.AccountDAO;
 import cn.edu.sysu.workflow.resource.dao.BusinessProcessDAO;
 import cn.edu.sysu.workflow.resource.dao.ProcessInstanceDAO;
 import cn.edu.sysu.workflow.resource.dao.WorkItemDAO;
@@ -70,6 +71,9 @@ public class InterfaceB {
     private BusinessProcessDAO businessProcessDAO;
 
     @Autowired
+    private AccountDAO accountDAO;
+
+    @Autowired
     private WorkItemContextService workItemContextService;
 
     @Autowired
@@ -91,8 +95,8 @@ public class InterfaceB {
         TaskItemContext taskContext = taskItemContext;
 
         // use runtime record to get the admin auth name for admin work item list identifier
-        ProcessInstance runtimeRecord = processInstanceDAO.findOne(processInstanceId);
-        String domain = AuthDomainHelper.getDomainByProcessInstanceId(processInstanceId);
+        String accountId = processInstanceDAO.findOne(processInstanceId).getLaunchAccountId();
+        String domain = AuthDomainHelper.getDomainByAuthName(accountDAO.findSimpleOne(accountId).getUsername());
 
         // generate work item
         WorkItemContext workItemContext = workItemContextService.generateContext(

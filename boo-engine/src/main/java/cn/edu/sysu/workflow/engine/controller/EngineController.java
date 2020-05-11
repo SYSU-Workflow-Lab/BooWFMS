@@ -40,12 +40,14 @@ public class EngineController {
      * launch a process instance by the processInstanceId
      *
      * @param processInstanceId process instance id
+     * @param accountId         launch account id
      * @return booReturnForm
      */
     @RequestMapping(value = "/launchProcess")
-    public BooReturnForm launchProcess(@RequestParam(value = "processInstanceId") String processInstanceId) {
+    public BooReturnForm launchProcess(@RequestParam(value = "processInstanceId") String processInstanceId,
+                                       @RequestParam(value = "accountId") String accountId) {
         // logic
-        processInstanceManagementService.launchProcess(processInstanceId);
+        processInstanceManagementService.launchProcess(processInstanceId, accountId);
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();

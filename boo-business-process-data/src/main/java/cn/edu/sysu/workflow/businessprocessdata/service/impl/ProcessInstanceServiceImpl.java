@@ -5,20 +5,15 @@ import cn.edu.sysu.workflow.businessprocessdata.dao.BusinessProcessDAO;
 import cn.edu.sysu.workflow.businessprocessdata.dao.ProcessInstanceDAO;
 import cn.edu.sysu.workflow.businessprocessdata.dao.ServiceInfoDAO;
 import cn.edu.sysu.workflow.businessprocessdata.service.ProcessInstanceService;
-import cn.edu.sysu.workflow.common.constant.LocationContext;
-import cn.edu.sysu.workflow.common.entity.BusinessProcess;
 import cn.edu.sysu.workflow.common.entity.ProcessInstance;
 import cn.edu.sysu.workflow.common.entity.exception.ServiceFailureException;
 import cn.edu.sysu.workflow.common.util.IdUtil;
-import cn.edu.sysu.workflow.common.util.TimestampUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -69,37 +64,6 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             log.error(String.format("Submit process but exception occurred(pid: %s), service rollback, %s", pid, ex));
             throw new ServiceFailureException(String.format("Submit process but exception occurred(pid: %s), service rollback", pid), ex);
-        }
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void launchProcessInstance(String processInstanceId, String accountId) {
-        try {
-            ProcessInstance processInstance = processInstanceDAO.findOne(processInstanceId);
-            processInstance.setLaunchTimestamp(TimestampUtil.getCurrentTimestamp());
-            processInstance.setLaunchAccountId(accountId);
-            processInstanceDAO.update(processInstance);
-            BusinessProcess businessProcess = businessProcessDAO.findOne(processInstance.getProcessId());
-            // TODO 可能出现重复写错误，需要加锁
-            businessProcess.setLaunchCount(businessProcess.getLaunchCount() + 1);
-            businessProcess.setLastLaunchTimestamp(TimestampUtil.getCurrentTimestamp());
-            businessProcessDAO.update(businessProcess);
-        } catch (Exception ex) {
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error("[" + processInstanceId + "]Start process but exception occurred, service rollback, " + ex);
-            throw new ServiceFailureException("[" + processInstanceId + "]Start process but exception occurred, service rollback", ex);
-        }
-
-        try {
-            // interaction with Engine
-            MultiValueMap<String, String> args = new LinkedMultiValueMap<>();
-            args.add("processInstanceId", processInstanceId);
-            restTemplate.postForObject(
-                    LocationContext.ENGINE_FEIGN + LocationContext.URL_ENGINE_START, args, String.class);
-        } catch (Exception ex) {
-            log.error("Cannot interaction with Engine for processInstanceId: " + processInstanceId);
-            throw new ServiceFailureException("Cannot interaction with Engine for processInstanceId: " + processInstanceId, ex);
         }
     }
 

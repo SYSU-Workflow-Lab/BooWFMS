@@ -14,11 +14,13 @@ import java.util.List;
 public interface ProcessInstanceManagementService {
 
     /**
-     * obtain main bo xml content from database according to the process id, and then read and execute it
+     * Start a process instance.
+     * obtain main bo xml content from database according to the process id, and then read and execute it.
      *
      * @param processInstanceId
+     * @param accountId
      */
-    void launchProcess(String processInstanceId);
+    void launchProcess(String processInstanceId, String accountId);
 
     /**
      * Upload a BO for a specific process.

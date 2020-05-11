@@ -4,6 +4,7 @@ import cn.edu.sysu.workflow.common.entity.*;
 import cn.edu.sysu.workflow.common.entity.exception.ServiceFailureException;
 import cn.edu.sysu.workflow.common.util.IdUtil;
 import cn.edu.sysu.workflow.common.util.JsonUtil;
+import cn.edu.sysu.workflow.common.util.TimestampUtil;
 import cn.edu.sysu.workflow.engine.BooEngineApplication;
 import cn.edu.sysu.workflow.engine.core.BOXMLExecutor;
 import cn.edu.sysu.workflow.engine.core.Context;
@@ -62,20 +63,28 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void launchProcess(String processInstanceId) {
+    public void launchProcess(String processInstanceId, String accountId) {
         boolean cmtFlag = false;
         try {
             ProcessInstance processInstance = processInstanceDAO.findOne(processInstanceId);
             if (processInstance == null) {
                 throw new RuntimeException("ProcessInstance:" + processInstanceId + " is null!");
             }
-            String processId = processInstance.getProcessId();
+            processInstance.setLaunchTimestamp(TimestampUtil.getCurrentTimestamp());
+            processInstance.setLaunchAccountId(accountId);
             processInstance.setEngineId(BooEngineApplication.ENGINE_ID);
             processInstanceDAO.update(processInstance);
+
+            String processId = processInstance.getProcessId();
             BusinessProcess businessProcess = businessProcessDAO.findOne(processId);
             if (businessProcess == null) {
                 throw new RuntimeException("BusinessProcess:" + processId + " is NULL!");
             }
+            // TODO 可能出现重复写错误，需要加锁
+            businessProcess.setLaunchCount(businessProcess.getLaunchCount() + 1);
+            businessProcess.setLastLaunchTimestamp(TimestampUtil.getCurrentTimestamp());
+            businessProcessDAO.update(businessProcess);
+
             String mainBusinessObjectName = businessProcess.getMainBusinessObjectName();
             List<BusinessObject> boList = businessObjectDAO.findBusinessObjectsByProcessId(processId);
             BusinessObject mainBusinessObject = null;
@@ -87,18 +96,18 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
             }
             cmtFlag = true;
             if (mainBusinessObject == null) {
-                log.error("[" + processInstanceId +"]Main BO not exist for launching process: " + processInstanceId);
+                log.error("[" + processInstanceId + "]Main BO not exist for launching process: " + processInstanceId);
                 return;
             }
             byte[] serializedBO = mainBusinessObject.getSerialization();
             SCXML deserializedBO = SerializationUtil.DeserializationSCXMLByByteArray(serializedBO);
             this.executeBO(deserializedBO, processInstanceId, processId);
-        } catch (Exception e) {
+        } catch (Exception ex) {
             if (!cmtFlag) {
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             }
-            log.error("[" + processInstanceId +"]When read bo by processInstanceId, exception occurred, " + e.toString() + ", service rollback");
-            throw new ServiceFailureException("When read bo by processInstanceId, exception occurred", e);
+            log.error("[" + processInstanceId + "]Start process but exception occurred, service rollback, " + ex);
+            throw new ServiceFailureException("[" + processInstanceId + "]Start process but exception occurred, service rollback", ex);
         }
     }
 

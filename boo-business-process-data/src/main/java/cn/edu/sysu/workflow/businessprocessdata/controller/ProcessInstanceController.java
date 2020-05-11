@@ -6,7 +6,6 @@ import cn.edu.sysu.workflow.common.entity.base.BooReturnForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -49,24 +48,6 @@ public class ProcessInstanceController {
         BooReturnForm booReturnForm = new BooReturnForm();
         booReturnForm.setMessage("create process instance successful");
         booReturnForm.setData(data);
-        return booReturnForm;
-    }
-
-    /**
-     * Launch a process instance.
-     *
-     * @param processInstanceId process instance id
-     * @return response package
-     */
-    @RequestMapping(value = "/launch")
-    public BooReturnForm launch(@RequestParam(value = "processInstanceId") String processInstanceId,
-                                @RequestParam(value = "accountId") String accountId) {
-        // logic
-        processInstanceService.launchProcessInstance(processInstanceId, accountId);
-
-        // return
-        BooReturnForm booReturnForm = new BooReturnForm();
-        booReturnForm.setMessage("launch process instance successful");
         return booReturnForm;
     }
 

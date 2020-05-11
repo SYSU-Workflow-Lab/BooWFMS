@@ -1,7 +1,6 @@
 package cn.edu.sysu.workflow.businessprocessdata.service;
 
 import cn.edu.sysu.workflow.common.entity.ProcessInstance;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
@@ -25,14 +24,6 @@ public interface ProcessInstanceService {
      * @return Runtime record package
      */
     String createProcessInstance(String pid, String from, Integer bindingType, Integer launchType, Integer failureType, String binding);
-
-    /**
-     * Start a process instance.
-     *
-     * @param processInstanceId
-     * @param accountId
-     */
-    void launchProcessInstance(String processInstanceId, String accountId);
 
     /**
      * Check a process instance finish status.

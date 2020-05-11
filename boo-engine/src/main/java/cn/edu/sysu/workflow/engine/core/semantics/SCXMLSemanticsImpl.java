@@ -1,7 +1,7 @@
 package cn.edu.sysu.workflow.engine.core.semantics;
 
-import cn.edu.sysu.workflow.engine.BooEngineApplication;
 import cn.edu.sysu.workflow.common.constant.LocationContext;
+import cn.edu.sysu.workflow.engine.BooEngineApplication;
 import cn.edu.sysu.workflow.engine.core.*;
 import cn.edu.sysu.workflow.engine.core.instanceTree.InstanceManager;
 import cn.edu.sysu.workflow.engine.core.invoke.Invoker;
@@ -14,6 +14,7 @@ import cn.edu.sysu.workflow.engine.util.SpringContextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -217,7 +218,7 @@ public class SCXMLSemanticsImpl implements BOXMLSemantics {
                     InstanceManager.unregisterInstanceTree(exctx.processInstanceId);
                     // notify resource service GC
                     if (!BooEngineApplication.IS_LOCAL_DEBUG) {
-                        LinkedMultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
+                        MultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
                         requestEntity.add("processInstanceId", exctx.processInstanceId);
                         ServiceInfoDAO serviceInfoDAO = (ServiceInfoDAO) SpringContextUtil.getBean("serviceInfoDAOImpl");
                         String resourceServiceUrl = serviceInfoDAO.findResourceServiceUrlByProcessInstanceId(exctx.processInstanceId);

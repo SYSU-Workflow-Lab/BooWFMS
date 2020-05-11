@@ -5,10 +5,10 @@ import cn.edu.sysu.workflow.common.enums.AgentReentrantType;
 import cn.edu.sysu.workflow.resource.util.SpringContextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -62,7 +62,7 @@ public class AgentNotifyPlugin extends AsyncRunnablePlugin {
      * @param args              arguments to post
      * @param processInstanceId process instance id
      */
-    public void addNotification(ProcessParticipant agent, Map<String, String> args, String processInstanceId) {
+    public void addNotification(ProcessParticipant agent, MultiValueMap<String, String> args, String processInstanceId) {
         if (!this.isBeginSending) {
             NotifyMessagePackage nmp = new NotifyMessagePackage();
             nmp.agent = agent;
@@ -116,7 +116,7 @@ public class AgentNotifyPlugin extends AsyncRunnablePlugin {
      * @param args              arguments to post
      * @param processInstanceId process instance id
      */
-    private void postToAgent(ProcessParticipant agent, Map<String, String> args, String processInstanceId) {
+    private void postToAgent(ProcessParticipant agent, MultiValueMap<String, String> args, String processInstanceId) {
         try {
             // reentrant agent: send post directly.
             if (agent.getReentrantType() == AgentReentrantType.Reentrant.ordinal()) {
@@ -146,7 +146,7 @@ public class AgentNotifyPlugin extends AsyncRunnablePlugin {
         /**
          * Get or set notification arguments map.
          */
-        Map<String, String> args;
+        MultiValueMap<String, String> args;
 
         /**
          * Get or set notification process instance id.

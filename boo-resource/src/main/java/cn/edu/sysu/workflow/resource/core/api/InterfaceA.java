@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -90,25 +92,25 @@ public class InterfaceA {
         // events
         List<String> callbacks = taskItemContextService.getCallbackEventsOfStatus(taskItemContext, statusType);
         for (String cb : callbacks) {
-            HashMap<String, String> argsMap = new HashMap<>();
-            argsMap.put("processInstanceId", processInstanceId);
-            argsMap.put("bo", bo);
-            argsMap.put("on", statusType.name());
-            argsMap.put("event", cb);
+            MultiValueMap<String, Object> argsMap = new LinkedMultiValueMap<String, Object>();
+            argsMap.add("processInstanceId", processInstanceId);
+            argsMap.add("bo", bo);
+            argsMap.add("on", statusType.name());
+            argsMap.add("event", cb);
             if (payloadJSON != null) {
-                argsMap.put("payload", payloadJSON);
+                argsMap.add("payload", payloadJSON);
             }
             restTemplate.postForObject(serviceInfoDAO.findEngineServiceUrlByProcessInstanceId(processInstanceId) + LocationContext.URL_ENGINE_CALLBACK, argsMap, String.class);
         }
         // hooks
         List<String> hooks = taskItemContextService.getCallbackHooksOfStatus(taskItemContext, statusType);
         for (String hk : hooks) {
-            HashMap<String, String> argsMap = new HashMap<>();
-            argsMap.put("processInstanceId", processInstanceId);
-            argsMap.put("bo", bo);
-            argsMap.put("on", statusType.name());
+            MultiValueMap<String, String> argsMap = new LinkedMultiValueMap<>();
+            argsMap.add("processInstanceId", processInstanceId);
+            argsMap.add("bo", bo);
+            argsMap.add("on", statusType.name());
             if (payloadJSON != null) {
-                argsMap.put("payload", payloadJSON);
+                argsMap.add("payload", payloadJSON);
             }
             // NOTICE: here does not internal interaction, DO NOT use interaction router!
             // TODO: Here should check whether hook URL is to local or not, since internal post here is very dangerous!

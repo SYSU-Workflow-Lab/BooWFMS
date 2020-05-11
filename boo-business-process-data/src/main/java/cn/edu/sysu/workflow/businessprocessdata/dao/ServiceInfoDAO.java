@@ -45,34 +45,11 @@ public interface ServiceInfoDAO {
     int update(ServiceInfo serviceInfo);
 
     /**
-     * 根据服务信息Id查找服务信息
-     *
-     * @param serviceInfoId
-     * @return
-     */
-    ServiceInfo findOne(String serviceInfoId);
-
-    /**
-     * 查找EngineFeign
-     *
-     * @return
-     */
-    ServiceInfo findEngineFeign();
-
-    /**
      * 根据服务信息Id删除服务信息
      *
      * @param serviceInfoId
      * @return
      */
     int deleteByServiceInfoId(String serviceInfoId);
-
-    /**
-     * 根据流程实例ID查找对应的资源服务URL
-     *
-     * @param processInstanceId
-     * @return
-     */
-    String findResourceServiceUrlByProcessInstanceId(String processInstanceId);
 
 }

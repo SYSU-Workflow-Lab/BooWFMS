@@ -1,6 +1,9 @@
 package cn.edu.sysu.workflow.resource.core.api;
 
-import cn.edu.sysu.workflow.common.entity.*;
+import cn.edu.sysu.workflow.common.entity.BusinessProcess;
+import cn.edu.sysu.workflow.common.entity.ProcessInstance;
+import cn.edu.sysu.workflow.common.entity.ProcessParticipant;
+import cn.edu.sysu.workflow.common.entity.WorkItem;
 import cn.edu.sysu.workflow.common.enums.*;
 import cn.edu.sysu.workflow.common.util.AuthDomainHelper;
 import cn.edu.sysu.workflow.common.util.TimestampUtil;
@@ -29,6 +32,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -137,7 +142,7 @@ public class InterfaceB {
                     // notify if agent
                     if (chosenOne.getType() == ProcessParticipantType.Agent.ordinal()) {
                         AgentNotifyPlugin allocateAnp = new AgentNotifyPlugin();
-                        HashMap<String, String> allocateNotifyMap = new HashMap<>(workItemContextService.generateResponseWorkItem(workItemContext));
+                        MultiValueMap<String, String> allocateNotifyMap = new LinkedMultiValueMap<>(workItemContextService.generateResponseWorkItem(workItemContext));
                         allocateAnp.addNotification(chosenOne, allocateNotifyMap, processInstanceId);
                         AsyncPluginRunner.AsyncRun(allocateAnp);
                     }
@@ -153,7 +158,7 @@ public class InterfaceB {
                     Set<ProcessParticipant> chosenSet = offerInteraction.performOffer(validParticipants, workItemContext);
                     // put work item to chosen participants offered work item list
                     AgentNotifyPlugin offerAnp = new AgentNotifyPlugin();
-                    HashMap<String, String> offerNotifyMap = new HashMap<>(workItemContextService.generateResponseWorkItem(workItemContext));
+                    MultiValueMap<String, String> offerNotifyMap = new LinkedMultiValueMap<>(workItemContextService.generateResponseWorkItem(workItemContext));
                     for (ProcessParticipant oneInSet : chosenSet) {
                         workItemListService.addToWorkItemList(workItemContext, oneInSet.getAccountId(), WorkItemListType.OFFERED);
                         // notify if agent

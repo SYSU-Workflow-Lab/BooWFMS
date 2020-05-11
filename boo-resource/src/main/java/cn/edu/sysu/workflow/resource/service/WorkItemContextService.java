@@ -2,6 +2,7 @@ package cn.edu.sysu.workflow.resource.service;
 
 import cn.edu.sysu.workflow.resource.core.context.TaskItemContext;
 import cn.edu.sysu.workflow.resource.core.context.WorkItemContext;
+import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public interface WorkItemContextService {
      * @param workItemContext work item context
      * @return HashMap of work item descriptor
      */
-    Map<String, String> generateResponseWorkItem(WorkItemContext workItemContext);
+    MultiValueMap<String, String> generateResponseWorkItem(WorkItemContext workItemContext);
 
     /**
      * Generate a list of user-friendly work item packages.
@@ -29,7 +30,7 @@ public interface WorkItemContextService {
      * @param onlyActive whether only get active work items
      * @return ArrayList of HashMap of work item descriptor
      */
-    List<Map<String, String>> generateResponseWorkItems(List<WorkItemContext> wList, boolean onlyActive);
+    List<MultiValueMap<String, String>> generateResponseWorkItems(List<WorkItemContext> wList, boolean onlyActive);
 
     /**
      * Get work item context by processInstanceId.

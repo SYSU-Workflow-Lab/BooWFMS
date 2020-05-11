@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.AbstractMap;
 import java.util.List;
 
 /**
@@ -23,28 +22,6 @@ public class BusinessObjectController {
 
     @Autowired
     private BusinessObjectService businessObjectService;
-
-    /**
-     * Upload BO content for a process.
-     *
-     * @param pid     belong to process pid
-     * @param name    BO name
-     * @param content BO content
-     * @return response package
-     */
-    @RequestMapping(value = "/upload")
-    public BooReturnForm uploadBusinessObject(@RequestParam(value = "pid") String pid,
-                                              @RequestParam(value = "name") String name,
-                                              @RequestParam(value = "content") String content) {
-        // logic
-        AbstractMap.SimpleEntry<String, String> data = businessObjectService.uploadBusinessObject(pid, name, content);
-
-        // return
-        BooReturnForm booReturnForm = new BooReturnForm();
-        booReturnForm.setMessage("upload business object successful");
-        booReturnForm.setData(data);
-        return booReturnForm;
-    }
 
     /**
      * Get BO name list of a specific process.

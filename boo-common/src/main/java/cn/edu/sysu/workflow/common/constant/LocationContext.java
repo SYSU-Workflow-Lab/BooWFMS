@@ -6,15 +6,16 @@ package cn.edu.sysu.workflow.common.constant;
  */
 public class LocationContext {
 
-    /**
-     * Service URL for BO Engine Serialization BO.
-     */
-    public static final String URL_ENGINE_START = "/engine/launchProcess";
+    public static final String ACCESS = "http://ACESS";
+    public static final String ENGINE = "http://ENGINE";
+    public static final String RESOURCE = "http://RESOURCE";
+    public static final String ENGINE_FEIGN = "http://ENGINE-FEIGN";
+    public static final String BUSINESS_PROCESS_DATA = "http://BUSINESS_PROCESS_DATA";
 
     /**
      * Service URL for BO Engine Serialization BO.
      */
-    public static final String URL_ENGINE_SERIALIZEBO = "/engine/serializeBO";
+    public static final String URL_ENGINE_START = "/engine/launchProcess";
 
     /**
      * Service URL for BO Engine event callback.

@@ -1,7 +1,7 @@
 package cn.edu.sysu.workflow.engine.core.model.extend;
 
-import cn.edu.sysu.workflow.engine.BooEngineApplication;
 import cn.edu.sysu.workflow.common.constant.LocationContext;
+import cn.edu.sysu.workflow.engine.BooEngineApplication;
 import cn.edu.sysu.workflow.engine.core.ActionExecutionContext;
 import cn.edu.sysu.workflow.engine.core.BOXMLExecutionContext;
 import cn.edu.sysu.workflow.engine.core.Context;
@@ -15,6 +15,7 @@ import cn.edu.sysu.workflow.engine.util.SpringContextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.Serializable;
@@ -126,7 +127,7 @@ public class Call extends ParamsContainer implements Serializable {
                         }
                         jsonifyParam += "}";
                         // send to RS
-                        LinkedMultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
+                        MultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
                         requestEntity.add("taskname", this.name);
                         requestEntity.add("boname", scxmlExecContext.getSCXMLExecutor().getStateMachine().getName());
                         requestEntity.add("nodeId", scxmlExecContext.getSCXMLExecutor().NodeId);
@@ -174,7 +175,7 @@ public class Call extends ParamsContainer implements Serializable {
                         }
                         jsonifyParam += "}";
                         // send to RS
-                        LinkedMultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
+                        MultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
                         requestEntity.add("taskname", this.name);
                         requestEntity.add("boname", scxmlExecContext.getSCXMLExecutor().getStateMachine().getName());
                         requestEntity.add("nodeId", scxmlExecContext.getSCXMLExecutor().NodeId);

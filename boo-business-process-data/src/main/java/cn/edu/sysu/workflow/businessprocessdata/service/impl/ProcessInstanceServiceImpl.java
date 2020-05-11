@@ -9,7 +9,6 @@ import cn.edu.sysu.workflow.common.constant.LocationContext;
 import cn.edu.sysu.workflow.common.entity.BusinessProcess;
 import cn.edu.sysu.workflow.common.entity.ProcessInstance;
 import cn.edu.sysu.workflow.common.entity.exception.ServiceFailureException;
-import cn.edu.sysu.workflow.common.util.AuthDomainHelper;
 import cn.edu.sysu.workflow.common.util.IdUtil;
 import cn.edu.sysu.workflow.common.util.TimestampUtil;
 import org.slf4j.Logger;
@@ -18,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -92,10 +93,10 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
 
         try {
             // interaction with Engine
-            HashMap<String, String> args = new HashMap<>();
-            args.put("processInstanceId", processInstanceId);
+            MultiValueMap<String, String> args = new LinkedMultiValueMap<>();
+            args.add("processInstanceId", processInstanceId);
             restTemplate.postForObject(
-                    serviceInfoDAO.findEngineFeign().getUrl() + LocationContext.URL_ENGINE_START, args, String.class);
+                    LocationContext.ENGINE_FEIGN + LocationContext.URL_ENGINE_START, args, String.class);
         } catch (Exception ex) {
             log.error("Cannot interaction with Engine for processInstanceId: " + processInstanceId);
             throw new ServiceFailureException("Cannot interaction with Engine for processInstanceId: " + processInstanceId, ex);

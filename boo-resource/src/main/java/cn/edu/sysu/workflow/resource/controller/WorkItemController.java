@@ -4,12 +4,12 @@ import cn.edu.sysu.workflow.common.entity.base.BooReturnForm;
 import cn.edu.sysu.workflow.resource.core.api.InterfaceW;
 import cn.edu.sysu.workflow.resource.service.WorkItemContextService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Author: Rinkako, Skye
@@ -278,7 +278,7 @@ public class WorkItemController {
     @RequestMapping(value = "/getAll")
     public BooReturnForm getAll(@RequestParam(value = "processInstanceId") String processInstanceId) {
         // logic
-        List<Map<String, String>> data = interfaceW.getAllActiveWorkItemsInUserFriendly(processInstanceId);
+        List<MultiValueMap<String, String>> data = interfaceW.getAllActiveWorkItemsInUserFriendly(processInstanceId);
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();
@@ -296,7 +296,7 @@ public class WorkItemController {
     @RequestMapping(value = "/getAllByDomain")
     public BooReturnForm getAllByOrganization(@RequestParam(value = "organization") String organization) {
         // logic
-        List<Map<String, String>> data = interfaceW.getAllWorkItemsInUserFriendlyByOrganization(organization);
+        List<MultiValueMap<String, String>> data = interfaceW.getAllWorkItemsInUserFriendlyByOrganization(organization);
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();
@@ -314,7 +314,7 @@ public class WorkItemController {
     @RequestMapping(value = "/getAllByParticipant")
     public BooReturnForm getAllForParticipant(@RequestParam(value = "workerId") String workerId) {
         // logic
-        List<Map<String, String>> data = interfaceW.getAllWorkItemsInUserFriendlyByParticipant(workerId);
+        List<MultiValueMap<String, String>> data = interfaceW.getAllWorkItemsInUserFriendlyByParticipant(workerId);
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();
@@ -332,7 +332,7 @@ public class WorkItemController {
     @RequestMapping(value = "/get")
     public BooReturnForm getByWorkItemId(@RequestParam(value = "workItemId") String workItemId) {
         // logic
-        Map<String, String> data = interfaceW.getWorkItemInFriendly(workItemId);
+        MultiValueMap<String, String> data = interfaceW.getWorkItemInFriendly(workItemId);
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();

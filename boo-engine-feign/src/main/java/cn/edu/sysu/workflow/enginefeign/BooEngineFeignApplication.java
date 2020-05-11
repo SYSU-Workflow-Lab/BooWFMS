@@ -3,12 +3,16 @@ package cn.edu.sysu.workflow.enginefeign;
 import cn.edu.sysu.workflow.common.util.IdUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @author Skye
  * Created on 2020/4/3
  */
 @SpringBootApplication
+@EnableDiscoveryClient
+@EnableFeignClients
 public class BooEngineFeignApplication {
 
     /**

@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Handle requests passed to engine, like process launching or delegation.
@@ -54,19 +54,23 @@ public class EngineController {
     }
 
     /**
-     * Serialized pre-stored BO XML text and return the involved BO list.
+     * Upload BO content for a process.
      *
-     * @param boIdList BOs to be serialized, separated by `,`
-     * @return booReturnForm
+     * @param pid     belong to process pid
+     * @param name    BO name
+     * @param content BO content
+     * @return response package
      */
-    @RequestMapping(value = "/serializeBO")
-    public BooReturnForm serializeBO(@RequestParam(value = "boIdList") String boIdList) {
+    @RequestMapping(value = "/uploadBO")
+    public BooReturnForm uploadBusinessObject(@RequestParam(value = "pid") String pid,
+                                              @RequestParam(value = "name") String name,
+                                              @RequestParam(value = "content") String content) {
         // logic
-        Set<String> data = processInstanceManagementService.serializeBO(boIdList);
+        AbstractMap.SimpleEntry<String, List<String>> data = processInstanceManagementService.uploadBusinessObject(pid, name, content);
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();
-        booReturnForm.setMessage("serialize BO successful");
+        booReturnForm.setMessage("upload business object successful");
         booReturnForm.setData(data);
         return booReturnForm;
     }
@@ -132,6 +136,7 @@ public class EngineController {
      * @param processInstanceId process instance id
      * @param bo                from which BO
      * @param on                which callback scene
+     * @param id
      * @param event             event send to engine
      * @param payload           event send to engine
      * @return response package

@@ -5,7 +5,6 @@ import cn.edu.sysu.workflow.common.entity.WorkItem;
 import cn.edu.sysu.workflow.common.enums.InitializationType;
 import cn.edu.sysu.workflow.common.enums.WorkItemListType;
 import cn.edu.sysu.workflow.common.enums.WorkItemResourcingStatus;
-import cn.edu.sysu.workflow.common.util.AuthDomainHelper;
 import cn.edu.sysu.workflow.resource.core.ContextLockManager;
 import cn.edu.sysu.workflow.resource.core.context.WorkItemContext;
 import cn.edu.sysu.workflow.resource.dao.ProcessParticipantDAO;
@@ -16,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 
 import java.util.*;
 
@@ -385,7 +385,7 @@ public class InterfaceW {
      * @param processInstanceId
      * @return List of Map of work item data to return
      */
-    public List<Map<String, String>> getAllActiveWorkItemsInUserFriendly(String processInstanceId) {
+    public List<MultiValueMap<String, String>> getAllActiveWorkItemsInUserFriendly(String processInstanceId) {
         List<WorkItemContext> workItemContextList = workItemContextService.getContextByProcessInstanceId(processInstanceId);
         if (workItemContextList == null) {
             log.error("Cannot get work item for processInstanceId: " + processInstanceId);
@@ -400,7 +400,7 @@ public class InterfaceW {
      * @param organization
      * @return List of Map of work item data to return
      */
-    public List<Map<String, String>> getAllWorkItemsInUserFriendlyByOrganization(String organization) {
+    public List<MultiValueMap<String, String>> getAllWorkItemsInUserFriendlyByOrganization(String organization) {
         List<WorkItemContext> workItemContextList = workItemContextService.getContextByOrganization(organization);
         if (workItemContextList == null) {
             log.error("Cannot get work item for Organization: " + organization);
@@ -415,7 +415,7 @@ public class InterfaceW {
      * @param workerId
      * @return List of Map of work item data to return
      */
-    public List<Map<String, String>> getAllWorkItemsInUserFriendlyByParticipant(String workerId) {
+    public List<MultiValueMap<String, String>> getAllWorkItemsInUserFriendlyByParticipant(String workerId) {
         List<WorkItemContext> workItemContextList = workItemListService.getWorkListedWorkItems(workerId);
         return workItemContextService.generateResponseWorkItems(workItemContextList, false);
     }
@@ -426,7 +426,7 @@ public class InterfaceW {
      * @param workItemId
      * @return List of Map of work item data to return
      */
-    public Map<String, String> getWorkItemInFriendly(String workItemId) {
+    public MultiValueMap<String, String> getWorkItemInFriendly(String workItemId) {
         WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
         if (workItemContext == null) {
             log.error("Cannot get work item for workItemId: " + workItemId);

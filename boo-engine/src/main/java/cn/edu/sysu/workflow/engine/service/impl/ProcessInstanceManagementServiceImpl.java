@@ -104,21 +104,26 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Set<String> serializeBO(String boIdList) {
+    public AbstractMap.SimpleEntry<String, List<String>> uploadBusinessObject(String businessProcessId, String businessObjectName, String content) {
+        boolean cmtFlag = false;
         try {
-            Set<String> retSet = new HashSet<>();
-            String[] boIdItems = boIdList.split(",");
-            for (String boId : boIdItems) {
-                BusinessObject businessObject = businessObjectDAO.findOne(boId);
-                if (businessObject == null) {
-                    throw new NullPointerException("BusinessObject is not found");
-                }
-                SCXML scxml = this.parseStringToSCXML(businessObject.getContent());
-                if (scxml == null) {
-                    continue;
-                }
+            // 新建BO
+            String businessObjectId = BusinessObject.PREFIX + IdUtil.nextId();
+            BusinessObject businessObject = new BusinessObject();
+            businessObject.setBusinessObjectId(businessObjectId);
+            businessObject.setProcessId(businessProcessId);
+            businessObject.setBusinessObjectName(businessObjectName);
+            businessObject.setContent(content);
+            businessObject.setStatus(0);
+            businessObjectDAO.save(businessObject);
+            cmtFlag = true;
+
+            // 解析BO
+            List<String> businessRoles = new ArrayList<>();
+            SCXML scxml = this.parseStringToSCXML(content);
+            if (scxml != null) {
                 HashSet<String> oneInvolves = this.getInvolvedBusinessRole(scxml);
-                retSet.addAll(oneInvolves);
+                businessRoles.addAll(oneInvolves);
                 businessObject.setBusinessRoles(JsonUtil.jsonSerialization(oneInvolves, ""));
                 businessObject.setSerialization(SerializationUtil.SerializationSCXMLToByteArray(scxml));
                 Tasks tasks = scxml.getTasks();
@@ -126,7 +131,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
                     AbstractMap.SimpleEntry<String, String> heDesc = t.GenerateCallbackDescriptor();
                     TaskItem taskItem = new TaskItem();
                     taskItem.setTaskItemId(TaskItem.PREFIX + IdUtil.nextId());
-                    taskItem.setBusinessObjectId(boId);
+                    taskItem.setBusinessObjectId(businessObjectId);
                     taskItem.setTaskPolymorphismId(t.getId());
                     taskItem.setTaskPolymorphismName(t.getName());
                     taskItem.setBusinessRole(t.getBrole());
@@ -139,11 +144,16 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
                 }
                 businessObjectDAO.update(businessObject);
             }
-            return retSet;
-        } catch (Exception e) {
+            return new AbstractMap.SimpleEntry<>(businessObjectId, businessRoles);
+        } catch (Exception ex) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error("[" + boIdList +"]" + String.format("When serialize BOList(%s), exception occurred, %s, service rollback", boIdList, e));
-            throw new ServiceFailureException("When serialize BOList, exception occurred", e);
+            if (cmtFlag) {
+                log.error(String.format("When serialize BOList(%s), exception occurred.", businessObjectName));
+            } else {
+                log.error("Error in creating a new bo");
+            }
+            log.error("Upload BO but exception occurred, service rollback, " + ex);
+            throw new ServiceFailureException("Upload BO but exception occurred, service rollback", ex);
         }
     }
 

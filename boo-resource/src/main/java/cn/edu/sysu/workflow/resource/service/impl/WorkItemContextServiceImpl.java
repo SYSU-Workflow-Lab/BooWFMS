@@ -10,9 +10,9 @@ import cn.edu.sysu.workflow.common.util.IdUtil;
 import cn.edu.sysu.workflow.common.util.JsonUtil;
 import cn.edu.sysu.workflow.resource.BooResourceApplication;
 import cn.edu.sysu.workflow.resource.core.ContextLockManager;
+import cn.edu.sysu.workflow.resource.core.api.InterfaceA;
 import cn.edu.sysu.workflow.resource.core.context.TaskItemContext;
 import cn.edu.sysu.workflow.resource.core.context.WorkItemContext;
-import cn.edu.sysu.workflow.resource.core.api.InterfaceA;
 import cn.edu.sysu.workflow.resource.dao.BusinessObjectDAO;
 import cn.edu.sysu.workflow.resource.dao.TaskItemDAO;
 import cn.edu.sysu.workflow.resource.dao.WorkItemDAO;
@@ -26,8 +26,13 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * {@link WorkItemContextService}
@@ -61,25 +66,25 @@ public class WorkItemContextServiceImpl implements WorkItemContextService {
     private TaskItemContextService taskItemContextService;
 
     @Override
-    public Map<String, String> generateResponseWorkItem(WorkItemContext workItemContext) {
-        HashMap<String, String> retMap = new HashMap<>();
+    public MultiValueMap<String, String> generateResponseWorkItem(WorkItemContext workItemContext) {
+        MultiValueMap<String, String> retMap = new LinkedMultiValueMap<>();
         WorkItem workItem = workItemContext.getWorkItem();
         String workItemId = workItem.getWorkItemId();
-        retMap.put("WorkItemId", workItemId);
-        retMap.put("ProcessInstanceId", workItem.getProcessInstanceId());
-        retMap.put("CallbackNodeId", workItem.getCallbackNodeId());
-        retMap.put("TaskName", workItemContext.getTaskItemContext().getTaskName());
-        retMap.put("TaskId", workItemContext.getTaskItemContext().getTaskId());
-        retMap.put("Role", workItemContext.getTaskItemContext().getBrole());
-        retMap.put("Documentation", workItemContext.getTaskItemContext().getDocumentation());
-        retMap.put("Argument", JsonUtil.jsonSerialization(workItemContext.getArgsDict()));
-        retMap.put("Status", workItem.getStatus());
-        retMap.put("ResourcingStatus", workItem.getResourcingStatus());
-        retMap.put("EnablementTime", workItem.getCreateTimestamp() == null ? "" : workItem.getCreateTimestamp().toString());
-        retMap.put("AllocateTime", workItem.getAllocateTimestamp() == null ? "" : workItem.getAllocateTimestamp().toString());
-        retMap.put("LaunchTime", workItem.getLaunchTimestamp() == null ? "" : workItem.getLaunchTimestamp().toString());
-        retMap.put("CompletionTime", workItem.getFinishTimestamp() == null ? "" : workItem.getFinishTimestamp().toString());
-        retMap.put("ExecuteTime", String.valueOf(workItem.getExecuteTime()));
+        retMap.add("WorkItemId", workItemId);
+        retMap.add("ProcessInstanceId", workItem.getProcessInstanceId());
+        retMap.add("CallbackNodeId", workItem.getCallbackNodeId());
+        retMap.add("TaskName", workItemContext.getTaskItemContext().getTaskName());
+        retMap.add("TaskId", workItemContext.getTaskItemContext().getTaskId());
+        retMap.add("Role", workItemContext.getTaskItemContext().getBrole());
+        retMap.add("Documentation", workItemContext.getTaskItemContext().getDocumentation());
+        retMap.add("Argument", JsonUtil.jsonSerialization(workItemContext.getArgsDict()));
+        retMap.add("Status", workItem.getStatus());
+        retMap.add("ResourcingStatus", workItem.getResourcingStatus());
+        retMap.add("EnablementTime", workItem.getCreateTimestamp() == null ? "" : workItem.getCreateTimestamp().toString());
+        retMap.add("AllocateTime", workItem.getAllocateTimestamp() == null ? "" : workItem.getAllocateTimestamp().toString());
+        retMap.add("LaunchTime", workItem.getLaunchTimestamp() == null ? "" : workItem.getLaunchTimestamp().toString());
+        retMap.add("CompletionTime", workItem.getFinishTimestamp() == null ? "" : workItem.getFinishTimestamp().toString());
+        retMap.add("ExecuteTime", String.valueOf(workItem.getExecuteTime()));
         List<WorkItemListItem> relations = null;
         try {
             relations = workItemListItemDAO.findWorkItemListItemsByWorkItemId(workItemId);
@@ -88,7 +93,7 @@ public class WorkItemContextServiceImpl implements WorkItemContextService {
             log.error("[" + workItem.getProcessInstanceId() + "]GenerateResponseWorkItem but cannot read relation from database, " + ex);
         }
         if (relations == null) {
-            retMap.put("WorkerIdList", "[]");
+            retMap.add("WorkerIdList", "[]");
         } else {
             StringBuilder workerIdSb = new StringBuilder();
             workerIdSb.append("[");
@@ -109,14 +114,14 @@ public class WorkItemContextServiceImpl implements WorkItemContextService {
                 workerIdList = workerIdList.substring(0, workerIdList.length() - 1);
             }
             workerIdList += "]";
-            retMap.put("WorkerIdList", workerIdList);
+            retMap.add("WorkerIdList", workerIdList);
         }
         return retMap;
     }
 
     @Override
-    public List<Map<String, String>> generateResponseWorkItems(List<WorkItemContext> wList, boolean onlyActive) {
-        List<Map<String, String>> retList = new ArrayList<>();
+    public List<MultiValueMap<String, String>> generateResponseWorkItems(List<WorkItemContext> wList, boolean onlyActive) {
+        List<MultiValueMap<String, String>> retList = new ArrayList<>();
         for (WorkItemContext workItemContext : wList) {
             boolean isLock = ContextLockManager.ReadTryLock(workItemContext.getClass(), workItemContext.getWorkItem().getWorkItemId());
             if (onlyActive && !isLock) {

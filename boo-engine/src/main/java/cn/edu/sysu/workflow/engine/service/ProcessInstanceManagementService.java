@@ -2,7 +2,8 @@ package cn.edu.sysu.workflow.engine.service;
 
 import cn.edu.sysu.workflow.engine.core.model.SCXML;
 
-import java.util.Set;
+import java.util.AbstractMap;
+import java.util.List;
 
 /**
  * 流程实例管理服务
@@ -20,12 +21,14 @@ public interface ProcessInstanceManagementService {
     void launchProcess(String processInstanceId);
 
     /**
-     * Serialize a list of BO by their id and return involved business role names.
+     * Upload a BO for a specific process.
      *
-     * @param boIdList
-     * @return
+     * @param businessProcessId  belong to business process id
+     * @param businessObjectName BO name
+     * @param content            BO content string
+     * @return pair of businessObjectId - involved business role names string
      */
-    Set<String> serializeBO(String boIdList);
+    AbstractMap.SimpleEntry<String, List<String>> uploadBusinessObject(String businessProcessId, String businessObjectName, String content);
 
     /**
      * Get a user-friendly descriptor of an instance tree.

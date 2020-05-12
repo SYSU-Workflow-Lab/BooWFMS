@@ -9,6 +9,7 @@ import cn.edu.sysu.workflow.common.entity.ProcessParticipant;
 import cn.edu.sysu.workflow.common.entity.access.Account;
 import cn.edu.sysu.workflow.common.entity.access.Agent;
 import cn.edu.sysu.workflow.common.entity.exception.ServiceFailureException;
+import cn.edu.sysu.workflow.common.entity.human.AccountCapability;
 import cn.edu.sysu.workflow.common.enums.ProcessParticipantType;
 import cn.edu.sysu.workflow.common.util.IdUtil;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +45,9 @@ public class BusinessRoleMapServiceImpl implements BusinessRoleMapService {
 
     @Autowired
     private AgentDAO agentDAO;
+
+    @Autowired
+    private AccountCapabilityDAO accountCapabilityDAO;
 
     @Autowired
     private ProcessInstanceDAO processInstanceDAO;
@@ -72,32 +77,43 @@ public class BusinessRoleMapServiceImpl implements BusinessRoleMapService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void loadParticipant(String accountId, String processInstanceId) {
+    public void loadParticipant(String processInstanceId) {
         try {
             // get involved mappings
             List<BusinessRoleMap> maps = businessRoleMapDAO.findBusinessRoleMapsByProcessInstanceId(processInstanceId);
             // decompose groups and capabilities into workers
             StringBuilder sb = new StringBuilder();
+            List<String> workerIds = new ArrayList<>();
             for (BusinessRoleMap bsm : maps) {
-                sb.append(bsm.getMappedId()).append(":").append(bsm.getBusinessRoleName()).append(",");
+                String mappedId = bsm.getMappedId();
+                if (mappedId.startsWith("account-") || mappedId.startsWith("agent-")) {
+                    workerIds.add(mappedId);
+                    sb.append(bsm.getMappedId()).append(":").append(bsm.getBusinessRoleName()).append(",");
+                } else {
+                    List<AccountCapability> accountCapabilities = accountCapabilityDAO.findAccountCapabilityByCapabilityId(mappedId);
+                    for (AccountCapability accountCapability : accountCapabilities) {
+                        workerIds.add(accountCapability.getAccountId());
+                        sb.append(accountCapability.getAccountId()).append(":").append(bsm.getBusinessRoleName()).append(",");
+                    }
+                }
             }
             String workerList = sb.toString();
             if (workerList.length() > 0) {
                 workerList = workerList.substring(0, workerList.length() - 1);
             }
             // register these workers to participant
-            for (BusinessRoleMap businessRoleMap : maps) {
-                String mappedAccountId = businessRoleMap.getMappedId();
-                ProcessParticipant processParticipant = processParticipantDAO.findByAccountId(mappedAccountId);
+            for (String workerId : workerIds) {
+                ProcessParticipant processParticipant = processParticipantDAO.findByAccountId(workerId);
                 if (processParticipant == null) {
                     processParticipant = new ProcessParticipant();
-                    processParticipant.setAccountId(mappedAccountId);
-                    if (mappedAccountId.startsWith("Human_")) {
-                        Account account = accountDAO.findSimpleOne(mappedAccountId);
+                    processParticipant.setProcessParticipantId(ProcessParticipant.PREFIX + IdUtil.nextId());
+                    processParticipant.setAccountId(workerId);
+                    if (workerId.startsWith("account-")) {
+                        Account account = accountDAO.findSimpleOne(workerId);
                         processParticipant.setDisplayName(account.getUsername());
                         processParticipant.setType(ProcessParticipantType.Human.ordinal());
                     } else {
-                        Agent agent = agentDAO.findOne(mappedAccountId);
+                        Agent agent = agentDAO.findOne(workerId);
                         processParticipant.setDisplayName(agent.getDisplayName());
                         processParticipant.setType(ProcessParticipantType.Agent.ordinal());
                         processParticipant.setAgentLocation(agent.getLocation());

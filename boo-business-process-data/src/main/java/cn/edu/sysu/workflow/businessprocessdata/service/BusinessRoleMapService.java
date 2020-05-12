@@ -1,7 +1,5 @@
 package cn.edu.sysu.workflow.businessprocessdata.service;
 
-import org.springframework.transaction.annotation.Transactional;
-
 /**
  * 业务角色映射服务
  *
@@ -23,9 +21,8 @@ public interface BusinessRoleMapService {
     /**
      * Load participants for a process to be launched soon.
      *
-     * @param accountId user account id
-     * @param processInstanceId  process instance id
+     * @param processInstanceId process instance id
      */
-    void loadParticipant(String accountId, String processInstanceId);
+    void loadParticipant(String processInstanceId);
 
 }

@@ -47,15 +47,13 @@ public class BusinessRoleMapController {
     /**
      * Load involved resources to participant for RS.
      *
-     * @param accountId         account id
      * @param processInstanceId process instance id
      * @return response package
      */
     @RequestMapping(value = "/loadParticipant")
-    public BooReturnForm loadParticipant(@RequestParam(value = "accountId") String accountId,
-                                         @RequestParam(value = "processInstanceId") String processInstanceId) {
+    public BooReturnForm loadParticipant(@RequestParam(value = "processInstanceId") String processInstanceId) {
         // logic
-        businessRoleMapService.loadParticipant(accountId, processInstanceId);
+        businessRoleMapService.loadParticipant(processInstanceId);
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();

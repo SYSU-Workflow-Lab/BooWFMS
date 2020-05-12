@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 12/05/2020 13:01:31
+ Date: 12/05/2020 13:14:12
 */
 
 SET NAMES utf8mb4;
@@ -21,20 +21,21 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for boo_account
 -- ----------------------------
 DROP TABLE IF EXISTS `boo_account`;
-CREATE TABLE `boo_account`  (
-                                `account_id`            varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户ID',
-                                `username`              varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户名',
-                                `password`              text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NOT NULL COMMENT '账户密码',
-                                `salt`                  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '盐值',
-                                `organization_name`     varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '所属组织名称',
-                                `status`                int(11)                                                       NOT NULL COMMENT '账户状态（0-停用，1-正常）',
-                                `level`                 int(11)                                                       NOT NULL COMMENT '账户级别',
-                                `last_login_timestamp`  datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后登录时间',
-                                `create_timestamp`      datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',
-                                `last_update_timestamp` datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后更新时间戳',
-                                PRIMARY KEY (`account_id`) USING BTREE,
-                                UNIQUE INDEX `username` (`username`) USING BTREE,
-                                UNIQUE INDEX `name_org` (`username`, `organization_name`) USING BTREE
+CREATE TABLE `boo_account`
+(
+    `account_id`            varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户ID',
+    `username`              varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户名',
+    `password`              text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NOT NULL COMMENT '账户密码',
+    `salt`                  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '盐值',
+    `organization_name`     varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '所属组织名称',
+    `status`                int(11)                                                       NOT NULL COMMENT '账户状态（0-停用，1-正常）',
+    `level`                 int(11)                                                       NOT NULL COMMENT '账户级别',
+    `last_login_timestamp`  datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后登录时间',
+    `create_timestamp`      datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',
+    `last_update_timestamp` datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后更新时间戳',
+    PRIMARY KEY (`account_id`) USING BTREE,
+    UNIQUE INDEX `username` (`username`) USING BTREE,
+    UNIQUE INDEX `name_org` (`username`, `organization_name`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
@@ -191,18 +192,22 @@ CREATE TABLE `boo_archived_tree`
     `tree`                  longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci     NOT NULL COMMENT '树数据',
     `create_timestamp`      datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',
     `last_update_timestamp` datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后更新时间戳',
-  PRIMARY KEY (`process_instance_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+    PRIMARY KEY (`process_instance_id`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_general_ci
+  ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for boo_bin_step
 -- ----------------------------
 DROP TABLE IF EXISTS `boo_bin_step`;
-CREATE TABLE `boo_bin_step`  (
-  `bin_step_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据库主键',
-  `process_instance_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程实例ID',
-  `parent_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '父节点ID',
-  `notification_id` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '通知ID',
+CREATE TABLE `boo_bin_step`
+(
+    `bin_step_id`         varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据库主键',
+    `process_instance_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程实例ID',
+    `parent_id`           varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '父节点ID',
+    `notification_id`     text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NOT NULL COMMENT '通知ID',
   `binlog` longblob NOT NULL COMMENT '内容数据',
   `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
   `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
@@ -214,36 +219,43 @@ CREATE TABLE `boo_bin_step`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `boo_business_object`;
 CREATE TABLE `boo_business_object`  (
-  `business_object_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务对象ID',
-  `business_object_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务对象名称',
-  `process_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '所属流程ID',
-  `status` int(11) NOT NULL COMMENT '业务对象状态（0-停用，1-正常）',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '业务对象模型内容',
-  `serialization` blob NULL COMMENT '序列化的业务对象',
-  `business_roles` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '涉及的业务角色',
-  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
-  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
-  PRIMARY KEY (`business_object_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+                                        `business_object_id`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务对象ID',
+                                        `business_object_name`  varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务对象名称',
+                                        `process_id`            varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '所属流程ID',
+                                        `status`                int(11)                                                       NOT NULL COMMENT '业务对象状态（0-停用，1-正常）',
+                                        `content`               text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NULL COMMENT '业务对象模型内容',
+                                        `serialization`         blob                                                          NULL COMMENT '序列化的业务对象',
+                                        `business_roles`        text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NULL COMMENT '涉及的业务角色',
+                                        `create_timestamp`      datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',
+                                        `last_update_timestamp` datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后更新时间戳',
+                                        PRIMARY KEY (`business_object_id`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_general_ci
+  ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for boo_business_process
 -- ----------------------------
 DROP TABLE IF EXISTS `boo_business_process`;
-CREATE TABLE `boo_business_process`  (
-  `business_process_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务流程ID',
-  `business_process_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务流程名称',
-  `main_business_object_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主业务对象名称',
-  `creator_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者ID',
-  `launch_count` int(11) NOT NULL COMMENT '启动次数',
-  `success_count` int(11) NOT NULL COMMENT '成功完成次数',
-  `average_cost` bigint(20) NOT NULL COMMENT '平均完成时间（ms）',
-  `status` int(11) NULL DEFAULT NULL COMMENT '流程状态（0-停用，1-正常）',
-  `last_launch_timestamp` datetime(6) NULL DEFAULT NULL COMMENT '最后一次启动时间戳',
-  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
-  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
-  PRIMARY KEY (`business_process_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+CREATE TABLE `boo_business_process`
+(
+    `business_process_id`       varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务流程ID',
+    `business_process_name`     text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NOT NULL COMMENT '业务流程名称',
+    `main_business_object_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '主业务对象名称',
+    `creator_id`                varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建者ID',
+    `launch_count`              int(11)                                                       NOT NULL COMMENT '启动次数',
+    `success_count`             int(11)                                                       NOT NULL COMMENT '成功完成次数',
+    `average_cost`              bigint(20)                                                    NOT NULL COMMENT '平均完成时间（ms）',
+    `status`                    int(11)                                                       NULL DEFAULT NULL COMMENT '流程状态（0-停用，1-正常）',
+    `last_launch_timestamp`     datetime(6)                                                   NULL DEFAULT NULL COMMENT '最后一次启动时间戳',
+    `create_timestamp`          datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',
+    `last_update_timestamp`     datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后更新时间戳',
+    PRIMARY KEY (`business_process_id`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_general_ci
+  ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for boo_business_role_map
@@ -382,19 +394,23 @@ CREATE TABLE `boo_process_instance`
 -- Table structure for boo_process_participant
 -- ----------------------------
 DROP TABLE IF EXISTS `boo_process_participant`;
-CREATE TABLE `boo_process_participant`  (
-  `process_participant_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程参与者ID',
-  `account_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户ID',
-  `display_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '显示名称',
-  `type` int(11) NULL DEFAULT NULL COMMENT '类型',
-  `agent_location` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT 'URL位置，当类型为Agent时用',
-  `reentrant_type` int(11) NULL DEFAULT NULL COMMENT '重入类型，当类型为Agent时用',
-  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '备注信息',
-  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
-  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
-  PRIMARY KEY (`process_participant_id`) USING BTREE,
-  INDEX `account_id`(`account_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+CREATE TABLE `boo_process_participant`
+(
+    `process_participant_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '流程参与者ID',
+    `account_id`             varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户ID',
+    `display_name`           text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NULL COMMENT '显示名称',
+    `type`                   int(11)                                                       NULL DEFAULT NULL COMMENT '类型',
+    `agent_location`         text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NULL COMMENT 'URL位置，当类型为Agent时用',
+    `reentrant_type`         int(11)                                                       NULL DEFAULT NULL COMMENT '重入类型，当类型为Agent时用',
+    `note`                   text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NULL COMMENT '备注信息',
+    `create_timestamp`       datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',
+    `last_update_timestamp`  datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后更新时间戳',
+    PRIMARY KEY (`process_participant_id`) USING BTREE,
+    INDEX `account_id` (`account_id`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_general_ci
+  ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for boo_service_info

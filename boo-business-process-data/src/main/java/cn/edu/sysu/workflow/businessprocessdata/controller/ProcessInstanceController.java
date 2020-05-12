@@ -28,6 +28,7 @@ public class ProcessInstanceController {
      *
      * @param pid
      * @param from
+     * @param creatorId
      * @param bindingType
      * @param launchType
      * @param failureType
@@ -37,12 +38,13 @@ public class ProcessInstanceController {
     @RequestMapping(value = "/create")
     public BooReturnForm create(@RequestParam(value = "pid") String pid,
                                 @RequestParam(value = "from") String from,
+                                @RequestParam(value = "creatorId") String creatorId,
                                 @RequestParam(value = "bindingType") Integer bindingType,
                                 @RequestParam(value = "launchType") Integer launchType,
                                 @RequestParam(value = "failureType") Integer failureType,
                                 @RequestParam(value = "binding") String binding) {
         // logic
-        String data = processInstanceService.createProcessInstance(pid, from, bindingType, launchType, failureType, binding);
+        String data = processInstanceService.createProcessInstance(pid, from, creatorId, bindingType, launchType, failureType, binding);
 
         // return
         BooReturnForm booReturnForm = new BooReturnForm();

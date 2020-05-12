@@ -15,15 +15,16 @@ public interface ProcessInstanceService {
     /**
      * Create a process instance.
      *
-     * @param pid              process id to be launched
-     * @param from             launch platform
-     * @param bindingType      resource binding type
-     * @param launchType       process launch type
-     * @param failureType      process failure catch type
-     * @param binding          resource binding source, only useful when static XML binding
+     * @param pid         process id to be launched
+     * @param from        launch platform
+     * @param creatorId   creator id
+     * @param bindingType resource binding type
+     * @param launchType  process launch type
+     * @param failureType process failure catch type
+     * @param binding     resource binding source, only useful when static XML binding
      * @return Runtime record package
      */
-    String createProcessInstance(String pid, String from, Integer bindingType, Integer launchType, Integer failureType, String binding);
+    String createProcessInstance(String pid, String from, String creatorId, Integer bindingType, Integer launchType, Integer failureType, String binding);
 
     /**
      * Check a process instance finish status.

@@ -1,9 +1,6 @@
 package cn.edu.sysu.workflow.businessprocessdata.service.impl;
 
-import cn.edu.sysu.workflow.businessprocessdata.dao.AccountDAO;
-import cn.edu.sysu.workflow.businessprocessdata.dao.BusinessProcessDAO;
 import cn.edu.sysu.workflow.businessprocessdata.dao.ProcessInstanceDAO;
-import cn.edu.sysu.workflow.businessprocessdata.dao.ServiceInfoDAO;
 import cn.edu.sysu.workflow.businessprocessdata.service.ProcessInstanceService;
 import cn.edu.sysu.workflow.common.entity.ProcessInstance;
 import cn.edu.sysu.workflow.common.entity.exception.ServiceFailureException;
@@ -14,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,25 +29,14 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
     @Autowired
     private ProcessInstanceDAO processInstanceDAO;
 
-    @Autowired
-    private BusinessProcessDAO businessProcessDAO;
-
-    @Autowired
-    private ServiceInfoDAO serviceInfoDAO;
-
-    @Autowired
-    private AccountDAO accountDAO;
-
-    @Autowired
-    private RestTemplate restTemplate;
-
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public String createProcessInstance(String pid, String from, Integer bindingType, Integer launchType, Integer failureType, String binding) {
+    public String createProcessInstance(String pid, String from, String creatorId, Integer bindingType, Integer launchType, Integer failureType, String binding) {
         try {
             ProcessInstance processInstance = new ProcessInstance();
             processInstance.setProcessInstanceId(ProcessInstance.PREFIX + IdUtil.nextId());
             processInstance.setProcessId(pid);
+            processInstance.setCreateAccountId(creatorId);
             processInstance.setLaunchPlatform(from);
             processInstance.setResourceBindingType(bindingType);
             processInstance.setLaunchType(launchType);
@@ -62,8 +47,8 @@ public class ProcessInstanceServiceImpl implements ProcessInstanceService {
             return processInstance.getProcessInstanceId();
         } catch (Exception ex) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-            log.error(String.format("Submit process but exception occurred(pid: %s), service rollback, %s", pid, ex));
-            throw new ServiceFailureException(String.format("Submit process but exception occurred(pid: %s), service rollback", pid), ex);
+            log.error(String.format("Create process instance but exception occurred(pid: %s), service rollback, %s", pid, ex));
+            throw new ServiceFailureException(String.format("Create process instance but exception occurred(pid: %s), service rollback", pid), ex);
         }
     }
 

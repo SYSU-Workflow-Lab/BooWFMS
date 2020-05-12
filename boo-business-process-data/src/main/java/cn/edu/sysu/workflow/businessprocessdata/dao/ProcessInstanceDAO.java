@@ -16,6 +16,7 @@ public interface ProcessInstanceDAO {
      * @param processInstance <ul>
      *                        <li>processInstanceId</li>
      *                        <li>processId</li>
+     *                        <li>createAccountId</li>
      *                        <li>launchAccountId</li>
      *                        <li>launchPlatform</li>
      *                        <li>launchType</li>
@@ -38,6 +39,7 @@ public interface ProcessInstanceDAO {
      * @param processInstance <ul>
      *                        <li>processInstanceId</li>
      *                        <li>processId</li>
+     *                        <li>createAccountId</li>
      *                        <li>launchAccountId</li>
      *                        <li>launchPlatform</li>
      *                        <li>launchType</li>

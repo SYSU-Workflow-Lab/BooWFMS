@@ -1,8 +1,8 @@
-package cn.edu.sysu.workflow.engine.dao;
+package cn.edu.sysu.workflow.businessprocessdata.dao;
 
+import cn.edu.sysu.workflow.businessprocessdata.BooBusinessProcessDataApplication;
 import cn.edu.sysu.workflow.common.entity.ProcessInstance;
 import cn.edu.sysu.workflow.common.util.IdUtil;
-import cn.edu.sysu.workflow.engine.BooEngineApplication;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ import java.sql.Timestamp;
  * Created on 2019/12/31
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = BooEngineApplication.class)
+@SpringBootTest(classes = BooBusinessProcessDataApplication.class)
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class ProcessInstanceDAOTest {
 
@@ -36,6 +36,7 @@ public class ProcessInstanceDAOTest {
         this.processInstance = new ProcessInstance();
         this.processInstance.setProcessInstanceId("test-pi-" + IdUtil.nextId());
         this.processInstance.setProcessId("processId");
+        this.processInstance.setCreateAccountId("createAccountId");
         this.processInstance.setLaunchAccountId("launchAccountId");
         this.processInstance.setLaunchPlatform("launchPlatform");
         this.processInstance.setLaunchType(0);

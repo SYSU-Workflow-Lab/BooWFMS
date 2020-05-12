@@ -1,10 +1,10 @@
 package cn.edu.sysu.workflow.engine.dao.impl;
 
+import cn.edu.sysu.workflow.common.entity.ProcessInstance;
 import cn.edu.sysu.workflow.common.entity.exception.DAOException;
 import cn.edu.sysu.workflow.common.jdbc.BooPreparedStatementSetter;
 import cn.edu.sysu.workflow.common.util.JdbcUtil;
 import cn.edu.sysu.workflow.engine.dao.ProcessInstanceDAO;
-import cn.edu.sysu.workflow.common.entity.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +36,10 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
     @Override
     public int save(ProcessInstance processInstance) {
         String sql = "INSERT INTO boo_process_instance " +
-                "(process_instance_id, process_id, launch_account_id, launch_platform, launch_type, engine_id, " +
+                "(process_instance_id, process_id, create_account_id, launch_account_id, launch_platform, launch_type, engine_id, " +
                 "resource_service_id, resource_binding, resource_binding_type, failure_type, participant_cache, result_type, tag, " +
                 "create_timestamp, last_update_timestamp) " +
-                "VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+                "VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
         try {
             return jdbcTemplate.update(sql, new BooPreparedStatementSetter() {
                 @Override
@@ -48,9 +48,11 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
                     JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getProcessInstanceId(), Types.VARCHAR);
                     // processId
                     JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getProcessId(), Types.VARCHAR);
+                    // createAccountId
+                    JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getCreateAccountId(), Types.VARCHAR);
                     // launchAccountId
                     JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getLaunchAccountId(), Types.VARCHAR);
-                    // launchMethod
+                    // launchPlatform
                     JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getLaunchPlatform(), Types.VARCHAR);
                     // launchType
                     JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getLaunchType(), Types.INTEGER);
@@ -85,11 +87,15 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
         if (!StringUtils.isEmpty(processInstance.getProcessId())) {
             sql += ", process_id = ?";
         }
+        // createAccountId
+        if (!StringUtils.isEmpty(processInstance.getCreateAccountId())) {
+            sql += ", create_account_id = ?";
+        }
         // launchAccountId
         if (!StringUtils.isEmpty(processInstance.getLaunchAccountId())) {
             sql += ", launch_account_id = ?";
         }
-        // launchMethod
+        // launchPlatform
         if (!StringUtils.isEmpty(processInstance.getLaunchPlatform())) {
             sql += ", launch_platform = ?";
         }
@@ -147,11 +153,15 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
                     if (!StringUtils.isEmpty(processInstance.getProcessId())) {
                         JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getProcessId(), Types.VARCHAR);
                     }
+                    // createAccountId
+                    if (!StringUtils.isEmpty(processInstance.getCreateAccountId())) {
+                        JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getCreateAccountId(), Types.VARCHAR);
+                    }
                     // launchAccountId
                     if (!StringUtils.isEmpty(processInstance.getLaunchAccountId())) {
                         JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getLaunchAccountId(), Types.VARCHAR);
                     }
-                    // launchMethod
+                    // launchPlatform
                     if (!StringUtils.isEmpty(processInstance.getLaunchPlatform())) {
                         JdbcUtil.preparedStatementSetter(ps, index(), processInstance.getLaunchPlatform(), Types.VARCHAR);
                     }
@@ -211,7 +221,7 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
 
     @Override
     public ProcessInstance findOne(String processInstanceId) {
-        String sql = "SELECT process_instance_id, process_id, launch_account_id, launch_platform, launch_type, engine_id, " +
+        String sql = "SELECT process_instance_id, process_id, create_account_id, launch_account_id, launch_platform, launch_type, engine_id, " +
                 "resource_service_id, resource_binding, resource_binding_type, failure_type, participant_cache, launch_timestamp, " +
                 "finish_timestamp, result_type, tag " +
                 "FROM boo_process_instance " +
@@ -223,6 +233,7 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
                     ProcessInstance processInstance = new ProcessInstance();
                     processInstance.setProcessInstanceId(resultSet.getString("process_instance_id"));
                     processInstance.setProcessId(resultSet.getString("process_id"));
+                    processInstance.setCreateAccountId(resultSet.getString("create_account_id"));
                     processInstance.setLaunchAccountId(resultSet.getString("launch_account_id"));
                     processInstance.setLaunchPlatform(resultSet.getString("launch_platform"));
                     processInstance.setLaunchType(resultSet.getInt("launch_type"));
@@ -246,5 +257,4 @@ public class ProcessInstanceDAOImpl implements ProcessInstanceDAO {
             throw new DAOException(e);
         }
     }
-
 }

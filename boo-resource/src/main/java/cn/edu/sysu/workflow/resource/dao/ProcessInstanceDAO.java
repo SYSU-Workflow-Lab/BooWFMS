@@ -16,8 +16,9 @@ public interface ProcessInstanceDAO {
      * @param processInstance <ul>
      *                        <li>processInstanceId</li>
      *                        <li>processId</li>
+     *                        <li>createAccountId</li>
      *                        <li>launchAccountId</li>
-     *                        <li>launchMethod</li>
+     *                        <li>launchPlatform</li>
      *                        <li>launchType</li>
      *                        <li>engineId</li>
      *                        <li>resourceServiceId</li>

@@ -36,7 +36,7 @@ public class BusinessRoleMapDAOTest {
         this.businessRoleMap.setProcessInstanceId("processInstanceId");
         this.businessRoleMap.setBusinessRoleName("businessRoleName");
         this.businessRoleMap.setOrganizationId("organizationId");
-        this.businessRoleMap.setMappedAccountId("mappedAccountId");
+        this.businessRoleMap.setMappedId("mappedId");
         this.businessRoleMap.setDataVersion("dataVersion");
     }
 

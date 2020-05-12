@@ -37,7 +37,7 @@ public class BusinessRoleMapDAOImpl implements BusinessRoleMapDAO {
     @Override
     public int save(BusinessRoleMap businessRoleMap) {
         String sql = "INSERT INTO boo_business_role_map " +
-                "(business_role_map_id, process_instance_id, business_role_name, organization_id, mapped_account_id, " +
+                "(business_role_map_id, process_instance_id, business_role_name, organization_id, mapped_id, " +
                 "data_version, create_timestamp, last_update_timestamp) " +
                 "VALUE (?, ?, ?, ?, ?, ?, NOW(), NOW())";
         try {
@@ -52,8 +52,8 @@ public class BusinessRoleMapDAOImpl implements BusinessRoleMapDAO {
                     JdbcUtil.preparedStatementSetter(ps, index(), businessRoleMap.getBusinessRoleName(), Types.BLOB);
                     // organizationId
                     JdbcUtil.preparedStatementSetter(ps, index(), businessRoleMap.getOrganizationId(), Types.VARCHAR);
-                    // mappedAccountId
-                    JdbcUtil.preparedStatementSetter(ps, index(), businessRoleMap.getMappedAccountId(), Types.VARCHAR);
+                    // mappedId
+                    JdbcUtil.preparedStatementSetter(ps, index(), businessRoleMap.getMappedId(), Types.VARCHAR);
                     // dataVersion
                     JdbcUtil.preparedStatementSetter(ps, index(), businessRoleMap.getDataVersion(), Types.VARCHAR);
                 }
@@ -66,7 +66,7 @@ public class BusinessRoleMapDAOImpl implements BusinessRoleMapDAO {
 
     @Override
     public List<BusinessRoleMap> findBusinessRoleMapsByProcessInstanceId(String processInstanceId) {
-        String sql = "SELECT business_role_map_id, process_instance_id, business_role_name, organization_id, mapped_account_id, data_version " +
+        String sql = "SELECT business_role_map_id, process_instance_id, business_role_name, organization_id, mapped_id, data_version " +
                 "FROM boo_business_role_map " +
                 "WHERE process_instance_id = ?";
         try {
@@ -78,7 +78,7 @@ public class BusinessRoleMapDAOImpl implements BusinessRoleMapDAO {
                     businessRoleMap.setProcessInstanceId(resultSet.getString("process_instance_id"));
                     businessRoleMap.setBusinessRoleName(resultSet.getString("business_role_name"));
                     businessRoleMap.setOrganizationId(resultSet.getString("organization_id"));
-                    businessRoleMap.setMappedAccountId(resultSet.getString("mapped_account_id"));
+                    businessRoleMap.setMappedId(resultSet.getString("mapped_id"));
                     businessRoleMap.setDataVersion(resultSet.getString("data_version"));
                     return businessRoleMap;
                 }

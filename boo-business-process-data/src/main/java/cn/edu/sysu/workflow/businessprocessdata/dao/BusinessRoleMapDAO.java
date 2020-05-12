@@ -20,7 +20,7 @@ public interface BusinessRoleMapDAO {
      *                        <li>processInstanceId</li>
      *                        <li>businessRoleName</li>
      *                        <li>organizationId</li>
-     *                        <li>mappedAccountId</li>
+     *                        <li>mappedId</li>
      *                        <li>dataVersion</li>
      *                        </ul>
      * @return 新增的数据量

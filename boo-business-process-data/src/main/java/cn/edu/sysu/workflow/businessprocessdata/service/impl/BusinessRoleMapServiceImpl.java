@@ -18,7 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.List;
 
 /**
  * {@link BusinessRoleMapService}
@@ -57,7 +58,7 @@ public class BusinessRoleMapServiceImpl implements BusinessRoleMapService {
                 businessRoleMap.setProcessInstanceId(processInstanceId);
                 businessRoleMap.setBusinessRoleName(kvp.getKey());
                 businessRoleMap.setOrganizationId(organizationId);
-                businessRoleMap.setMappedAccountId(kvp.getValue());
+                businessRoleMap.setMappedId(kvp.getValue());
                 businessRoleMap.setDataVersion(dataVersion);
                 businessRoleMapDAO.save(businessRoleMap);
             }
@@ -78,7 +79,7 @@ public class BusinessRoleMapServiceImpl implements BusinessRoleMapService {
             // decompose groups and capabilities into workers
             StringBuilder sb = new StringBuilder();
             for (BusinessRoleMap bsm : maps) {
-                sb.append(bsm.getMappedAccountId()).append(":").append(bsm.getBusinessRoleName()).append(",");
+                sb.append(bsm.getMappedId()).append(":").append(bsm.getBusinessRoleName()).append(",");
             }
             String workerList = sb.toString();
             if (workerList.length() > 0) {
@@ -86,7 +87,7 @@ public class BusinessRoleMapServiceImpl implements BusinessRoleMapService {
             }
             // register these workers to participant
             for (BusinessRoleMap businessRoleMap : maps) {
-                String mappedAccountId = businessRoleMap.getMappedAccountId();
+                String mappedAccountId = businessRoleMap.getMappedId();
                 ProcessParticipant processParticipant = processParticipantDAO.findByAccountId(mappedAccountId);
                 if (processParticipant == null) {
                     processParticipant = new ProcessParticipant();

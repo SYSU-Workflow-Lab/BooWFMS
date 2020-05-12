@@ -36,9 +36,9 @@ public class BusinessRoleMap extends BooPagedQuery {
     private String organizationId;
 
     /**
-     * 映射用户账户ID
+     * 映射ID（人类-职能，Agent-AgentId）
      */
-    private String mappedAccountId;
+    private String mappedId;
 
     /**
      * 所属组织数据版本
@@ -81,12 +81,12 @@ public class BusinessRoleMap extends BooPagedQuery {
         this.organizationId = organizationId;
     }
 
-    public String getMappedAccountId() {
-        return mappedAccountId;
+    public String getMappedId() {
+        return mappedId;
     }
 
-    public void setMappedAccountId(String mappedAccountId) {
-        this.mappedAccountId = mappedAccountId;
+    public void setMappedId(String mappedId) {
+        this.mappedId = mappedId;
     }
 
     public String getDataVersion() {
@@ -110,12 +110,12 @@ public class BusinessRoleMap extends BooPagedQuery {
                 Objects.equals(processInstanceId, businessRoleMap.processInstanceId) &&
                 Objects.equals(businessRoleName, businessRoleMap.businessRoleName) &&
                 Objects.equals(organizationId, businessRoleMap.organizationId) &&
-                Objects.equals(mappedAccountId, businessRoleMap.mappedAccountId) &&
+                Objects.equals(mappedId, businessRoleMap.mappedId) &&
                 Objects.equals(dataVersion, businessRoleMap.dataVersion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(businessRoleMapId, processInstanceId, businessRoleName, organizationId, mappedAccountId, dataVersion);
+        return Objects.hash(businessRoleMapId, processInstanceId, businessRoleName, organizationId, mappedId, dataVersion);
     }
 }

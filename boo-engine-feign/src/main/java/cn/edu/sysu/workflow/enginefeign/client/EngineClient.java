@@ -20,10 +20,12 @@ public interface EngineClient {
      * launch a process instance by the processInstanceId
      *
      * @param processInstanceId process instance id
+     * @param accountId         launcher account id
      * @return booReturnForm
      */
     @RequestMapping(value = "/launchProcess")
-    BooReturnForm launchProcess(@RequestParam(value = "processInstanceId") String processInstanceId);
+    BooReturnForm launchProcess(@RequestParam(value = "processInstanceId") String processInstanceId,
+                                @RequestParam(value = "accountId") String accountId);
 
     /**
      * Upload BO content for a process.
@@ -74,9 +76,9 @@ public interface EngineClient {
      */
     @RequestMapping(value = "/callback")
     BooReturnForm callback(@RequestParam(value = "processInstanceId") String processInstanceId,
-                           @RequestParam(value = "bo") String bo,
+                           @RequestParam(value = "bo", required = false) String bo,
                            @RequestParam(value = "on") String on,
-                           @RequestParam(value = "id") String id,
+                           @RequestParam(value = "id", required = false) String id,
                            @RequestParam(value = "event") String event,
                            @RequestParam(value = "payload") String payload);
 

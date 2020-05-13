@@ -194,7 +194,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
             BOXMLExecutor executor = new BOXMLExecutor(evaluator, new MultiStateMachineDispatcher(), new SimpleErrorReporter());
             Context rootContext = evaluator.newContext(null);
             executor.setRootContext(rootContext);
-            executor.setProcessInstanceId(processId);
+            executor.setProcessInstanceId(processInstanceId);
             executor.setProcessId(processId);
             executor.setStateMachine(scxml);
             executor.go();

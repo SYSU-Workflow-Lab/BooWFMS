@@ -41,6 +41,7 @@ public class MultiStateMachineDispatcher extends SimpleDispatcher implements Ser
      *
      * @return The current log instance
      */
+    @Override
     protected Log getLog() {
         return log;
     }
@@ -50,6 +51,7 @@ public class MultiStateMachineDispatcher extends SimpleDispatcher implements Ser
      *
      * @param log the new log instance
      */
+    @Override
     protected void setLog(Log log) {
         this.log = log;
     }
@@ -59,6 +61,7 @@ public class MultiStateMachineDispatcher extends SimpleDispatcher implements Ser
      *
      * @return The currently scheduled timers
      */
+    @Override
     protected Map<String, Timer> getTimers() {
         return timers;
     }
@@ -66,6 +69,7 @@ public class MultiStateMachineDispatcher extends SimpleDispatcher implements Ser
     /**
      * @see EventDispatcher#cancel(String)
      */
+    @Override
     public void cancel(final String sendId) {
         if (log.isInfoEnabled()) {
             log.info("cancel( sendId: " + sendId + ")");

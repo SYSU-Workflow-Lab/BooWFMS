@@ -17,12 +17,12 @@ public final class ReflectUtil {
     /**
      * Package path of Allocators.
      */
-    private static final String ALLOCATOR_PACKAGE_PATH = "org.sysu.renResourcing.allocator.";
+    private static final String ALLOCATOR_PACKAGE_PATH = "cn.edu.sysu.workflow.resource.core.allocator.";
 
     /**
      * Package path of Allocators.
      */
-    private static final String FILTER_PACKAGE_PATH = "org.sysu.renResourcing.filter.";
+    private static final String FILTER_PACKAGE_PATH = "cn.edu.sysu.workflow.resource.core.filter.";
 
     /**
      * Postfix of Allocator.

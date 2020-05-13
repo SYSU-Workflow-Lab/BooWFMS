@@ -30,12 +30,12 @@ public class LocationContext {
     /**
      * Service URL for RS submit task.
      */
-    public static final String URL_RS_SUBMITTASK = "/resource/submitTask";
+    public static final String URL_RS_SUBMITTASK = "/internal/submitTask";
 
     /**
      * Service URL for RS finish life cycle of BO.
      */
-    public static final String URL_RS_FINISH = "/resource/finish";
+    public static final String URL_RS_FINISH = "/internal/finProcessInstance";
 
     /**
      * Service URL gateway for RS work item actions.

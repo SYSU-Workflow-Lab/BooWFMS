@@ -105,7 +105,7 @@ public class InterfaceB {
 
         // generate work item
         WorkItemContext workItemContext = workItemContextService.generateContext(
-                taskContext, processInstanceId, (HashMap) argMap.get("taskArgumentsVector"), nodeId);
+                taskContext, processInstanceId, argMap, nodeId);
         ContextLockManager.WriteLock(WorkItemContext.class, workItemContext.getWorkItem().getWorkItemId());
 
         try {

@@ -23,8 +23,9 @@ public class EngineController {
     private EngineClient engineClient;
 
     @RequestMapping(value = "/launchProcess")
-    public BooReturnForm launchProcess(@RequestParam(value = "processInstanceId") String processInstanceId) {
-        return engineClient.launchProcess(processInstanceId);
+    public BooReturnForm launchProcess(@RequestParam(value = "processInstanceId") String processInstanceId,
+                                       @RequestParam(value = "accountId") String accountId) {
+        return engineClient.launchProcess(processInstanceId, accountId);
     }
 
     @RequestMapping(value = "/uploadBO")
@@ -55,9 +56,9 @@ public class EngineController {
 
     @RequestMapping(value = "/callback")
     public BooReturnForm callback(@RequestParam(value = "processInstanceId") String processInstanceId,
-                                  @RequestParam(value = "bo") String bo,
+                                  @RequestParam(value = "bo", required = false) String bo,
                                   @RequestParam(value = "on") String on,
-                                  @RequestParam(value = "id") String id,
+                                  @RequestParam(value = "id", required = false) String id,
                                   @RequestParam(value = "event") String event,
                                   @RequestParam(value = "payload") String payload) {
         return engineClient.callback(processInstanceId, bo, on, id, event, payload);

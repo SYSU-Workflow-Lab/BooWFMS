@@ -8,7 +8,6 @@ import cn.edu.sysu.workflow.engine.core.invoke.Invoker;
 import cn.edu.sysu.workflow.engine.core.invoke.InvokerException;
 import cn.edu.sysu.workflow.engine.core.model.*;
 import cn.edu.sysu.workflow.engine.core.system.EventVariable;
-import cn.edu.sysu.workflow.engine.dao.ServiceInfoDAO;
 import cn.edu.sysu.workflow.engine.service.SteadyStepService;
 import cn.edu.sysu.workflow.engine.util.SpringContextUtil;
 import org.slf4j.Logger;
@@ -220,10 +219,8 @@ public class SCXMLSemanticsImpl implements BOXMLSemantics {
                     if (!BooEngineApplication.IS_LOCAL_DEBUG) {
                         MultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
                         requestEntity.add("processInstanceId", exctx.processInstanceId);
-                        ServiceInfoDAO serviceInfoDAO = (ServiceInfoDAO) SpringContextUtil.getBean("serviceInfoDAOImpl");
-                        String resourceServiceUrl = serviceInfoDAO.findResourceServiceUrlByProcessInstanceId(exctx.processInstanceId);
                         RestTemplate restTemplate = (RestTemplate) SpringContextUtil.getBean("restTemplate");
-                        restTemplate.postForObject(resourceServiceUrl + LocationContext.URL_RS_FINISH, requestEntity, String.class);
+                        restTemplate.postForObject(LocationContext.RESOURCE + LocationContext.URL_RS_FINISH, requestEntity, String.class);
                     }
                 }
             } catch (Exception e) {

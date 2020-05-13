@@ -10,7 +10,6 @@ import cn.edu.sysu.workflow.engine.core.model.EnterableState;
 import cn.edu.sysu.workflow.engine.core.model.ModelException;
 import cn.edu.sysu.workflow.engine.core.model.Param;
 import cn.edu.sysu.workflow.engine.core.model.ParamsContainer;
-import cn.edu.sysu.workflow.engine.dao.ServiceInfoDAO;
 import cn.edu.sysu.workflow.engine.util.SpringContextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,8 +127,8 @@ public class Call extends ParamsContainer implements Serializable {
                         jsonifyParam += "}";
                         // send to RS
                         MultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
-                        requestEntity.add("taskname", this.name);
-                        requestEntity.add("boname", scxmlExecContext.getSCXMLExecutor().getStateMachine().getName());
+                        requestEntity.add("polymorphismName", this.name);
+                        requestEntity.add("businessObjectName", scxmlExecContext.getSCXMLExecutor().getStateMachine().getName());
                         requestEntity.add("nodeId", scxmlExecContext.getSCXMLExecutor().NodeId);
                         requestEntity.add("args", jsonifyParam);
                         requestEntity.add("processInstanceId", scxmlExecContext.processInstanceId);
@@ -143,10 +142,8 @@ public class Call extends ParamsContainer implements Serializable {
                             }
                             for (int times = 0; times < timesBorder; times++) {
                                 try {
-                                    ServiceInfoDAO serviceInfoDAO = (ServiceInfoDAO) SpringContextUtil.getBean("serviceInfoDAOImpl");
-                                    String resourceServiceUrl = serviceInfoDAO.findResourceServiceUrlByProcessInstanceId(scxmlExecContext.processInstanceId);
                                     RestTemplate restTemplate = (RestTemplate) SpringContextUtil.getBean("restTemplate");
-                                    restTemplate.postForObject(resourceServiceUrl + LocationContext.URL_RS_SUBMITTASK, requestEntity, String.class);
+                                    restTemplate.postForObject(LocationContext.RESOURCE + LocationContext.URL_RS_SUBMITTASK, requestEntity, String.class);
                                 } catch (Exception e) {
                                     log.error("[" + scxmlExecContext.processInstanceId + "]When submit task to Resource Service, exception occurred, " + e.toString());
                                 }
@@ -176,18 +173,16 @@ public class Call extends ParamsContainer implements Serializable {
                         jsonifyParam += "}";
                         // send to RS
                         MultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
-                        requestEntity.add("taskname", this.name);
-                        requestEntity.add("boname", scxmlExecContext.getSCXMLExecutor().getStateMachine().getName());
+                        requestEntity.add("polymorphismName", this.name);
+                        requestEntity.add("businessObjectName", scxmlExecContext.getSCXMLExecutor().getStateMachine().getName());
                         requestEntity.add("nodeId", scxmlExecContext.getSCXMLExecutor().NodeId);
                         //params of the task
                         requestEntity.add("args", jsonifyParam);
                         requestEntity.add("processInstanceId", scxmlExecContext.processInstanceId);
                         if (!BooEngineApplication.IS_LOCAL_DEBUG) {
                             try {
-                                ServiceInfoDAO serviceInfoDAO = (ServiceInfoDAO) SpringContextUtil.getBean("serviceInfoDAOImpl");
-                                String resourceServiceUrl = serviceInfoDAO.findResourceServiceUrlByProcessInstanceId(scxmlExecContext.processInstanceId);
                                 RestTemplate restTemplate = (RestTemplate) SpringContextUtil.getBean("restTemplate");
-                                restTemplate.postForObject(resourceServiceUrl + LocationContext.URL_RS_SUBMITTASK, requestEntity, String.class);
+                                restTemplate.postForObject(LocationContext.RESOURCE + LocationContext.URL_RS_SUBMITTASK, requestEntity, String.class);
                             } catch (Exception e) {
                                 log.error("[" + scxmlExecContext.processInstanceId + "]When submit task to Resource Service, exception occurred, " + e.toString());
                             }

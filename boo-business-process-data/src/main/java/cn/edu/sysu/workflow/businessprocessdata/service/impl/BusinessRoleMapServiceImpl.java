@@ -55,6 +55,7 @@ public class BusinessRoleMapServiceImpl implements BusinessRoleMapService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void register(String processInstanceId, String organizationId, String dataVersion, String mapDescriptor) {
+        // TODO 通过已经运行的业务流程实例判断是否需要上传，如果已经运行相同的业务流程实例则不需要重新上传
         List<AbstractMap.SimpleEntry<String, String>> parsedList = RoleMapParser.parse(mapDescriptor);
         try {
             for (AbstractMap.SimpleEntry<String, String> kvp : parsedList) {
@@ -78,6 +79,7 @@ public class BusinessRoleMapServiceImpl implements BusinessRoleMapService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void loadParticipant(String processInstanceId) {
+        // TODO 通过已经运行的业务流程实例判断是否需要加载，如果已经运行相同的业务流程实例则不需要重新加载
         try {
             // get involved mappings
             List<BusinessRoleMap> maps = businessRoleMapDAO.findBusinessRoleMapsByProcessInstanceId(processInstanceId);

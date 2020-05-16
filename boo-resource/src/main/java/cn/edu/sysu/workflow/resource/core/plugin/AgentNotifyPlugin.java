@@ -2,7 +2,6 @@ package cn.edu.sysu.workflow.resource.core.plugin;
 
 import cn.edu.sysu.workflow.common.entity.ProcessParticipant;
 import cn.edu.sysu.workflow.common.enums.AgentReentrantType;
-import cn.edu.sysu.workflow.resource.util.SpringContextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.MultiValueMap;
@@ -43,7 +42,7 @@ public class AgentNotifyPlugin extends AsyncRunnablePlugin {
      * Create a new agent notification send plugin.
      */
     public AgentNotifyPlugin() {
-        restTemplate = (RestTemplate) SpringContextUtil.getBean("restTemplate");
+        restTemplate = new RestTemplate();
     }
 
     /**

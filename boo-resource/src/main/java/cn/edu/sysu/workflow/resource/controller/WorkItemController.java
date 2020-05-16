@@ -41,8 +41,8 @@ public class WorkItemController {
     @RequestMapping(value = "/start")
     public BooReturnForm startWorkItem(@RequestParam(value = "workerId") String workerId,
                                        @RequestParam(value = "workItemId") String workItemId,
-                                       @RequestParam(value = "payload") String payload,
-                                       @RequestParam(value = "tokenId") String tokenId) {
+                                       @RequestParam(value = "payload", required = false) String payload,
+                                       @RequestParam(value = "tokenId", required = false) String tokenId) {
         // logic
         if (interfaceW.start(workItemId, workerId, payload, tokenId)) {
             // return

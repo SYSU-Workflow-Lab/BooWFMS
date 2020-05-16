@@ -7,7 +7,6 @@ import cn.edu.sysu.workflow.common.enums.WorkItemListType;
 import cn.edu.sysu.workflow.common.util.IdUtil;
 import cn.edu.sysu.workflow.common.util.JsonUtil;
 import cn.edu.sysu.workflow.resource.core.context.WorkItemContext;
-import cn.edu.sysu.workflow.resource.dao.TaskItemDAO;
 import cn.edu.sysu.workflow.resource.dao.WorkItemDAO;
 import cn.edu.sysu.workflow.resource.dao.WorkItemListDAO;
 import cn.edu.sysu.workflow.resource.service.TaskItemContextService;
@@ -44,9 +43,6 @@ public class WorkItemListServiceImpl implements WorkItemListService {
 
     @Autowired
     private WorkItemDAO workItemDAO;
-
-    @Autowired
-    private TaskItemDAO taskItemDAO;
 
     @Autowired
     private TaskItemContextService taskItemContextService;

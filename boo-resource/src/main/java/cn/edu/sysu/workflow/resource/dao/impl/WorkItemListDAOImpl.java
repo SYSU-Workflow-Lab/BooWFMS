@@ -73,4 +73,20 @@ public class WorkItemListDAOImpl implements WorkItemListDAO {
             throw new DAOException(e);
         }
     }
+
+    @Override
+    public String findOwnerAccountIdByWorkItemListId(String workItemListId) {
+        String sql = "SELECT owner_account_id " +
+                "FROM boo_work_item_list " +
+                "WHERE work_item_list_id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{workItemListId},
+                    (resultSet, i) -> resultSet.getString("owner_account_id"));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        } catch (Exception e) {
+            log.error("[" + workItemListId + "]Error on querying ownerAccountId by workItemListId.", e);
+            throw new DAOException(e);
+        }
+    }
 }

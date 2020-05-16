@@ -316,7 +316,7 @@ public class InterfaceW {
         try {
             WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
             if (!workItemContext.isAtResourcingStatus(WorkItemResourcingStatus.Started)) {
-                log.error(String.format("[%s]Try to complete work item(%s) but not at Started status", workItemId));
+                log.error(String.format("Try to complete work item(%s) but not at Started status", workItemId));
                 return false;
             }
             ProcessParticipant participant = processParticipantDAO.findByAccountId(workerId);

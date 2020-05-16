@@ -13,10 +13,7 @@ import cn.edu.sysu.workflow.resource.core.ContextLockManager;
 import cn.edu.sysu.workflow.resource.core.api.InterfaceA;
 import cn.edu.sysu.workflow.resource.core.context.TaskItemContext;
 import cn.edu.sysu.workflow.resource.core.context.WorkItemContext;
-import cn.edu.sysu.workflow.resource.dao.BusinessObjectDAO;
-import cn.edu.sysu.workflow.resource.dao.TaskItemDAO;
-import cn.edu.sysu.workflow.resource.dao.WorkItemDAO;
-import cn.edu.sysu.workflow.resource.dao.WorkItemListItemDAO;
+import cn.edu.sysu.workflow.resource.dao.*;
 import cn.edu.sysu.workflow.resource.service.TaskItemContextService;
 import cn.edu.sysu.workflow.resource.service.WorkItemContextService;
 import org.slf4j.Logger;
@@ -51,6 +48,9 @@ public class WorkItemContextServiceImpl implements WorkItemContextService {
 
     @Autowired
     private WorkItemListItemDAO workItemListItemDAO;
+
+    @Autowired
+    private WorkItemListDAO workItemListDAO;
 
     @Autowired
     private WorkItemDAO workItemDAO;
@@ -97,16 +97,8 @@ public class WorkItemContextServiceImpl implements WorkItemContextService {
         } else {
             StringBuilder workerIdSb = new StringBuilder();
             workerIdSb.append("[");
-            for (WorkItemListItem rqe : relations) {
-                String[] workItemListIdItem = rqe.getWorkItemListId().split("_");
-                String workerId;
-                if (workItemListIdItem.length == 4) {
-                    workerId = String.format("\"%s_%s\"", workItemListIdItem[2], workItemListIdItem[3]);
-                }
-                // for admin work item list
-                else {
-                    workerId = String.format("\"%s\"", workItemListIdItem[2]);
-                }
+            for (WorkItemListItem workItemListItem : relations) {
+                String workerId = workItemListDAO.findOwnerAccountIdByWorkItemListId(workItemListItem.getWorkItemListId());
                 workerIdSb.append(workerId).append(",");
             }
             String workerIdList = workerIdSb.toString();

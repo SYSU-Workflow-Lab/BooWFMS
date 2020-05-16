@@ -61,4 +61,18 @@ public class WorkItemListDAOTest {
                 workItemListDAO.findByOwnerAccountIdAndType("ownerAccountId", 1).getWorkItemListId());
     }
 
+    /**
+     * Test {@link WorkItemListDAO#findOwnerAccountIdByWorkItemListId(String)}
+     */
+    @Test
+    @Transactional
+    public void test3() {
+        // save
+        Assert.assertEquals(1, workItemListDAO.save(workItemList));
+
+        // findProcessInstanceIdByWorkItemId
+        Assert.assertEquals("ownerAccountId",
+                workItemListDAO.findOwnerAccountIdByWorkItemListId(workItemList.getWorkItemListId()));
+    }
+
 }

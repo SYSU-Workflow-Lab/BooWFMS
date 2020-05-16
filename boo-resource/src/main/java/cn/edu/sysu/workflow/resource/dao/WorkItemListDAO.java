@@ -12,10 +12,10 @@ public interface WorkItemListDAO {
      * 创建工作项列表
      *
      * @param workItemList <ul>
-     *                         <li>workItemListId</li>
-     *                         <li>ownerAccountId</li>
-     *                         <li>type</li>
-     *                         </ul>
+     *                     <li>workItemListId</li>
+     *                     <li>ownerAccountId</li>
+     *                     <li>type</li>
+     *                     </ul>
      * @return 新增的数据量
      */
     int save(WorkItemList workItemList);
@@ -28,5 +28,13 @@ public interface WorkItemListDAO {
      * @return
      */
     WorkItemList findByOwnerAccountIdAndType(String ownerAccountId, Integer type);
+
+    /**
+     * 根据工作项列表ID查询所有者账户ID
+     *
+     * @param workItemListId
+     * @return
+     */
+    String findOwnerAccountIdByWorkItemListId(String workItemListId);
 
 }

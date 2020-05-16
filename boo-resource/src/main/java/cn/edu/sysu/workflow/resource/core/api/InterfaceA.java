@@ -36,8 +36,10 @@ public class InterfaceA {
     @Autowired
     private ServiceInfoDAO serviceInfoDAO;
 
-    @Autowired
-    private RestTemplate restTemplate;
+    /**
+     * 使用ribbon的resttemplate无法通过ip访问
+     */
+    private final RestTemplate restTemplate = new RestTemplate();
 
     @Autowired
     @Lazy

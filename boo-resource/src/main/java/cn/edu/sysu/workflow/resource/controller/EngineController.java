@@ -3,7 +3,10 @@ package cn.edu.sysu.workflow.resource.controller;
 import cn.edu.sysu.workflow.common.entity.base.BooReturnForm;
 import cn.edu.sysu.workflow.resource.core.api.InterfaceA;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Author: Rinkako, Skye
@@ -55,7 +58,7 @@ public class EngineController {
      */
     @PostMapping(value = "/finProcessInstance")
     public BooReturnForm finProcessInstance(@RequestParam(value = "processInstanceId") String processInstanceId,
-                                            @RequestParam(value = "successFlag") String successFlag) {
+                                            @RequestParam(value = "successFlag", required = false) String successFlag) {
         // logic
         interfaceA.engineFinishProcess(processInstanceId, successFlag);
 

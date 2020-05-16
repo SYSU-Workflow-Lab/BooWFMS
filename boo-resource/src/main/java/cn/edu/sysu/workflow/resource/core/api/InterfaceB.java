@@ -48,7 +48,6 @@ import java.util.Set;
  */
 
 @Service
-@Transactional(rollbackFor = Exception.class)
 public class InterfaceB {
 
     private static final Logger log = LoggerFactory.getLogger(InterfaceB.class);
@@ -192,6 +191,7 @@ public class InterfaceB {
      * @param processInstanceId
      * @param successFlag
      */
+    @Transactional(rollbackFor = Exception.class)
     public void performEngineFinishProcess(String processInstanceId, String successFlag) {
         try {
             ProcessInstance processInstance = processInstanceDAO.findOne(processInstanceId);

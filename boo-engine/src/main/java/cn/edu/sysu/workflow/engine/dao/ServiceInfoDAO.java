@@ -60,12 +60,4 @@ public interface ServiceInfoDAO {
      */
     int deleteByServiceInfoId(String serviceInfoId);
 
-    /**
-     * 根据流程实例ID查找对应的资源服务URL
-     *
-     * @param processInstanceId
-     * @return
-     */
-    String findResourceServiceUrlByProcessInstanceId(String processInstanceId);
-
 }

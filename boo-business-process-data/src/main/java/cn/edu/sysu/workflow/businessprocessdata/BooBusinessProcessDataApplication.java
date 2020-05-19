@@ -1,6 +1,5 @@
 package cn.edu.sysu.workflow.businessprocessdata;
 
-import cn.edu.sysu.workflow.common.util.IdUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -17,11 +16,6 @@ import org.springframework.web.client.RestTemplate;
 @EnableScheduling
 @EnableDiscoveryClient
 public class BooBusinessProcessDataApplication {
-
-    /**
-     * business process data service micro-service global id.
-     */
-    public static final String BUSINESS_PROCESS_DATA_ID = "business-process-data-" + IdUtil.nextId();
 
     public static void main(String[] args) {
         SpringApplication.run(BooBusinessProcessDataApplication.class, args);

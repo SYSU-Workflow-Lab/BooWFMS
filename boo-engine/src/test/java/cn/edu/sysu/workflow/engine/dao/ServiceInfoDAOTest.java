@@ -1,9 +1,8 @@
 package cn.edu.sysu.workflow.engine.dao;
 
-import cn.edu.sysu.workflow.common.entity.ProcessInstance;
+import cn.edu.sysu.workflow.common.entity.ServiceInfo;
 import cn.edu.sysu.workflow.common.util.IdUtil;
 import cn.edu.sysu.workflow.engine.BooEngineApplication;
-import cn.edu.sysu.workflow.common.entity.ServiceInfo;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,25 +66,5 @@ public class ServiceInfoDAOTest {
         Assert.assertEquals(1, serviceInfoDAO.deleteByServiceInfoId(serviceInfo.getServiceInfoId()));
         // findOne
         Assert.assertNull(serviceInfoDAO.findOne(serviceInfo.getServiceInfoId()));
-    }
-
-    /**
-     * Test {@link ServiceInfoDAO#findResourceServiceUrlByProcessInstanceId(String)}
-     */
-    @Test
-    @Transactional
-    public void test2() {
-        String processInstanceId = "test-pi-" + IdUtil.nextId();
-        String resourceServiceId = serviceInfo.getServiceInfoId();
-        ProcessInstance processInstance = new ProcessInstance();
-        processInstance.setProcessInstanceId(processInstanceId);
-        processInstance.setResourceServiceId(resourceServiceId);
-
-        // save
-        Assert.assertEquals(1, processInstanceDAO.save(processInstance));
-        Assert.assertEquals(1, serviceInfoDAO.save(serviceInfo));
-
-        // findResourceServiceUrlByProcessInstanceId
-        Assert.assertEquals(serviceInfo.getUrl(), serviceInfoDAO.findResourceServiceUrlByProcessInstanceId(processInstanceId));
     }
 }

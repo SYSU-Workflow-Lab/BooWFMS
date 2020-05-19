@@ -21,7 +21,6 @@ import cn.edu.sysu.workflow.resource.dao.AccountDAO;
 import cn.edu.sysu.workflow.resource.dao.BusinessProcessDAO;
 import cn.edu.sysu.workflow.resource.dao.ProcessInstanceDAO;
 import cn.edu.sysu.workflow.resource.dao.WorkItemDAO;
-import cn.edu.sysu.workflow.resource.service.ApplicationPerformanceMonitorService;
 import cn.edu.sysu.workflow.resource.service.WorkItemContextService;
 import cn.edu.sysu.workflow.resource.service.WorkItemListItemService;
 import cn.edu.sysu.workflow.resource.service.WorkItemListService;
@@ -51,9 +50,6 @@ import java.util.Set;
 public class InterfaceB {
 
     private static final Logger log = LoggerFactory.getLogger(InterfaceB.class);
-
-    @Autowired
-    private ApplicationPerformanceMonitorService applicationPerformanceMonitorService;
 
     @Autowired
     @Lazy
@@ -145,7 +141,6 @@ public class InterfaceB {
                         allocateAnp.addNotification(chosenOne, allocateNotifyMap, processInstanceId);
                         AsyncPluginRunner.AsyncRun(allocateAnp);
                     }
-                    applicationPerformanceMonitorService.getWorkItemCount().incrementAndGet();
                     break;
                 case Offer:
                     // create a filter interaction
@@ -172,7 +167,6 @@ public class InterfaceB {
                     if (offerAnp.count(processInstanceId) > 0) {
                         AsyncPluginRunner.AsyncRun(offerAnp);
                     }
-                    applicationPerformanceMonitorService.getWorkItemCount().incrementAndGet();
                     break;
                 case AutoAllocateIfOfferFailed:
                     // todo not implementation
@@ -250,7 +244,6 @@ public class InterfaceB {
         try {
             workItemListService.moveFromAllocatedToOffered(workItemContext, participant.getAccountId());
             this.workItemChanged(workItemContext, WorkItemStatus.Fired, WorkItemResourcingStatus.Offered, payload);
-            applicationPerformanceMonitorService.getWorkItemCount().decrementAndGet();
             return true;
         } catch (Exception ex) {
             interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Deallocate but exception occurred: " + ex);
@@ -305,7 +298,6 @@ public class InterfaceB {
         try {
             workItemListService.moveFromStartedToAllocated(workItemContext, participant.getAccountId());
             this.workItemChanged(workItemContext, WorkItemStatus.Fired, WorkItemResourcingStatus.Allocated, payload);
-            applicationPerformanceMonitorService.getWorkItemCount().incrementAndGet();
             return true;
         } catch (Exception ex) {
             interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Reallocate but exception occurred: " + ex);
@@ -325,7 +317,6 @@ public class InterfaceB {
         try {
             workItemListService.moveFromStartedToSuspend(workItemContext, participant.getAccountId());
             this.workItemChanged(workItemContext, WorkItemStatus.Suspended, WorkItemResourcingStatus.Suspended, payload);
-            applicationPerformanceMonitorService.getWorkItemCount().decrementAndGet();
             return true;
         } catch (Exception ex) {
             interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Suspend but exception occurred: " + ex);
@@ -345,7 +336,6 @@ public class InterfaceB {
         try {
             workItemListService.moveFromSuspendToStarted(workItemContext, participant.getAccountId());
             this.workItemChanged(workItemContext, WorkItemStatus.Executing, WorkItemResourcingStatus.Started, payload);
-            applicationPerformanceMonitorService.getWorkItemCount().incrementAndGet();
             return true;
         } catch (Exception ex) {
             interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Unsuspend but exception occurred: " + ex);
@@ -367,7 +357,6 @@ public class InterfaceB {
             this.workItemChanged(workItemContext, WorkItemStatus.ForcedComplete, WorkItemResourcingStatus.Skipped, payload);
             log.info("Worker[" + participant.getAccountId() + "] handles the work item["
                     + workItemContext.getWorkItem().getWorkItemId() + "] at the stage of " + ResourceEventType.skip.name() + ".");
-            applicationPerformanceMonitorService.getWorkItemCount().decrementAndGet();
             return true;
         } catch (Exception ex) {
             interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Skip but exception occurred: " + ex);
@@ -396,7 +385,6 @@ public class InterfaceB {
             this.workItemChanged(workItemContext, WorkItemStatus.Complete, WorkItemResourcingStatus.Completed, payload);
             log.info("Worker[" + participant.getAccountId() + "] handles the work item["
                     + workItemContext.getWorkItem().getWorkItemId() + "] at the stage of " + ResourceEventType.complete.name() + ".");
-            applicationPerformanceMonitorService.getWorkItemCount().decrementAndGet();
             return true;
         } catch (Exception ex) {
             interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "Complete but exception occurred: " + ex);

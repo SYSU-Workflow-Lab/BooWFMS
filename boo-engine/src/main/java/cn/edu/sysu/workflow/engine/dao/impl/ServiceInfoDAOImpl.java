@@ -1,10 +1,10 @@
 package cn.edu.sysu.workflow.engine.dao.impl;
 
-import cn.edu.sysu.workflow.common.entity.exception.DAOException;
-import cn.edu.sysu.workflow.engine.dao.ServiceInfoDAO;
 import cn.edu.sysu.workflow.common.entity.ServiceInfo;
+import cn.edu.sysu.workflow.common.entity.exception.DAOException;
 import cn.edu.sysu.workflow.common.jdbc.BooPreparedStatementSetter;
 import cn.edu.sysu.workflow.common.util.JdbcUtil;
+import cn.edu.sysu.workflow.engine.dao.ServiceInfoDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,25 +179,6 @@ public class ServiceInfoDAOImpl implements ServiceInfoDAO {
             return jdbcTemplate.update(sql, serviceInfoId);
         } catch (Exception e) {
             log.error("[" + serviceInfoId + "]Error on deleting service info by serviceInfoId.", e);
-            throw new DAOException(e);
-        }
-    }
-
-    @Override
-    public String findResourceServiceUrlByProcessInstanceId(String processInstanceId) {
-        String sql = "SELECT si.url FROM boo_service_info si, boo_process_instance pi " +
-                "WHERE pi.process_instance_id = ? AND pi.resource_service_id = si.service_info_id";
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{processInstanceId}, new RowMapper<String>() {
-                @Override
-                public String mapRow(ResultSet resultSet, int i) throws SQLException {
-                    return resultSet.getString("url");
-                }
-            });
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        } catch (Exception e) {
-            log.error("[" + processInstanceId + "]Error on querying resource service url by processInstanceId.", e);
             throw new DAOException(e);
         }
     }

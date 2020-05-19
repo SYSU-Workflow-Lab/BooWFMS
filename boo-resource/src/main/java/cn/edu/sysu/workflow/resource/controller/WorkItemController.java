@@ -69,7 +69,7 @@ public class WorkItemController {
     @RequestMapping(value = "/accept")
     public BooReturnForm acceptWorkItem(@RequestParam(value = "workerId") String workerId,
                                         @RequestParam(value = "workItemId") String workItemId,
-                                        @RequestParam(value = "payload") String payload,
+                                        @RequestParam(value = "payload", required = false) String payload,
                                         @RequestParam(value = "tokenId") String tokenId) {
         // logic
         if (interfaceW.acceptOffer(workItemId, workerId, payload, tokenId)) {
@@ -97,7 +97,7 @@ public class WorkItemController {
     @RequestMapping(value = "/acceptStart")
     public BooReturnForm acceptAndStartWorkItem(@RequestParam(value = "workerId") String workerId,
                                                 @RequestParam(value = "workItemId") String workItemId,
-                                                @RequestParam(value = "payload") String payload,
+                                                @RequestParam(value = "payload", required = false) String payload,
                                                 @RequestParam(value = "tokenId") String tokenId) {
         // logic
         if (interfaceW.acceptAndStart(workItemId, workerId, payload, tokenId)) {
@@ -124,7 +124,7 @@ public class WorkItemController {
     @RequestMapping(value = "/complete")
     public BooReturnForm completeWorkItem(@RequestParam(value = "workerId") String workerId,
                                           @RequestParam(value = "workItemId") String workItemId,
-                                          @RequestParam(value = "payload") String payload) {
+                                          @RequestParam(value = "payload", required = false) String payload) {
         // logic
         if (interfaceW.complete(workItemId, workerId, payload)) {
             // return
@@ -150,7 +150,7 @@ public class WorkItemController {
     @RequestMapping(value = "/suspend")
     public BooReturnForm suspendWorkItem(@RequestParam(value = "workerId") String workerId,
                                          @RequestParam(value = "workItemId") String workItemId,
-                                         @RequestParam(value = "payload") String payload) {
+                                         @RequestParam(value = "payload", required = false) String payload) {
         // logic
         if (interfaceW.suspend(workItemId, workerId, payload)) {
             // return
@@ -176,7 +176,7 @@ public class WorkItemController {
     @RequestMapping(value = "/unsuspend")
     public BooReturnForm unsuspendWorkItem(@RequestParam(value = "workerId") String workerId,
                                            @RequestParam(value = "workItemId") String workItemId,
-                                           @RequestParam(value = "payload") String payload) {
+                                           @RequestParam(value = "payload", required = false) String payload) {
         // logic
         if (interfaceW.unsuspend(workItemId, workerId, payload)) {
             // return
@@ -202,7 +202,7 @@ public class WorkItemController {
     @RequestMapping(value = "/skip")
     public BooReturnForm skipWorkItem(@RequestParam(value = "workerId") String workerId,
                                       @RequestParam(value = "workItemId") String workItemId,
-                                      @RequestParam(value = "payload") String payload) {
+                                      @RequestParam(value = "payload", required = false) String payload) {
         // logic
         if (interfaceW.skip(workItemId, workerId, payload)) {
             // return
@@ -228,7 +228,7 @@ public class WorkItemController {
     @RequestMapping(value = "/reallocate")
     public BooReturnForm reallocateWorkItem(@RequestParam(value = "workerId") String workerId,
                                             @RequestParam(value = "workItemId") String workItemId,
-                                            @RequestParam(value = "payload") String payload) {
+                                            @RequestParam(value = "payload", required = false) String payload) {
         // logic
         if (interfaceW.reallocate(workItemId, workerId, payload)) {
             // return
@@ -254,7 +254,7 @@ public class WorkItemController {
     @RequestMapping(value = "/deallocate")
     public BooReturnForm deallocateWorkItem(@RequestParam(value = "workerId") String workerId,
                                             @RequestParam(value = "workItemId") String workItemId,
-                                            @RequestParam(value = "payload") String payload) {
+                                            @RequestParam(value = "payload", required = false) String payload) {
         // logic
         if (interfaceW.deallocate(workItemId, workerId, payload)) {
             // return

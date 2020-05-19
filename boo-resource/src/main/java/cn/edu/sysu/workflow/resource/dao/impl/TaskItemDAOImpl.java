@@ -60,7 +60,7 @@ public class TaskItemDAOImpl implements TaskItemDAO {
                 "bti.business_role, bti.principle, bti.event_descriptor, bti.hook_descriptor, bti.documentation, bti.parameters " +
                 "FROM boo_task_item bti , boo_process_instance bpi, boo_business_object bbo " +
                 "WHERE bpi.process_instance_id = ? AND bpi.process_id = bbo.process_id AND bbo.business_object_name = ? " +
-                "AND bbo.business_object_id= bti.business_object_id AND task_polymorphism_name = ?";
+                "AND bbo.business_object_id= bti.business_object_id AND bti.task_polymorphism_name = ?";
         try {
             return jdbcTemplate.queryForObject(sql, new Object[]{processInstanceId, businessObjectName, taskName}, (RowMapper<TaskItem>) (resultSet, i) -> {
                 TaskItem taskItem = new TaskItem();

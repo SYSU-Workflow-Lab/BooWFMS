@@ -149,7 +149,7 @@ public class EngineController {
                                   @RequestParam(value = "on") String on,
                                   @RequestParam(value = "id", required = false) String id,
                                   @RequestParam(value = "event") String event,
-                                  @RequestParam(value = "payload") String payload) {
+                                  @RequestParam(value = "payload", required = false) String payload) {
         // logic
         if (bo != null) {
             interactionService.dispatchCallbackByProcessInstanceId(processInstanceId, bo, on, event, payload);

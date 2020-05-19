@@ -102,7 +102,12 @@ public class InterfaceA {
             if (payloadJSON != null) {
                 argsMap.add("payload", payloadJSON);
             }
-            restTemplate.postForObject(serviceInfoDAO.findEngineServiceUrlByProcessInstanceId(processInstanceId) + LocationContext.URL_ENGINE_CALLBACK, argsMap, String.class);
+            try {
+                restTemplate.postForObject(serviceInfoDAO.findEngineServiceUrlByProcessInstanceId(processInstanceId) + LocationContext.URL_ENGINE_CALLBACK, argsMap, String.class);
+            } catch (Exception e) {
+                log.error(String.format("[%s]Cannot handle callback (%s) for work item %s, %s",
+                        processInstanceId, cb, workItemContext.getWorkItem().getWorkItemId(), e));
+            }
         }
         // hooks
         List<String> hooks = taskItemContextService.getCallbackHooksOfStatus(taskItemContext, statusType);

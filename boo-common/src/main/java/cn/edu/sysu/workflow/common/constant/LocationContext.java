@@ -10,7 +10,7 @@ public class LocationContext {
     public static final String ENGINE = "http://ENGINE";
     public static final String RESOURCE = "http://RESOURCE";
     public static final String ENGINE_FEIGN = "http://ENGINE-FEIGN";
-    public static final String BUSINESS_PROCESS_DATA = "http://BUSINESS_PROCESS_DATA";
+    public static final String BUSINESS_PROCESS_DATA = "http://BUSINESS-PROCESS-DATA";
 
     /**
      * Service URL for BO Engine Serialization BO.

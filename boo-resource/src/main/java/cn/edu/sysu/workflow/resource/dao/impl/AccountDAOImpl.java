@@ -2,23 +2,17 @@ package cn.edu.sysu.workflow.resource.dao.impl;
 
 import cn.edu.sysu.workflow.common.entity.access.Account;
 import cn.edu.sysu.workflow.common.entity.exception.DAOException;
-import cn.edu.sysu.workflow.common.jdbc.BooPreparedStatementSetter;
-import cn.edu.sysu.workflow.common.util.JdbcUtil;
 import cn.edu.sysu.workflow.resource.dao.AccountDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 
 /**
  * {@link AccountDAO}

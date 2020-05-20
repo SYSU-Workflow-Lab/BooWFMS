@@ -154,6 +154,7 @@ public class ProcessInstanceManagementServiceImpl implements ProcessInstanceMana
                 businessObjectDAO.update(businessObject);
             }
             return new AbstractMap.SimpleEntry<>(businessObjectId, businessRoles);
+
         } catch (Exception ex) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             if (cmtFlag) {

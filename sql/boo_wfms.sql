@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 12/05/2020 16:48:56
+ Date: 20/05/2020 10:30:08
 */
 
 SET NAMES utf8mb4;
@@ -232,7 +232,8 @@ CREATE TABLE `boo_business_object`
     `business_roles`        text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NULL COMMENT '涉及的业务角色',
     `create_timestamp`      datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',
     `last_update_timestamp` datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后更新时间戳',
-    PRIMARY KEY (`business_object_id`) USING BTREE
+    PRIMARY KEY (`business_object_id`) USING BTREE,
+    UNIQUE INDEX `bon_pi` (`business_object_name`, `process_id`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
@@ -422,37 +423,42 @@ CREATE TABLE `boo_process_participant`
 DROP TABLE IF EXISTS `boo_service_info`;
 CREATE TABLE `boo_service_info`
 (
-    `service_info_id`     varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '服务信息ID',
-    `url`                 varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '服务URL',
-    `is_active`           bit(1)                                                        NOT NULL COMMENT '服务是否存活',
-    `business`            double                                                        NULL DEFAULT NULL COMMENT '繁忙程度性能指标',
-  `cpu_occupancy_rate` double NULL DEFAULT NULL COMMENT 'CPU占用率',
-  `memory_occupancy_rate` double NULL DEFAULT NULL COMMENT '内存占用率',
-  `tomcat_concurrency` double NULL DEFAULT NULL COMMENT 'Tomcat连接并发数',
-  `work_item_count` double NULL DEFAULT NULL COMMENT '工作项个数',
-  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
-  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
-  PRIMARY KEY (`service_info_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+    `service_info_id`       varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '服务信息ID',
+    `url`                   varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '服务URL',
+    `is_active`             bit(1)                                                        NOT NULL COMMENT '服务是否存活',
+    `business`              double                                                        NULL DEFAULT NULL COMMENT '繁忙程度性能指标',
+    `cpu_occupancy_rate`    double                                                        NULL DEFAULT NULL COMMENT 'CPU占用率',
+    `memory_occupancy_rate` double                                                        NULL DEFAULT NULL COMMENT '内存占用率',
+    `tomcat_concurrency`    double                                                        NULL DEFAULT NULL COMMENT 'Tomcat连接并发数',
+    `work_item_count`       double                                                        NULL DEFAULT NULL COMMENT '工作项个数',
+    `create_timestamp`      datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',
+    `last_update_timestamp` datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后更新时间戳',
+    PRIMARY KEY (`service_info_id`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_general_ci
+  ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for boo_task_item
 -- ----------------------------
 DROP TABLE IF EXISTS `boo_task_item`;
-CREATE TABLE `boo_task_item`  (
-  `task_item_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据库主键',
-  `business_object_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务对象ID',
-  `task_polymorphism_id` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '来源任务的模型ID',
-  `task_polymorphism_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '来源任务的模型名',
-  `business_role` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '涉及业务角色',
-  `principle` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
-  `event_descriptor` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'event name like eventSuccess in descriptor json string',
-  `hook_descriptor` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'post hooks like onOffer in descriptor json string',
-  `documentation` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `parameters` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '参数(JSON)',
-  `create_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '创建时间戳',
-  `last_update_timestamp` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间戳',
-  PRIMARY KEY (`task_item_id`) USING BTREE
+CREATE TABLE `boo_task_item`
+(
+    `task_item_id`           varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数据库主键',
+    `business_object_id`     varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务对象ID',
+    `task_polymorphism_id`   varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '来源任务的模型ID',
+    `task_polymorphism_name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NOT NULL COMMENT '来源任务的模型名',
+    `business_role`          text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NOT NULL COMMENT '涉及业务角色',
+    `principle`              text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NULL,
+    `event_descriptor`       text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NOT NULL COMMENT 'event name like eventSuccess in descriptor json string',
+    `hook_descriptor`        text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NOT NULL COMMENT 'post hooks like onOffer in descriptor json string',
+    `documentation`          text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci         NOT NULL,
+    `parameters`             longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci     NOT NULL COMMENT '参数(JSON)',
+    `create_timestamp`       datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',
+    `last_update_timestamp`  datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后更新时间戳',
+    PRIMARY KEY (`task_item_id`) USING BTREE,
+    UNIQUE INDEX `boi_tpi` (`business_object_id`, `task_polymorphism_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------

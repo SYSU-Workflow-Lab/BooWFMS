@@ -56,12 +56,6 @@
             <artifactId>boo-common</artifactId>
         </dependency>
 
-        <!-- JMX monitor -->
-        <dependency>
-            <groupId>org.jolokia</groupId>
-            <artifactId>jolokia-core</artifactId>
-        </dependency>
-
     </dependencies>
 
     <build>

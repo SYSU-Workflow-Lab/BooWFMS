@@ -8,6 +8,7 @@ import cn.edu.sysu.workflow.engine.dao.BusinessObjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -60,6 +61,9 @@ public class BusinessObjectDAOImpl implements BusinessObjectDAO {
                     JdbcUtil.preparedStatementSetter(ps, index(), businessObject.getBusinessRoles(), Types.VARCHAR);
                 }
             });
+        } catch (DuplicateKeyException e) {
+            log.error("[" + businessObject.getBusinessObjectName() + "::" + businessObject.getProcessId() + "]Error on creating business object by businessObjectName and processId.", e);
+            throw new DAOException(e);
         } catch (Exception e) {
             log.error("[" + businessObject.getBusinessObjectId() + "]Error on creating business object by businessObjectId.", e);
             throw new DAOException(e);

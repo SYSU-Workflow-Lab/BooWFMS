@@ -62,7 +62,7 @@ public class TaskItemDAOImpl implements TaskItemDAO {
                 }
             });
         } catch (Exception e) {
-            log.error("[" + taskItem.getTaskItemId() + "]Error on creating task item by taskItemId.", e);
+            log.error("[" + taskItem.getBusinessObjectId() + "::" + taskItem.getTaskPolymorphismId() + "]Error on creating task item by businessObjectId and taskPolymorphismId.", e);
             throw new DAOException(e);
         }
     }

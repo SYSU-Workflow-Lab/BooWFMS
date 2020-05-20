@@ -2,8 +2,18 @@ package boowfms
 
 import java.util.UUID
 
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import scala.concurrent.duration._
+import org.json4s._
+import org.json4s.jackson.JsonMethods._
+import org.apache.commons.httpclient._
+import org.apache.commons.httpclient.methods._
 import scala.io.Source
 
+/**
+ *
+ */
 class BooWFMSSimulation extends Simulation {
 
   val httpProtocol = http
@@ -19,6 +29,7 @@ class BooWFMSSimulation extends Simulation {
   rSource.close()
 
   val client = new HttpClient
+  client.getHttpConnectionManager().getParams().setConnectionTimeout(60000);
   System.setProperty("logging.logger.org.apache.http.wire", "ERROR")
 
   // create process

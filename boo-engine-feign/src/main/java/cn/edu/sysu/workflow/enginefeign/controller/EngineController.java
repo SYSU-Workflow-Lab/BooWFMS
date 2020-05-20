@@ -24,11 +24,6 @@ public class EngineController {
     @Autowired
     private EngineClient engineClient;
 
-    @RequestMapping(value = "/echo")
-    public String launchProcess(HttpSession httpSession) {
-        return (String) httpSession.getAttribute("accountId");
-    }
-
     @RequestMapping(value = "/launchProcess")
     public BooReturnForm launchProcess(@RequestParam(value = "processInstanceId") String processInstanceId,
                                        @RequestParam(value = "accountId") String accountId) {

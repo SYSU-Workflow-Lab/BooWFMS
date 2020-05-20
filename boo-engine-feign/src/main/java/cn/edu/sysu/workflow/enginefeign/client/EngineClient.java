@@ -1,6 +1,7 @@
 package cn.edu.sysu.workflow.enginefeign.client;
 
 import cn.edu.sysu.workflow.common.entity.base.BooReturnForm;
+import cn.edu.sysu.workflow.enginefeign.configuration.DisableHystrixFeignConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author Skye
  * Created on 2020/5/11
  */
-@FeignClient(value = "engine", path = "/engine")
+@FeignClient(value = "engine", path = "/engine", configuration = DisableHystrixFeignConfiguration.class)
 public interface EngineClient {
 
     /**

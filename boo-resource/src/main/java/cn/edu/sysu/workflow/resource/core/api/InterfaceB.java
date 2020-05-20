@@ -210,14 +210,14 @@ public class InterfaceB {
      * @param payload         payload in JSON encoded string
      * @return true for a successful work item accept
      */
-    public boolean acceptOfferedWorkItem(ProcessParticipant participant, WorkItemContext workItemContext, String payload, InitializationType initType, String tokenId) {
+    public boolean acceptOfferedWorkItem(ProcessParticipant participant, WorkItemContext workItemContext, String payload, InitializationType initType, String accountId) {
         // remove from all work item list
         workItemListItemService.removeByWorkItemId(workItemContext);
         // if internal call, means accept and start
         if (initType == InitializationType.SYSTEM_INITIATED) {
             // write an allocated event without notification
             this.workItemChanged(workItemContext, WorkItemStatus.Fired, WorkItemResourcingStatus.Allocated, payload, false);
-            boolean result = this.startWorkItem(participant, workItemContext, payload, tokenId);
+            boolean result = this.startWorkItem(participant, workItemContext, payload, accountId);
             if (!result) {
                 interfaceX.failedRedirectToLauncherDomainPool(workItemContext, "AcceptOffered by System but failed to start");
                 return false;
@@ -259,7 +259,7 @@ public class InterfaceB {
      * @param payload         payload in JSON encoded string
      * @return true for a successful work item start
      */
-    public boolean startWorkItem(ProcessParticipant participant, WorkItemContext workItemContext, String payload, String tokenId) {
+    public boolean startWorkItem(ProcessParticipant participant, WorkItemContext workItemContext, String payload, String accountId) {
         try {
             workItemListService.moveFromAllocatedToStarted(workItemContext, participant.getAccountId());
             WorkItem workItem = workItemContext.getWorkItem();
@@ -275,7 +275,7 @@ public class InterfaceB {
             // start by admin
             if (workItemContext.getWorkItem().getResourcingStatus().equals(WorkItemResourcingStatus.Unoffered.name())) {
                 // get admin work item list for this auth user
-                String adminQueuePostfix = tokenId.split("_")[1];
+                String adminQueuePostfix = accountId.split("-")[1];
                 workItemListService.removeFromWorkItemList(workItemContext, BooResourceApplication.WORK_ITEM_LIST_ADMIN_PREFIX + adminQueuePostfix, WorkItemListType.UNOFFERED);
             }
             this.workItemChanged(workItemContext, WorkItemStatus.Executing, WorkItemResourcingStatus.Started, payload);

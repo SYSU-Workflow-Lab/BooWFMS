@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * boo-engine调用处理器
  *
@@ -21,6 +23,11 @@ public class EngineController {
 
     @Autowired
     private EngineClient engineClient;
+
+    @RequestMapping(value = "/echo")
+    public String launchProcess(HttpSession httpSession) {
+        return (String) httpSession.getAttribute("accountId");
+    }
 
     @RequestMapping(value = "/launchProcess")
     public BooReturnForm launchProcess(@RequestParam(value = "processInstanceId") String processInstanceId,
@@ -62,11 +69,6 @@ public class EngineController {
                                   @RequestParam(value = "event") String event,
                                   @RequestParam(value = "payload") String payload) {
         return engineClient.callback(processInstanceId, bo, on, id, event, payload);
-    }
-
-    @RequestMapping(value = "/echo")
-    public String echo(String data) {
-        return data;
     }
 
 }

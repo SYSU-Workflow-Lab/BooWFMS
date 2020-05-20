@@ -33,6 +33,11 @@ class BooWFMSSimulation extends Simulation {
   System.setProperty("logging.logger.org.apache.http.wire", "ERROR")
 
   // create process
+  val login = new PostMethod("http://localhost:10234/auth/login?username=admin@admin&password=admin")
+  client.executeMethod(login)
+  login.releaseConnection()
+
+  // create process
   val createProcess = new PostMethod("http://localhost:10234/business-process-data/process/createProcess")
   createProcess.addParameter(new NameValuePair("creatorId", "account-1"))
   createProcess.addParameter(new NameValuePair("name", "CrowdSourcing"))
@@ -60,11 +65,10 @@ class BooWFMSSimulation extends Simulation {
 
   val scn = scenario("CrowdSourcing")
     // *************************** Log In ***************************
-    //    .exec(http("publisher_login")
-    //      .post("/auth/connect")
-    //      .formParam("username", "admin@admin")
-    //      .formParam("password", "admin")
-    //      .check(jsonPath("$..data").saveAs("publisherToken")))
+    .exec(http("publisher_login")
+      .post("/auth/login")
+      .formParam("username", "admin@admin")
+      .formParam("password", "admin"))
     // *************************** Request Init ***************************
     .exec(http("publisher_submitProcess")
       .post("/business-process-data/instance/create")

@@ -58,10 +58,10 @@ public class InterfaceW {
      * @param workItemId
      * @param workerId
      * @param payload
-     * @param tokenId
+     * @param accountId
      * @return true for a successful work item accept
      */
-    public boolean acceptOffer(String workItemId, String workerId, String payload, String tokenId) {
+    public boolean acceptOffer(String workItemId, String workerId, String payload, String accountId) {
         ContextLockManager.WriteLock(WorkItemContext.class, workItemId);
         try {
             WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
@@ -78,7 +78,7 @@ public class InterfaceW {
                 }
                 return false;
             }
-            return interfaceB.acceptOfferedWorkItem(participant, workItemContext, payload, InitializationType.USER_INITIATED, tokenId);
+            return interfaceB.acceptOfferedWorkItem(participant, workItemContext, payload, InitializationType.USER_INITIATED, accountId);
         } finally {
             ContextLockManager.WriteUnLock(WorkItemContext.class, workItemId);
         }
@@ -121,10 +121,10 @@ public class InterfaceW {
      * @param workItemId
      * @param workerId
      * @param payload
-     * @param tokenId
+     * @param accountId
      * @return true for a successful work item start
      */
-    public boolean start(String workItemId, String workerId, String payload, String tokenId) {
+    public boolean start(String workItemId, String workerId, String payload, String accountId) {
         ContextLockManager.WriteLock(WorkItemContext.class, workItemId);
         try {
             WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
@@ -141,7 +141,7 @@ public class InterfaceW {
                 }
                 return false;
             }
-            return interfaceB.startWorkItem(participant, workItemContext, payload, tokenId);
+            return interfaceB.startWorkItem(participant, workItemContext, payload, accountId);
         } finally {
             ContextLockManager.WriteUnLock(WorkItemContext.class, workItemId);
         }
@@ -184,10 +184,10 @@ public class InterfaceW {
      * @param workItemId
      * @param workerId
      * @param payload
-     * @param tokenId
+     * @param accountId
      * @return true for a successful work item accept and start
      */
-    public boolean acceptAndStart(String workItemId, String workerId, String payload, String tokenId) {
+    public boolean acceptAndStart(String workItemId, String workerId, String payload, String accountId) {
         ContextLockManager.WriteLock(WorkItemContext.class, workItemId);
         try {
             WorkItemContext workItemContext = workItemContextService.getContext(workItemId);
@@ -204,7 +204,7 @@ public class InterfaceW {
                 }
                 return false;
             }
-            return interfaceB.acceptOfferedWorkItem(participant, workItemContext, payload, InitializationType.SYSTEM_INITIATED, tokenId);
+            return interfaceB.acceptOfferedWorkItem(participant, workItemContext, payload, InitializationType.SYSTEM_INITIATED, accountId);
         } finally {
             ContextLockManager.WriteUnLock(WorkItemContext.class, workItemId);
         }

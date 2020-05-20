@@ -35,16 +35,16 @@ public class WorkItemController {
      * @param workerId   worker global id
      * @param workItemId work item global id
      * @param payload    payload in JSON encoded string
-     * @param tokenId    auth user token id
+     * @param accountId  auth user id
      * @return response package in JSON
      */
     @RequestMapping(value = "/start")
     public BooReturnForm startWorkItem(@RequestParam(value = "workerId") String workerId,
                                        @RequestParam(value = "workItemId") String workItemId,
                                        @RequestParam(value = "payload", required = false) String payload,
-                                       @RequestParam(value = "tokenId", required = false) String tokenId) {
+                                       @RequestParam(value = "accountId", required = false) String accountId) {
         // logic
-        if (interfaceW.start(workItemId, workerId, payload, tokenId)) {
+        if (interfaceW.start(workItemId, workerId, payload, accountId)) {
             // return
             BooReturnForm booReturnForm = new BooReturnForm();
             booReturnForm.setMessage("start work item successful");
@@ -63,16 +63,16 @@ public class WorkItemController {
      * @param workerId   worker global id
      * @param workItemId work item global id
      * @param payload    payload in JSON encoded string
-     * @param tokenId    auth user token id
+     * @param accountId  auth user id
      * @return response package in JSON
      */
     @RequestMapping(value = "/accept")
     public BooReturnForm acceptWorkItem(@RequestParam(value = "workerId") String workerId,
                                         @RequestParam(value = "workItemId") String workItemId,
                                         @RequestParam(value = "payload", required = false) String payload,
-                                        @RequestParam(value = "tokenId") String tokenId) {
+                                        @RequestParam(value = "accountId") String accountId) {
         // logic
-        if (interfaceW.acceptOffer(workItemId, workerId, payload, tokenId)) {
+        if (interfaceW.acceptOffer(workItemId, workerId, payload, accountId)) {
             // return
             BooReturnForm booReturnForm = new BooReturnForm();
             booReturnForm.setMessage("accept work item successful");
@@ -91,16 +91,16 @@ public class WorkItemController {
      * @param workerId   worker global id
      * @param workItemId work item global id
      * @param payload    payload in JSON encoded string
-     * @param tokenId    auth user token id
+     * @param accountId    auth user id
      * @return response package in JSON
      */
     @RequestMapping(value = "/acceptStart")
     public BooReturnForm acceptAndStartWorkItem(@RequestParam(value = "workerId") String workerId,
                                                 @RequestParam(value = "workItemId") String workItemId,
                                                 @RequestParam(value = "payload", required = false) String payload,
-                                                @RequestParam(value = "tokenId") String tokenId) {
+                                                @RequestParam(value = "accountId") String accountId) {
         // logic
-        if (interfaceW.acceptAndStart(workItemId, workerId, payload, tokenId)) {
+        if (interfaceW.acceptAndStart(workItemId, workerId, payload, accountId)) {
             // return
             BooReturnForm booReturnForm = new BooReturnForm();
             booReturnForm.setMessage("accept and start work item successful");

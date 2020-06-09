@@ -48,7 +48,7 @@ class BooWFMSSimulation extends Simulation {
   createProcess.releaseConnection()
 
   // upload Crowdsourcing BO
-  val uploadCSBO = new PostMethod("http://localhost:10234/engine-feign/engine/uploadBO")
+  val uploadCSBO = new PostMethod("http://localhost:10234/engine-lb/engine/uploadBO")
   uploadCSBO.addParameter(new NameValuePair("pid", pid))
   uploadCSBO.addParameter(new NameValuePair("name", "CrowdSourcing"))
   uploadCSBO.addParameter(new NameValuePair("content", csContent))
@@ -56,7 +56,7 @@ class BooWFMSSimulation extends Simulation {
   uploadCSBO.releaseConnection()
 
   // upload Request BO
-  val uploadRBO = new PostMethod("http://localhost:10234/engine-feign/engine/uploadBO")
+  val uploadRBO = new PostMethod("http://localhost:10234/engine-lb/engine/uploadBO")
   uploadRBO.addParameter(new NameValuePair("pid", pid))
   uploadRBO.addParameter(new NameValuePair("name", "Request"))
   uploadRBO.addParameter(new NameValuePair("content", rContent))
@@ -95,14 +95,14 @@ class BooWFMSSimulation extends Simulation {
     )
     .pause(5)
     .exec(http("publisher_startProcess")
-      .post("/engine-feign/engine/launchProcess")
+      .post("/engine-lb/engine/launchProcess")
       .formParam("processInstanceId", "${processInstanceId}")
       .formParam("accountId", "account-1")
     )
     // *************************** Submit Request ***************************
     .pause(5)
     .exec(http("publisher_submit")
-      .post("/engine-feign/engine/callback")
+      .post("/engine-lb/engine/callback")
       .formParam("processInstanceId", "${processInstanceId}")
       .formParam("on", "Complete")
       .formParam("id", "Request")

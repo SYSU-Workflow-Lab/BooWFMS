@@ -23,7 +23,7 @@
         <module>boo-access</module>
         <module>boo-common</module>
         <module>boo-engine</module>
-        <module>boo-engine-feign</module>
+        <module>boo-engine-lb</module>
         <module>boo-resource</module>
         <module>boo-business-process-data</module>
         <module>boo-eureka-server</module>

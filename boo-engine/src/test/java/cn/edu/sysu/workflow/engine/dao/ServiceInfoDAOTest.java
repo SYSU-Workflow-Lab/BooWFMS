@@ -27,9 +27,6 @@ public class ServiceInfoDAOTest {
     @Autowired
     private ServiceInfoDAO serviceInfoDAO;
 
-    @Autowired
-    private ProcessInstanceDAO processInstanceDAO;
-
     private ServiceInfo serviceInfo;
 
     @Before

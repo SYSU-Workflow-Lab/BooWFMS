@@ -8,8 +8,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>boo-engine-feign</artifactId>
-    <description>a feign module for engine.</description>
+    <artifactId>boo-engine-lb</artifactId>
+    <description>a loadbalancer module for engine.</description>
 
     <dependencies>
         <!--Web Starter-->

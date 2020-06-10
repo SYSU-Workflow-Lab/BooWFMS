@@ -21,7 +21,7 @@ public class Authority extends BooPagedQuery {
     private String authorityId;
 
     /**
-     * 权限类型，例CRUD、-R--
+     * 权限类型：C-添加，R-读取，U-修改，D-删除，E-执行，例CRUDE、-R--E
      */
     private String type;
 

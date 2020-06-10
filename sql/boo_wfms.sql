@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 10/06/2020 10:53:30
+ Date: 10/06/2020 11:37:51
 */
 
 SET NAMES utf8mb4;
@@ -204,7 +204,7 @@ DROP TABLE IF EXISTS `boo_authority`;
 CREATE TABLE `boo_authority`
 (
     `authority_id`               varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限ID',
-    `type`                       varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限类型，例CRUD、-R--',
+    `type`                       varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限类型：C-添加，R-读取，U-修改，D-删除，E-执行，例CRUDE、-R--E',
     `account_id`                 varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户ID',
     `business_process_entity_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务流程实体ID',
     `create_timestamp`           datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',

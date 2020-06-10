@@ -118,7 +118,8 @@ class BooWFMSSimulation extends Simulation {
         .exec(http("get_wid")
           .post("/resource/workitem/getAll")
           .formParam("processInstanceId", "${processInstanceId}")
-          .check(jsonPath("$..data[0].WorkItemId[0]").saveAs("wid1")))
+          .check(jsonPath("$..data[0].WorkItemId[0]").saveAs("wid1"))
+          .check(jsonPath("$..data[0].WorkerIdList[0]").saveAs("worker1")))
         .exec(session => {
           val str = session("wid1").as[String]
           //          println(s"wid1: \n$str")
@@ -133,12 +134,12 @@ class BooWFMSSimulation extends Simulation {
     .exec(http("judge_task_start")
       .post("/resource/workitem/start")
       .formParam("workItemId", "${wid1}")
-      .formParam("workerId", "account-3"))
+      .formParam("workerId", "${worker1}"))
     .pause(10)
     .exec(http("judge_task_complete")
       .post("/resource/workitem/complete")
       .formParam("workItemId", "${wid1}")
-      .formParam("workerId", "account-3")
+      .formParam("workerId", "${worker1}")
       .formParam("payload", "{\"simple\":1}"))
     // *************************** Solve Task Request ***************************
     .exec(session => {
@@ -149,7 +150,8 @@ class BooWFMSSimulation extends Simulation {
         .exec(http("get_wid")
           .post("/resource/workitem/getAll")
           .formParam("processInstanceId", "${processInstanceId}")
-          .check(jsonPath("$..data[0].WorkItemId[0]").saveAs("wid2")))
+          .check(jsonPath("$..data[0].WorkItemId[0]").saveAs("wid2"))
+          .check(jsonPath("$..data[0].WorkerIdList[0]").saveAs("worker2")))
         .exec(session => {
           val str = session("wid2").as[String]
           if (str.length < 5) {
@@ -163,12 +165,12 @@ class BooWFMSSimulation extends Simulation {
     .exec(http("solve_task_start")
       .post("/resource/workitem/start")
       .formParam("workItemId", "${wid2}")
-      .formParam("workerId", "account-3"))
+      .formParam("workerId", "${worker2}"))
     .pause(10)
     .exec(http("solve_task_complete")
       .post("/resource/workitem/complete")
       .formParam("workItemId", "${wid2}")
-      .formParam("workerId", "account-3"))
+      .formParam("workerId", "${worker2}"))
     // *************************** SolveVote Task Request ***************************
     .exec(session => {
       session.set("loop3", true)
@@ -178,7 +180,8 @@ class BooWFMSSimulation extends Simulation {
         .exec(http("get_wid")
           .post("/resource/workitem/getAll")
           .formParam("processInstanceId", "${processInstanceId}")
-          .check(jsonPath("$..data[0].WorkItemId[0]").saveAs("wid3")))
+          .check(jsonPath("$..data[0].WorkItemId[0]").saveAs("wid3"))
+          .check(jsonPath("$..data[0].WorkerIdList[0]").saveAs("worker3")))
         .exec(session => {
           val str = session("wid3").as[String]
           if (str.length < 5) {
@@ -192,12 +195,12 @@ class BooWFMSSimulation extends Simulation {
     .exec(http("solvevote_task_start")
       .post("/resource/workitem/start")
       .formParam("workItemId", "${wid3}")
-      .formParam("workerId", "account-3"))
+      .formParam("workerId", "${worker3}"))
     .pause(10)
     .exec(http("solvevote_task_complete")
       .post("/resource/workitem/complete")
       .formParam("workItemId", "${wid3}")
-      .formParam("workerId", "account-3"))
+      .formParam("workerId", "${worker3}"))
     // *************************** GetBestSolution Task Request ***************************
     .exec(session => {
       session.set("loop4", true)
@@ -207,7 +210,8 @@ class BooWFMSSimulation extends Simulation {
         .exec(http("get_wid")
           .post("/resource/workitem/getAll")
           .formParam("processInstanceId", "${processInstanceId}")
-          .check(jsonPath("$..data[0].WorkItemId[0]").saveAs("wid4")))
+          .check(jsonPath("$..data[0].WorkItemId[0]").saveAs("wid4"))
+          .check(jsonPath("$..data[0].WorkerIdList[0]").saveAs("worker4")))
         .exec(session => {
           val str = session("wid4").as[String]
           if (str.length < 5) {
@@ -221,12 +225,12 @@ class BooWFMSSimulation extends Simulation {
     .exec(http("getbestsolution_task_start")
       .post("/resource/workitem/start")
       .formParam("workItemId", "${wid4}")
-      .formParam("workerId", "account-3"))
+      .formParam("workerId", "${worker4}"))
     .pause(10)
     .exec(http("getbestsolution_task_complete")
       .post("/resource/workitem/complete")
       .formParam("workItemId", "${wid4}")
-      .formParam("workerId", "account-3"))
+      .formParam("workerId", "${worker4}"))
 
   setUp(scn.inject(atOnceUsers(1)).protocols(httpProtocol))
   // setUp(

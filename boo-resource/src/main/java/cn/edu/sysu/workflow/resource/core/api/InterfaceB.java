@@ -4,8 +4,10 @@ import cn.edu.sysu.workflow.common.entity.BusinessProcess;
 import cn.edu.sysu.workflow.common.entity.ProcessInstance;
 import cn.edu.sysu.workflow.common.entity.ProcessParticipant;
 import cn.edu.sysu.workflow.common.entity.WorkItem;
+import cn.edu.sysu.workflow.common.entity.access.Authority;
 import cn.edu.sysu.workflow.common.enums.*;
 import cn.edu.sysu.workflow.common.util.AuthDomainHelper;
+import cn.edu.sysu.workflow.common.util.IdUtil;
 import cn.edu.sysu.workflow.common.util.TimestampUtil;
 import cn.edu.sysu.workflow.resource.BooResourceApplication;
 import cn.edu.sysu.workflow.resource.core.ContextLockManager;
@@ -17,10 +19,7 @@ import cn.edu.sysu.workflow.resource.core.plugin.AgentNotifyPlugin;
 import cn.edu.sysu.workflow.resource.core.plugin.AsyncPluginRunner;
 import cn.edu.sysu.workflow.resource.core.principle.Principle;
 import cn.edu.sysu.workflow.resource.core.principle.PrincipleParser;
-import cn.edu.sysu.workflow.resource.dao.AccountDAO;
-import cn.edu.sysu.workflow.resource.dao.BusinessProcessDAO;
-import cn.edu.sysu.workflow.resource.dao.ProcessInstanceDAO;
-import cn.edu.sysu.workflow.resource.dao.WorkItemDAO;
+import cn.edu.sysu.workflow.resource.dao.*;
 import cn.edu.sysu.workflow.resource.service.WorkItemContextService;
 import cn.edu.sysu.workflow.resource.service.WorkItemListItemService;
 import cn.edu.sysu.workflow.resource.service.WorkItemListService;
@@ -82,6 +81,9 @@ public class InterfaceB {
     @Autowired
     private WorkItemListItemService workItemListItemService;
 
+    @Autowired
+    private AuthorityDAO authorityDAO;
+
     /**
      * Handle perform submit task.
      *
@@ -131,6 +133,13 @@ public class InterfaceB {
                     ProcessParticipant chosenOne = allocateInteraction.performAllocation(validParticipants, workItemContext);
                     // put work item to the chosen participant allocated work item list
                     workItemListService.addToWorkItemList(workItemContext, chosenOne.getAccountId(), WorkItemListType.ALLOCATED);
+                    // 创建权限记录
+                    Authority authority = new Authority();
+                    authority.setAuthorityId(Authority.PREFIX + IdUtil.nextId());
+                    authority.setType("CRUDE");
+                    authority.setAccountId(chosenOne.getAccountId());
+                    authority.setBusinessProcessEntityId(workItemContext.getWorkItem().getWorkItemId());
+                    authorityDAO.save(authority);
                     // change work item status
                     workItemContext.getWorkItem().setAllocateTimestamp(TimestampUtil.getCurrentTimestamp());
                     this.workItemChanged(workItemContext, WorkItemStatus.Fired, WorkItemResourcingStatus.Allocated, null);
@@ -213,6 +222,13 @@ public class InterfaceB {
     public boolean acceptOfferedWorkItem(ProcessParticipant participant, WorkItemContext workItemContext, String payload, InitializationType initType, String accountId) {
         // remove from all work item list
         workItemListItemService.removeByWorkItemId(workItemContext);
+        // 创建权限记录
+        Authority authority = new Authority();
+        authority.setAuthorityId(Authority.PREFIX + IdUtil.nextId());
+        authority.setType("CRUDE");
+        authority.setAccountId(participant.getAccountId());
+        authority.setBusinessProcessEntityId(workItemContext.getWorkItem().getWorkItemId());
+        authorityDAO.save(authority);
         // if internal call, means accept and start
         if (initType == InitializationType.SYSTEM_INITIATED) {
             // write an allocated event without notification

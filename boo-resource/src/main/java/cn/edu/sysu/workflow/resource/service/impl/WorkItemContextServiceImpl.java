@@ -93,10 +93,9 @@ public class WorkItemContextServiceImpl implements WorkItemContextService {
             log.error("[" + workItem.getProcessInstanceId() + "]GenerateResponseWorkItem but cannot read relation from database, " + ex);
         }
         if (relations == null) {
-            retMap.add("WorkerIdList", "[]");
+            retMap.add("WorkerIdList", "");
         } else {
             StringBuilder workerIdSb = new StringBuilder();
-            workerIdSb.append("[");
             for (WorkItemListItem workItemListItem : relations) {
                 String workerId = workItemListDAO.findOwnerAccountIdByWorkItemListId(workItemListItem.getWorkItemListId());
                 workerIdSb.append(workerId).append(",");
@@ -105,7 +104,6 @@ public class WorkItemContextServiceImpl implements WorkItemContextService {
             if (workerIdList.length() > 1) {
                 workerIdList = workerIdList.substring(0, workerIdList.length() - 1);
             }
-            workerIdList += "]";
             retMap.add("WorkerIdList", workerIdList);
         }
         return retMap;

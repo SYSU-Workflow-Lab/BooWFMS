@@ -4,7 +4,6 @@ import cn.edu.sysu.workflow.common.entity.ExitItem;
 import cn.edu.sysu.workflow.common.enums.FailedWorkItemStatus;
 import cn.edu.sysu.workflow.common.enums.FailedWorkItemVisibilityType;
 import cn.edu.sysu.workflow.common.enums.ResourceEventType;
-import cn.edu.sysu.workflow.common.util.AuthDomainHelper;
 import cn.edu.sysu.workflow.common.util.IdUtil;
 import cn.edu.sysu.workflow.resource.core.context.WorkItemContext;
 import cn.edu.sysu.workflow.resource.dao.ExitItemDAO;

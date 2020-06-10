@@ -76,9 +76,9 @@ public class BusinessProcessServiceImpl implements BusinessProcessService {
         try {
             List<BusinessProcess> qRet = businessProcessDAO.findBusinessProcessesByOrganization("@" + organization);
             List<BusinessProcess> pureRet = new ArrayList<>();
-            for (BusinessProcess cp : qRet) {
-                if (AuthDomainHelper.getDomainByAuthName(cp.getCreatorId()).equals(organization)) {
-                    pureRet.add(cp);
+            for (BusinessProcess bp : qRet) {
+                if (AuthDomainHelper.getDomainByAuthName(bp.getCreatorId()).equals(organization)) {
+                    pureRet.add(bp);
                 }
             }
             return pureRet;

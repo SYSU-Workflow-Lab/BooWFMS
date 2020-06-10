@@ -11,7 +11,7 @@
  Target Server Version : 50718
  File Encoding         : 65001
 
- Date: 08/06/2020 11:50:59
+ Date: 10/06/2020 10:53:30
 */
 
 SET NAMES utf8mb4;
@@ -34,8 +34,7 @@ CREATE TABLE `boo_account`
     `create_timestamp`      datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',
     `last_update_timestamp` datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后更新时间戳',
     PRIMARY KEY (`account_id`) USING BTREE,
-    UNIQUE INDEX `username` (`username`) USING BTREE,
-    UNIQUE INDEX `name_org` (`username`, `organization_name`) USING BTREE
+    UNIQUE INDEX `username` (`username`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
@@ -193,6 +192,25 @@ CREATE TABLE `boo_archived_tree`
     `create_timestamp`      datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',
     `last_update_timestamp` datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后更新时间戳',
     PRIMARY KEY (`process_instance_id`) USING BTREE
+) ENGINE = InnoDB
+  CHARACTER SET = utf8mb4
+  COLLATE = utf8mb4_general_ci
+  ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for boo_authority
+-- ----------------------------
+DROP TABLE IF EXISTS `boo_authority`;
+CREATE TABLE `boo_authority`
+(
+    `authority_id`               varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限ID',
+    `type`                       varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '权限类型，例CRUD、-R--',
+    `account_id`                 varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账户ID',
+    `business_process_entity_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '业务流程实体ID',
+    `create_timestamp`           datetime(0)                                                   NULL DEFAULT NULL COMMENT '创建时间戳',
+    `last_update_timestamp`      datetime(0)                                                   NULL DEFAULT NULL COMMENT '最后更新时间戳',
+    PRIMARY KEY (`authority_id`) USING BTREE,
+    INDEX `account_entity` (`account_id`, `business_process_entity_id`) USING BTREE
 ) ENGINE = InnoDB
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci

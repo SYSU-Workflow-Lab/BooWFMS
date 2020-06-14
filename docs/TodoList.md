@@ -21,3 +21,7 @@
 -[ ] ElasticSearch日志管理
 -[ ] Jenkins使用CI/CD
 -[ ] DAO层实现目前是使用JDBC，没有用JPA是因为hibernate缓存有时候出现不一致问题，如果有好的想法可以进行更换
+######Activiti模块
+-[ ] 权限验证
+-[ ] 集成流程设计器
+-[ ] 流程监控

@@ -27,6 +27,8 @@
         <module>boo-resource</module>
         <module>boo-business-process-data</module>
         <module>boo-eureka-server</module>
+        <module>boo-activiti-engine</module>
+        <module>boo-activiti-process-execution</module>
     </modules>
 
     <dependencyManagement>

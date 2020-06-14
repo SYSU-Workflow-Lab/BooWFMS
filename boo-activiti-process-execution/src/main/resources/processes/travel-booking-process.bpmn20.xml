@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="travel-booking" name="travel-booking" isExecutable="true">
+    <documentation>travel booking</documentation>
+    <startEvent id="start"></startEvent>
+    <userTask id="register" name="register"></userTask>
+    <subProcess id="do-itinerary-segment" name="do itinerary segment">
+      <startEvent id="sub_start"></startEvent>
+      <userTask id="register-itinerary" name="register itinerary"></userTask>
+      <inclusiveGateway id="inclusiveGateway_1"></inclusiveGateway>
+      <userTask id="book-flight" name="book flight"></userTask>
+      <userTask id="book-hotel" name="book hotel"></userTask>
+      <userTask id="book-car" name="book car"></userTask>
+      <inclusiveGateway id="inclusiveGateway_2"></inclusiveGateway>
+      <userTask id="prepare-pay" name="prepare pay"></userTask>
+      <endEvent id="sub-end"></endEvent>
+      <sequenceFlow id="sequenceFlow_11" sourceRef="inclusiveGateway_2" targetRef="prepare-pay"></sequenceFlow>
+      <sequenceFlow id="sequenceFlow_12" sourceRef="prepare-pay" targetRef="sub-end"></sequenceFlow>
+      <sequenceFlow id="sequenceFlow_16" sourceRef="register-itinerary" targetRef="inclusiveGateway_1"></sequenceFlow>
+      <sequenceFlow id="sequenceFlow_3" sourceRef="sub_start" targetRef="register-itinerary"></sequenceFlow>
+      <sequenceFlow id="sequenceFlow_10" sourceRef="book-car" targetRef="inclusiveGateway_2"></sequenceFlow>
+      <sequenceFlow id="sid-246978FC-FE43-4797-99F9-ED8AA9FAE154" sourceRef="book-hotel" targetRef="inclusiveGateway_2"></sequenceFlow>
+      <sequenceFlow id="sid-453061D4-7C55-4FD2-90D4-70BEF960C818" sourceRef="book-flight" targetRef="inclusiveGateway_2"></sequenceFlow>
+      <sequenceFlow id="sequenceFlow_5" sourceRef="inclusiveGateway_1" targetRef="book-flight">
+        <conditionExpression xsi:type="tFormalExpression"><![CDATA[${flight==1}]]></conditionExpression>
+      </sequenceFlow>
+      <sequenceFlow id="sequenceFlow_7" sourceRef="inclusiveGateway_1" targetRef="book-car">
+        <conditionExpression xsi:type="tFormalExpression"><![CDATA[${car==1}]]></conditionExpression>
+      </sequenceFlow>
+      <sequenceFlow id="sequenceFlow_6" sourceRef="inclusiveGateway_1" targetRef="book-hotel">
+        <conditionExpression xsi:type="tFormalExpression"><![CDATA[${hotel==1}]]></conditionExpression>
+      </sequenceFlow>
+    </subProcess>
+    <userTask id="pay" name="pay"></userTask>
+    <endEvent id="end"></endEvent>
+    <sequenceFlow id="sequenceFlow_2" sourceRef="register" targetRef="do-itinerary-segment"></sequenceFlow>
+    <sequenceFlow id="sequenceFlow_13" sourceRef="do-itinerary-segment" targetRef="pay"></sequenceFlow>
+    <sequenceFlow id="sequenceFlow_1" sourceRef="start" targetRef="register"></sequenceFlow>
+    <sequenceFlow id="sequenceFlow_14" sourceRef="pay" targetRef="end"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_travel-booking">
+    <bpmndi:BPMNPlane bpmnElement="travel-booking" id="BPMNPlane_travel-booking">
+      <bpmndi:BPMNShape bpmnElement="start" id="BPMNShape_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="75.0" y="73.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="register" id="BPMNShape_register">
+        <omgdc:Bounds height="57.0" width="74.0" x="150.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="do-itinerary-segment" id="BPMNShape_do-itinerary-segment">
+        <omgdc:Bounds height="206.0" width="716.0" x="44.0" y="192.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sub_start" id="BPMNShape_sub_start">
+        <omgdc:Bounds height="30.0" width="30.0" x="61.5" y="268.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="register-itinerary" id="BPMNShape_register-itinerary">
+        <omgdc:Bounds height="62.0" width="70.0" x="119.0" y="252.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="inclusiveGateway_1" id="BPMNShape_inclusiveGateway_1">
+        <omgdc:Bounds height="40.0" width="40.0" x="209.0" y="267.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="book-flight" id="BPMNShape_book-flight">
+        <omgdc:Bounds height="46.0" width="89.0" x="299.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="book-hotel" id="BPMNShape_book-hotel">
+        <omgdc:Bounds height="51.0" width="91.0" x="299.0" y="267.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="book-car" id="BPMNShape_book-car">
+        <omgdc:Bounds height="46.0" width="90.0" x="299.0" y="327.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="inclusiveGateway_2" id="BPMNShape_inclusiveGateway_2">
+        <omgdc:Bounds height="40.0" width="40.0" x="449.0" y="272.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="prepare-pay" id="BPMNShape_prepare-pay">
+        <omgdc:Bounds height="71.0" width="69.0" x="544.0" y="257.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sub-end" id="BPMNShape_sub-end">
+        <omgdc:Bounds height="28.0" width="28.0" x="658.0" y="278.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="pay" id="BPMNShape_pay">
+        <omgdc:Bounds height="56.0" width="77.0" x="630.0" y="60.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="end" id="BPMNShape_end">
+        <omgdc:Bounds height="28.0" width="28.0" x="752.0" y="74.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_7" id="BPMNEdge_sequenceFlow_7">
+        <omgdi:waypoint x="241.7909604519774" y="294.2090395480226"></omgdi:waypoint>
+        <omgdi:waypoint x="301.864" y="327.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_6" id="BPMNEdge_sequenceFlow_6">
+        <omgdi:waypoint x="247.70833333333334" y="288.2916666666667"></omgdi:waypoint>
+        <omgdi:waypoint x="299.0" y="290.5217391304348"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_5" id="BPMNEdge_sequenceFlow_5">
+        <omgdi:waypoint x="243.03115727002967" y="281.03115727002967"></omgdi:waypoint>
+        <omgdi:waypoint x="299.0" y="254.27412280701753"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_3" id="BPMNEdge_sequenceFlow_3">
+        <omgdi:waypoint x="91.5" y="283.0"></omgdi:waypoint>
+        <omgdi:waypoint x="119.0" y="283.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_2" id="BPMNEdge_sequenceFlow_2">
+        <omgdi:waypoint x="216.6731234866828" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="294.7602905569007" y="192.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-453061D4-7C55-4FD2-90D4-70BEF960C818" id="BPMNEdge_sid-453061D4-7C55-4FD2-90D4-70BEF960C818">
+        <omgdi:waypoint x="388.0" y="254.097609561753"></omgdi:waypoint>
+        <omgdi:waypoint x="455.43243243243245" y="286.06756756756755"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_1" id="BPMNEdge_sequenceFlow_1">
+        <omgdi:waypoint x="104.99980072668335" y="88.07731856044683"></omgdi:waypoint>
+        <omgdi:waypoint x="150.0" y="88.30927835051547"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_10" id="BPMNEdge_sequenceFlow_10">
+        <omgdi:waypoint x="389.0" y="329.3"></omgdi:waypoint>
+        <omgdi:waypoint x="455.3013698630137" y="298.8013698630137"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_12" id="BPMNEdge_sequenceFlow_12">
+        <omgdi:waypoint x="613.0" y="292.5"></omgdi:waypoint>
+        <omgdi:waypoint x="658.0" y="292.5"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_11" id="BPMNEdge_sequenceFlow_11">
+        <omgdi:waypoint x="488.58755760368666" y="292.91244239631334"></omgdi:waypoint>
+        <omgdi:waypoint x="544.0" y="292.6582568807339"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_14" id="BPMNEdge_sequenceFlow_14">
+        <omgdi:waypoint x="707.0" y="88.1974358974359"></omgdi:waypoint>
+        <omgdi:waypoint x="752.000184085784" y="88.42820607223479"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_13" id="BPMNEdge_sequenceFlow_13">
+        <omgdi:waypoint x="534.6062801932367" y="192.0"></omgdi:waypoint>
+        <omgdi:waypoint x="632.4516908212561" y="116.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sequenceFlow_16" id="BPMNEdge_sequenceFlow_16">
+        <omgdi:waypoint x="189.0" y="284.8666666666667"></omgdi:waypoint>
+        <omgdi:waypoint x="210.0126582278481" y="285.9873417721519"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-246978FC-FE43-4797-99F9-ED8AA9FAE154" id="BPMNEdge_sid-246978FC-FE43-4797-99F9-ED8AA9FAE154">
+        <omgdi:waypoint x="390.0" y="292.5"></omgdi:waypoint>
+        <omgdi:waypoint x="449.0" y="292.5"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -21,3 +21,5 @@
 | boo-engine-lb             | 解析执行引擎负载均衡器                                       |
 | boo-business-process-data | 业务流程相关数据读写                                         |
 | boo-common                | 项目基础包                                         |
+| boo-activiti-engine       | 无状态工作流引擎Activiti                                     |
+| boo-activiti-process-execution       | 无状态云工作流系统准入和调度模块                                     |
